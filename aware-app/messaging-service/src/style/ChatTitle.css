@@ -1,0 +1,15 @@
+#chat-title {
+    margin: 0px;
+    display: block;
+    text-align: left;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+    background-color: #a2abab;
+}
+
+#chat-title > p {
+    margin: 0px;
+    padding-left: 5px;
+}

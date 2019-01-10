@@ -1,0 +1,29 @@
+#direct-message {
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+.direct-message-avatar, .direct-message-content {
+    display: inline-block;
+    color: white;
+}
+
+.direct-message-content > p {
+  padding: 0;
+  margin: 0;
+}
+
+.direct-message-content > #direct-message-preview {
+  padding-left: 10px;
+}
+
+.direct-message-content {
+    text-align: left;
+    display: inline-block;
+    vertical-align: middle;
+}
+.direct-message-preview {
+    border-radius: 5px;
+    font-style: italic;
+}

@@ -1,0 +1,28 @@
+.vertical-menu {
+    background-color: #074f57;
+    position: relative;
+    height: 100%;
+}
+
+.chat-navigation-item {
+    display: block;
+    margin: 0px;
+}
+
+.chat-navigation-item:hover {
+    background-color: #ccc;
+    text-decoration: none;
+}
+
+.chat-navigation-item.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.chat-navigation-item > p {
+  color: white;
+}
+
+#tag:hover {
+  background-color: #074f57;
+}
