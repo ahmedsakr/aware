@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../style/NavBar.css'
+import './NavBar.css'
 class NavBarItem extends Component {
   render() {
     const {src, name} = this.props;

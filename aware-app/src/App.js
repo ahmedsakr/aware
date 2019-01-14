@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './style/App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import NavBar from './messaging-service/NavBar/NavBar'
+import ChatWindow from './messaging-service/ChatFeature/ChatWindow'
+import ChatTitle from './messaging-service/ChatFeature/ChatTitle'
+import DirectMessages from './messaging-service/DirectMessage/DirectMessages'
+import MessageInput from './messaging-service/ChatFeature/MessageInput'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div class="container-fluid" className="App">
+        <div class="row">
+          <div class="col-1">
+            <NavBar />
+          </div>
+
+          <div class="col-8">
+            <ChatTitle course="SYSC 2100" />
+            <ChatWindow />
+            <MessageInput />
+          </div>
+
+          <div class="col-3">
+            <DirectMessages />
+          </div>
+        </div>
       </div>
     );
   }
