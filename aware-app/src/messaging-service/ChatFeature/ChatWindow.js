@@ -11,11 +11,16 @@ class ChatWindow extends Component {
 
   render() {
     //Can change to this.components.sentMessage to change its rendering.
-    const TagName = this.components.message;
+    var TagName = this.components.message;
 
     return(
       <div id="chat">
         {this.props.messages.map(message => {
+          if (message.studentName == "Josh") {
+            TagName = this.components.sentMessage;
+          } else {
+            TagName = this.components.message;
+          }
           return (
             <TagName student={message.studentName} avatar={message.avatar} message={message.text} timestamp={message.timestamp}/>
           )
