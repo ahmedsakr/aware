@@ -41,7 +41,7 @@ class App extends Component {
     return (
       <div class="container-fluid" className="App">
         <div class="row aware-container">
-          <div class="col-1">
+          <div class="col-1 aware-column">
             <NavBar />
           </div>
 
