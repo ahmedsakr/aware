@@ -1,6 +1,6 @@
-.vertical-menu {
+#vertical-menu {
     background-color: #074f57;
-    position: relative;
+    display: block;
     height: 100%;
 }
 
