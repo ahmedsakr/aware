@@ -40,12 +40,12 @@ class App extends Component {
     const { sendMessage, state } = this;
     return (
       <div class="container-fluid" className="App">
-        <div class="row">
+        <div class="row aware-container">
           <div class="col-1">
             <NavBar />
           </div>
 
-          <div class="col-8">
+          <div class="col-8 aware-column">
             <ChatTitle course="SYSC 2100" />
             <ChatWindow messages={this.state.messages} />
             <MessageInput sendMessage={ sendMessage } />

@@ -2,3 +2,12 @@
   text-align: center;
   display: block;
 }
+
+.aware-container {
+  height: 98vh;
+  max-height: 98vh;
+}
+
+.aware-column {
+  height: 100%;
+}
