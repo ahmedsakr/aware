@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
-import Message from "./Message"
+import ReceivedMessage from "./ReceivedMessage"
 import SentMessage from "./SentMessage"
 import './ChatWindow.css'
 
 class ChatWindow extends Component {
   components = {
     sentMessage: SentMessage,
-    message: Message
+    receivedMessage: ReceivedMessage
   };
 
   render() {
     //Can change to this.components.sentMessage to change its rendering.
-    var TagName = this.components.message;
+    var Message = this.components.sentMessage;
 
     return(
       <div id="chat">
         {this.props.messages.map(message => {
           if (message.studentName == "Josh") {
-            TagName = this.components.sentMessage;
+            Message = this.components.sentMessage;
           } else {
-            TagName = this.components.message;
+            Message = this.components.receivedMessage;
           }
           return (
-            <TagName student={message.studentName} avatar={message.avatar} message={message.text} timestamp={message.timestamp}/>
+            <Message student={message.studentName} avatar={message.avatar} message={message.text} timestamp={message.timestamp}/>
           )
         })}
       </div>
