@@ -1,6 +1,7 @@
 #direct-messages {
     background-color: #a2abab;
     display: block;
+    height: 100%;
 }
 
 #direct-messages > input {
