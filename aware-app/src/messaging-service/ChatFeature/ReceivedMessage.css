@@ -1,9 +1,9 @@
-.message {
+.receivedMessage {
     margin-top: 10px;
     display: flex;
 }
 
-.message-profile {
+.receivedMessage-profile {
     border: 2px solid rgb(54, 56, 58);
     border-radius: 5px;
     text-align: center;
@@ -11,24 +11,24 @@
     margin-right: 5px;
 }
 
-.message-profile-img {
+.receivedMessage-profile-img {
     max-width: 30%;
 }
 
-.message-profile-name {
+.receivedMessage-profile-name {
     background-color: #bac1b8;
     text-align: center;
     margin: 0px;
 }
 
-.message-text {
+.receivedMessage-text {
     background-color: #a1c6ea;
     border-radius: 10px;
     padding: 5px;
     margin-right: 5px;
 }
 
-.message-timestamp {
+.receivedMessage-timestamp {
     padding: 0px;
     text-align: left;
     font-size: 0.6em;
