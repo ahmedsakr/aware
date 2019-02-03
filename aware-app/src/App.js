@@ -51,7 +51,7 @@ class App extends Component {
             <MessageInput sendMessage={ sendMessage } />
           </div>
 
-          <div class="col-3">
+          <div class="col-3 aware-column">
             <DirectMessages />
           </div>
         </div>
