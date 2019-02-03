@@ -41,17 +41,17 @@ class App extends Component {
     return (
       <div class="container-fluid" className="App">
         <div class="row aware-container">
-          <div class="col-1">
+          <div class="col-1 aware-column">
             <NavBar />
           </div>
 
-          <div class="col-8">
+          <div class="col-8 aware-column">
             <ChatTitle course="SYSC 2100" />
             <ChatWindow messages={this.state.messages} />
             <MessageInput sendMessage={ sendMessage } />
           </div>
 
-          <div class="col-3">
+          <div class="col-3 aware-column">
             <DirectMessages />
           </div>
         </div>
