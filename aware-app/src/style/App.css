@@ -4,10 +4,6 @@
 }
 
 .aware-container {
-  height: 98vh;
-  max-height: 98vh;
-}
-
-.aware-column {
-  height: 100%;
+  height: 100vh;
+  max-height: 100vh;
 }
