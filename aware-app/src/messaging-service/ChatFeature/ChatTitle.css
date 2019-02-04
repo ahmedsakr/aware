@@ -5,8 +5,8 @@
     color: white;
     font-size: 24px;
     font-weight: bold;
-    margin-top: 10px;
     background-color: #a2abab;
+    height: 5%;
 }
 
 #chat-title > p {
