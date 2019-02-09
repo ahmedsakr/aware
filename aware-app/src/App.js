@@ -1,69 +1,34 @@
 import React, { Component } from 'react';
-import './style/App.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.css'
-import NavBar from './messaging-service/NavBar/NavBar'
-import ChatWindow from './messaging-service/ChatFeature/ChatWindow'
-import ChatTitle from './messaging-service/ChatFeature/ChatTitle'
-import DirectMessages from './messaging-service/DirectMessage/DirectMessages'
-import MessageInput from './messaging-service/ChatFeature/MessageInput'
-
-const TEST_DATA = [
-  {
-    studentName: "Ahmed",
-    text: "Yeah, I am kinda drunk.",
-    timestamp: "December 1, 2018 - 12:22 pm",
-    avatar: "/icons8-user-80blue.png"
-  },
-  {
-    studentName: "Josh",
-    text: "Same broda.",
-    timestamp: "December 1, 2018 - 12:22 pm",
-    avatar: "/icons8-user-80blue.png"
-  },
-  {
-    studentName: "Arsalan",
-    text: "guys, I am hungry.",
-    timestamp: "December 1, 2018 - 12:22 pm",
-    avatar: "/icons8-user-80blue.png"
-  }
-]
 
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      messages: TEST_DATA
-    }
+  state = {
+    data: null
+  };
+
+  componentDidMount() {
+      // Call our fetch function below once the component mounts
+    this.callBackendAPI()
+      .then(res => this.setState({ data: res.express }))
+      .catch(err => console.log(err));
   }
+    // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
+  callBackendAPI = async () => {
+    const response = await fetch('/express_backend');
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message)
+    }
+    return body;
+  };
 
   render() {
-    const { sendMessage, state } = this;
     return (
-      <div class="container-fluid" className="App">
-        <div class="row aware-container">
-          <div class="col-1 aware-column">
-            <NavBar />
-          </div>
-
-          <div class="col-8 aware-column">
-            <ChatTitle course="SYSC 2100" />
-            <ChatWindow messages={this.state.messages} />
-            <MessageInput sendMessage={ sendMessage } />
-          </div>
-
-          <div class="col-3 aware-column">
-            <DirectMessages />
-          </div>
-        </div>
+      <div className="App">
+        // Render the newly fetched data inside of this.state.data
+        <p className="App-intro">{this.state.data}</p>
       </div>
     );
-  }
-
-  sendMessage = (message) => {
-    console.log('sendMessage', message);
-    this.setState({
-      messages: this.state.messages.concat([message])
-    })
   }
 }
 

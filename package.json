@@ -1,0 +1,23 @@
+{
+  "name": "aware",
+  "version": "1.0.0",
+  "description": "Joining Students in Courses ===",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmedsakr/aware.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmedsakr/aware/issues"
+  },
+  "homepage": "https://github.com/ahmedsakr/aware#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
