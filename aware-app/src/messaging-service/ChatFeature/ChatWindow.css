@@ -6,3 +6,7 @@
     max-height: 80%;
     overflow: auto;
 }
+#scrollbar {
+  float: left;
+  clear: both;
+}

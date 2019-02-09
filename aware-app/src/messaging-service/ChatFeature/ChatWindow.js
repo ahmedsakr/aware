@@ -9,6 +9,18 @@ class ChatWindow extends Component {
     receivedMessage: ReceivedMessage
   };
 
+scrollToBottom = () => {
+  this.messagesEnd.scrollIntoView({ behavior: "auto" });//animate it to behavior:smooth
+}
+
+componentDidMount() {
+  this.scrollToBottom();
+}
+
+componentDidUpdate() {
+  this.scrollToBottom();
+}
+
   render() {
     //Can change to this.components.sentMessage to change its rendering.
     var Message = this.components.sentMessage;
@@ -25,7 +37,11 @@ class ChatWindow extends Component {
             <Message student={message.studentName} avatar={message.avatar} message={message.text} timestamp={message.timestamp}/>
           )
         })}
+        <div id="scrollbar" ref={(el) => {
+          this.messagesEnd = el;
+        }}></div>
       </div>
+
     );
   }
 }
