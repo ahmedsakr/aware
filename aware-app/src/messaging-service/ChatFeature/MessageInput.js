@@ -43,6 +43,7 @@ class MessageInput extends Component {
       avatar: "/icons8-user-80blue.png"
     };
     this.props.sendMessage(messageObj);
+
     //Reset state of input to erase previous message
     this.setState({
       message: ''
