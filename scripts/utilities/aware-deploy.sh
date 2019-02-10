@@ -66,22 +66,6 @@ if [ "$UPLOAD_DIRECTORY" = "" ]; then
     cd $DEPLOYMENT_DIR
     inform_aligned "Deployment created" "$DEPLOYMENT_DIR"
 
-<<<<<<< HEAD
-    git clone $AWARE_REPO_SSH
-    inform_aligned "Git clone" "$AWARE_REPO_SSH"
-    cd aware/aware-app
-    git checkout $AWARE_BRANCH
-
-    npm install
-    
-    sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start/g" package.json
-
-    npm start
-DEPLOY
-
-else
-
-=======
     git clone "$AWARE_REPO_SSH" >& /dev/null
     inform_aligned "Git clone" "$AWARE_REPO_SSH"
 
@@ -100,5 +84,4 @@ DEPLOY
 
 else
     echo "lel"
->>>>>>> 23ba5f6... First version of aware-deploy script
 fi
