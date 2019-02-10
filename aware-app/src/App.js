@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './style/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import { connection } from 'messaging-service/client'
 import NavBar from './messaging-service/NavBar/NavBar'
 import ChatWindow from './messaging-service/ChatFeature/ChatWindow'
 import ChatTitle from './messaging-service/ChatFeature/ChatTitle'
 import DirectMessages from './messaging-service/DirectMessage/DirectMessages'
 import MessageInput from './messaging-service/ChatFeature/MessageInput'
-import io from 'socket.io-client'
 
 const TEST_DATA = [
   {
@@ -31,15 +31,20 @@ const TEST_DATA = [
 
 class App extends Component {
   constructor() {
-    var socket = io();
     super()
+    let socket = connection();
     this.state = {
       messages: TEST_DATA
     }
+    socket.on('chat message', function(msg) {
+      this.setState({
+        messages: this.state.messages.concat([msg])
+      })
+    });
   }
 
   render() {
-    const { sendMessage, state } = this;
+    const { sendMessage } = this;
     return (
       <div class="container-fluid" className="App">
         <div class="row aware-container">
