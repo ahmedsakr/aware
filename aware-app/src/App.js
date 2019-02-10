@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './style/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
-import { connection } from 'messaging-service/client'
+import socket from './messaging-service/client.js'
 import NavBar from './messaging-service/NavBar/NavBar'
 import ChatWindow from './messaging-service/ChatFeature/ChatWindow'
 import ChatTitle from './messaging-service/ChatFeature/ChatTitle'
 import DirectMessages from './messaging-service/DirectMessage/DirectMessages'
 import MessageInput from './messaging-service/ChatFeature/MessageInput'
+import io from 'socket.io-client'
 
 const TEST_DATA = [
   {
@@ -32,15 +33,10 @@ const TEST_DATA = [
 class App extends Component {
   constructor() {
     super()
-    let socket = connection();
+    var socket = io();
     this.state = {
       messages: TEST_DATA
     }
-    socket.on('chat message', function(msg) {
-      this.setState({
-        messages: this.state.messages.concat([msg])
-      })
-    });
   }
 
   render() {
@@ -67,9 +63,11 @@ class App extends Component {
   }
 
   sendMessage = (message) => {
-    console.log('sendMessage', message);
-    this.setState({
-      messages: this.state.messages.concat([message])
+    socket.emit('chat message', message);
+    socket.on('chat message', msg => {
+      this.setState({
+        messages: this.state.messages.concat([message])
+      })
     })
   }
 }

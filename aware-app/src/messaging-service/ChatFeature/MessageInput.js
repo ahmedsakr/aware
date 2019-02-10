@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './MessageInput.css';
-import { connection } from './messaging-service/client'
 import {produceTimestamp} from '../../aware-utils.js'
 
 class MessageInput extends Component {
@@ -34,7 +33,6 @@ class MessageInput extends Component {
   }
 
   handleSubmit(e) {
-    var socket = connection();
     //Prevents page refresh when form submit
     e.preventDefault();
     // Build a message object to be sent
@@ -44,7 +42,6 @@ class MessageInput extends Component {
       timestamp: produceTimestamp(),
       avatar: "/icons8-user-80blue.png"
     };
-    socket.emit("chat message", 'test sending');
     this.props.sendMessage(messageObj);
 
     //Reset state of input to erase previous message

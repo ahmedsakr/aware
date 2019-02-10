@@ -9,6 +9,21 @@ app.get('/server', (req, res) => {
 
 io.on('connection', function(socket){
   console.log('Client Has Connected.')
+  socket.on('chat message', function(msg){
+    console.log(msg);
+  });
+  socket.on('disconnect', function(){
+    io.emit('chat message', 'user disconnected');
+  });
+});
+
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+  socket.on('disconnect', function(){
+    io.emit('chat message', 'user disconnected');
+  });
 });
 
 http.listen(5001, function(){
