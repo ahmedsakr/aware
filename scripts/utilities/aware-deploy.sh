@@ -36,17 +36,13 @@ AWARE_APP_RUNTIME=20
 parse_options $@
 shift $((OPTIND - 1))
 
-inform_aligned "Aware Port" "$AWARE_APP_PORT"
-
-# User has not specified to upload a directory, a git checkout approached is assumed.
-
-
 # Check that the user provided the branch to deploy.
 if [ $# -ne 1 ]; then
     echo "You have not provided the branch name to deploy to the server."
     exit 1
 fi
 
+inform_aligned "Aware Port" "$AWARE_APP_PORT"
 inform_aligned "Branch to deploy" "$1"
 inform_aligned "Server" "$AWARE_DEPLOYMENT_SERVER"
 
@@ -73,15 +69,17 @@ cd aware/aware-app
 git checkout $AWARE_BRANCH >& /dev/null
 inform_aligned "Git branch" "$AWARE_BRANCH"
 
+echo "Invoking 'npm install'..."
 npm install >& /dev/null
 inform_aligned "npm install" "complete"
     
 sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start/g" package.json
 
+echo "Invoking 'npm start...'"
 npm start > /dev/null &
 inform_aligned "npm start" "complete"
 
-inform_aligned "URL" "http://$AWARE_DEPLOYMENT_SERVER:$2"
+inform_aligned "Deployment available at" "http://$AWARE_DEPLOYMENT_SERVER:$2"
 
 at now + $3 minutes >& /dev/null << CLEANUP
 lsof -i :$2 | grep *:$2 | cut -d ' ' -f 5 | xargs kill
