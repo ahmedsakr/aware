@@ -1,5 +1,15 @@
 #!/bin/bash
 
+help() {
+    printf "\t\t$0 [OPTION] <branch>\n\n"
+    echo "Deploy and run a build of aware onto one of the aware deployment servers."
+    echo "You must specify which branch you would like to deploy."
+    printf "\n\nOPTIONS:\n\n"
+    printf "\t-r: The runtime of the aware app before it is killed and removed from the server.\n"
+    printf "\t-p: Run the app on a specific (rather than random) port.\n"
+    exit 1
+}
+
 parse_options() {
     while getopts ":r:p:" option; do
         case "$option" in
@@ -20,7 +30,7 @@ parse_options() {
 }
 
 inform_aligned() {
-    printf "%-50s: %s\n" "$1" "$2"
+    printf "%-40s: %s\n" "$1" "$2"
 }
 
 printf "aware-deploy\n=======\n\n"
@@ -38,8 +48,7 @@ shift $((OPTIND - 1))
 
 # Check that the user provided the branch to deploy.
 if [ $# -ne 1 ]; then
-    echo "You have not provided the branch name to deploy to the server."
-    exit 1
+    help
 fi
 
 inform_aligned "Aware Port" "$AWARE_APP_PORT"
@@ -51,7 +60,7 @@ printf "\nConnecting to $AWARE_DEPLOYMENT_SERVER...\n"
 ssh root@"$AWARE_DEPLOYMENT_SERVER" "/bin/bash -s $1 $AWARE_APP_PORT $AWARE_APP_RUNTIME" << 'DEPLOY'
     
 inform_aligned() {
-    printf "%-50s: %s\n" "$1" "$2"
+    printf "%-40s: %s\n" "$1" "$2"
 }
 
 AWARE_BRANCH=$1
