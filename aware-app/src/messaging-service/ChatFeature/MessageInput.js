@@ -5,9 +5,8 @@ import {produceTimestamp} from '../../aware-utils.js'
 class MessageInput extends Component {
   constructor() {
     super()
-    this.state = {
-       message: ''
-    }
+    this.state = {message: ''}
+
     //Need to bind 'this' to give access to keyword
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,7 +36,7 @@ class MessageInput extends Component {
     e.preventDefault();
     // Build a message object to be sent
     const messageObj = {
-      studentName: "Josh",
+      studentName: this.props.name,
       text: this.state.message,
       timestamp: produceTimestamp(),
       avatar: "/icons8-user-80blue.png"

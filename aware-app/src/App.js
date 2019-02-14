@@ -3,40 +3,27 @@ import './style/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import socket from './messaging-service/client.js'
 import NavBar from './messaging-service/NavBar/NavBar'
-import ChatWindow from './messaging-service/ChatFeature/ChatWindow'
 import ChatTitle from './messaging-service/ChatFeature/ChatTitle'
 import DirectMessages from './messaging-service/DirectMessage/DirectMessages'
 import MessageInput from './messaging-service/ChatFeature/MessageInput'
+import ChatWindow from './messaging-service/ChatFeature/ChatWindow'
 import io from 'socket.io-client'
-
-const TEST_DATA = [
-  {
-    studentName: "Ahmed",
-    text: "Yeah, I am kinda drunk.",
-    timestamp: "December 1, 2018 - 12:22 pm",
-    avatar: "/icons8-user-80blue.png"
-  },
-  {
-    studentName: "Josh",
-    text: "Same broda.",
-    timestamp: "December 1, 2018 - 12:22 pm",
-    avatar: "/icons8-user-80blue.png"
-  },
-  {
-    studentName: "Arsalan",
-    text: "guys, I am hungry.",
-    timestamp: "December 1, 2018 - 12:22 pm",
-    avatar: "/icons8-user-80blue.png"
-  }
-]
 
 class App extends Component {
   constructor() {
     super()
-    var socket = io();
+
     this.state = {
-      messages: TEST_DATA
+      name: tempName(),
+      messages: []
     }
+
+    var socket = io();
+    socket.on('chat message', message => {
+      this.setState({
+        messages: this.state.messages.concat([message])
+      })
+    })
   }
 
   render() {
@@ -50,8 +37,8 @@ class App extends Component {
 
           <div class="col-8 aware-column">
             <ChatTitle course="SYSC 2100" />
-            <ChatWindow messages={this.state.messages} />
-            <MessageInput sendMessage={ sendMessage } />
+            <ChatWindow messages={this.state.messages} name={this.state.name} />
+            <MessageInput sendMessage={sendMessage} name={this.state.name}/>
           </div>
 
           <div class="col-3 aware-column">
@@ -63,12 +50,16 @@ class App extends Component {
   }
 
   sendMessage = (message) => {
-    socket.emit('chat message', message);
-    socket.on('chat message', msg => {
-      this.setState({
-        messages: this.state.messages.concat([message])
-      })
-    })
+    socket.emit('chat message', message)
+  }
+}
+
+function tempName() {
+  var name = prompt("Please enter your name:", "Bot1");
+  if (name === null || name === "") {
+    return "Bot1";
+  } else {
+    return name;
   }
 }
 

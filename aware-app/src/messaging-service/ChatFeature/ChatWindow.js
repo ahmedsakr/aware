@@ -16,7 +16,7 @@ class ChatWindow extends Component {
     return(
       <div id="chat">
         {this.props.messages.map(message => {
-          if (message.studentName === "Josh") {
+          if (message.studentName === this.props.name) {
             Message = this.components.sentMessage;
           } else {
             Message = this.components.receivedMessage;
