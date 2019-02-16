@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './style/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
-import socket from './messaging-service/client.js'
 import NavBar from './messaging-service/NavBar/NavBar'
 import ChatTitle from './messaging-service/ChatFeature/ChatTitle'
 import DirectMessages from './messaging-service/DirectMessage/DirectMessages'
@@ -15,11 +14,11 @@ class App extends Component {
 
     this.state = {
       name: tempName(),
-      messages: []
+      messages: [],
+      socket: io()
     }
 
-    var socket = io();
-    socket.on('chat message', message => {
+    this.state.socket.on('chat message', message => {
       this.setState({
         messages: this.state.messages.concat([message])
       })
@@ -50,7 +49,7 @@ class App extends Component {
   }
 
   sendMessage = (message) => {
-    socket.emit('chat message', message)
+    this.state.socket.emit('chat message', message)
   }
 }
 
