@@ -5,8 +5,8 @@ help() {
     echo "Deploy and run a build of aware onto one of the aware deployment servers."
     echo "You must specify which branch you would like to deploy."
     printf "\n\nOPTIONS:\n\n"
-    printf "\t-r: The runtime (minutes) of the aware app before it is killed and removed from the server.\n"
-    printf "\t-p: Run the app on a specific (rather than random) port.\n"
+    printf "\t-r <minutes>: The runtime (minutes) of the aware app before it is killed and removed from the server.\n"
+    printf "\t-p <port>: Run the app on a specific (rather than random) port.\n"
     exit 1
 }
 
