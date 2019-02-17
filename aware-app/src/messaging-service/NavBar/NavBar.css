@@ -38,20 +38,11 @@
   }
 }
 
-@media screen and (max-height: 800px) {
+@media screen and (max-height: 2000px) {
   .navigation-menu-logo, .navigation-menu-link, .navigation-menu-title {
     display: inline-block;
     height: 70px;
     line-height: 70px;
-    vertical-align: middle;
-  }
-}
-
-@media screen and (max-height: 2000px) {
-  .navigation-menu-logo, .navigation-menu-link, .navigation-menu-title {
-    display: inline-block;
-    height: 100px;
-    line-height: 100px;
     vertical-align: middle;
   }
 }
