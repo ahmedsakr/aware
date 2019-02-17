@@ -5,7 +5,7 @@ import './NavBar.css';
 class NavBar extends Component {
   render() {
     return (
-      <div id="vertical-menu" class="row">
+      <div id="vertical-menu">
         <NavBarItem src="/icons8-monitor-64.png" name="sysc 2100" />
         <NavBarItem src="/icons8-monitor-64.png" name="sysc 2003" />
         <NavBarItem src="/icons8-monitor-64.png" name="sysc 2004" />

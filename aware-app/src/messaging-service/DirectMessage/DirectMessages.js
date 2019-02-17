@@ -5,7 +5,7 @@ import DirectMessage from './DirectMessage'
 class DirectMessages extends Component {
   render() {
     return (
-      <div id="direct-messages" class="row">
+      <div id="direct-messages">
         <p id="courses" class="col-12">Private Messages</p>
         <input id="textfield" placeholder="Search Messages..." />
         <DirectMessage src="/icons8-user-80.png" name="Josh Campitelli" />
