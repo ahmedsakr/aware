@@ -1,0 +1,43 @@
+#vertical-menu {
+    background-color: #18202c;
+    display: block;
+    text-align: left;
+    height: 100%;
+}
+
+#vertical-menu > h3 {
+  color: white;
+  padding-left: 10px;
+}
+
+.chat-navigation-item {
+    display: block;
+    margin: 0px;
+}
+
+.navbar-item-name, .navbar-item-avatar {
+  display: inline-block;
+}
+
+.navbar-item-name {
+  color:white;
+}
+
+.chat-navigation-item:hover {
+    background-color: #232f3e;
+    text-decoration: none;
+}
+
+.chat-navigation-item.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#tag:hover {
+  background-color: #232f3e;
+}
+
+hr {
+  background-color: white;
+  height: 3;
+}

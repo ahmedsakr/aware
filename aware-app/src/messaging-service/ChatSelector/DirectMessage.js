@@ -6,7 +6,7 @@ class DirectMessage extends Component {
     const { src, name } = this.props;
     return (
       <div class="direct-message">
-        <div class="direct-message-avatar col-3">
+        <div class="direct-message-avatar col-2">
           <img src={process.env.PUBLIC_URL + src} alt={name} />
         </div>
 
