@@ -18,10 +18,6 @@
   margin: 0;
 }
 
-#direct-message-preview {
-  padding-left: 10px;
-}
-
 .direct-message-content {
     text-align: left;
     display: inline-block;
