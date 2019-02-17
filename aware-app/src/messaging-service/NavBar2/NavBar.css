@@ -1,0 +1,48 @@
+#navigation-menu {
+  background-color: #232f3e;
+  position: relative;
+}
+
+.navigation-menu-title {
+  color: orange;
+}
+
+.navigation-menu-logo > p {
+  color: white;
+  display: inline;
+  font-size: 1.5em;
+}
+
+.navigation-menu-link > p {
+  color: white;
+  display: inline;
+  padding-left: 5px;
+  font-size: 0.8em;
+}
+
+.navigation-menu-link > span {
+  display: inline;
+  color: white;
+}
+
+.navigation-menu-link-active {
+  background-color: #18202c;
+}
+
+@media screen and (max-height: 480px) {
+  .navigation-menu-logo, .navigation-menu-link, .navigation-menu-title {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .navigation-menu-logo, .navigation-menu-link, .navigation-menu-title {
+    display: inline-block;
+    height: 70px;
+    line-height: 70px;
+    vertical-align: middle;
+  }
+}
