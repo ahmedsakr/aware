@@ -1,5 +1,5 @@
 #vertical-menu {
-    background-color: #232f3e;
+    background-color: #18202c;
     display: block;
     text-align: left;
     height: 100%;
@@ -24,7 +24,7 @@
 }
 
 .chat-navigation-item:hover {
-    background-color: #ccc;
+    background-color: #232f3e;
     text-decoration: none;
 }
 
@@ -34,7 +34,7 @@
 }
 
 #tag:hover {
-  background-color: #074f57;
+  background-color: #232f3e;
 }
 
 hr {
