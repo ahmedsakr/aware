@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './style/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import '../node_modules/font-awesome/css/font-awesome.min.css'
 import NavBar from './messaging-service/NavBar/NavBar'
 import ChatSelector from './messaging-service/ChatSelector/ChatSelector'
 import ChatWindow from './messaging-service/ChatFeature/ChatWindow'
@@ -41,7 +42,7 @@ class App extends Component {
     return (
       <div class="container-fluid" className="App">
         <div class="row aware-container">
-          <div class="col-12 p-0">
+          <div class="col-12">
             <NavBar />
           </div>
 
