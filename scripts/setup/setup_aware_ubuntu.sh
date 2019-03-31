@@ -1,22 +1,53 @@
 #!/bin/bash
 
+case "`uname -a`" in
+
+    *Ubuntu*)
+    OS="ubuntu"
+    ;;
+
+    *fc*)
+    OS="fedora"
+    ;;
+
+    *)
+    echo "Unsupported OS." && exit 1
+esac
+
+if [ "$OS" = "ubuntu" ]; then
+    PACKAGE_MANAGER=apt
+else
+    PACKAGE_MANAGER=dnf
+fi
+
+# Update all pre-installed package
+sudo $PACKAGE_MANAGER update
+
 ################ Setup Basic utilities ###########
 
 # Install command-line editor
-sudo apt install -y vim
+sudo $PACKAGE_MANAGER install -y vim
 
 # Install Visual Studio modern code editor
-VSCODE=$(sudo find /tmp -name "code_*.deb")
-sudo apt install -y $VSCODE
+if [ "$OS" = "ubuntu" ]; then
+    MICROSOFT_GPG_KEYS=https://packages.microsoft.com/keys/microsoft.asc
+    MICROSOFT_PACKAGE_REPO="deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+    wget -qO- $MICROSOFT_GPG_KEYS | sudo apt-key add -
+    sudo add-apt-repository $MICROSOFT_PACKAGE_REPO
+    sudo $PACKAGE_MANAGER install -y code
+else
+    print ""
+    # fedora implementation
+fi
 
 # Intall version control
-sudo apt install -y git
+sudo $PACKAGE_MANAGER install -y git
 
 # Install node package manager
-sudo apt install -y npm
+sudo $PACKAGE_MANAGER install -y npm
 
 # resolve dependencies
-sudo apt install -f
+sudo $PACKAGE_MANAGER install -f
 
 # Install 'n' npm module
 sudo npm install -g n
@@ -38,25 +69,25 @@ git config --global user.email $GITHUB_EMAIL
 
 # Clone the Aware repo into the home directory
 cd
-git clone git@github.com:ahmedsakr/AwareStudent.git
+git clone git@github.com:ahmedsakr/aware.git
 
 # Install the npm modules
-cd AwareStudent/aware-app
+cd aware/aware-app
 npm install
 
 ################## Setup Terminal #############
 
 # Install terminator terminal
-sudo apt install -y terminator
+sudo $PACKAGE_MANAGER install -y terminator
 
 # Install Zsh
-sudo apt install -y zsh
+sudo $PACKAGE_MANAGER install -y zsh
 
 # Install Oh-my-Zsh!
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
 # finally, resolve any dependencies
-sudo apt install -f
+sudo $PACKAGE_MANAGER install -f
 
 # Go back to user directory
 cd
