@@ -7,4 +7,5 @@ cache:
 before_script: cd aware-app
 script:
   - npm install
-  - npm start
+  - npm test
+  - npm run build
