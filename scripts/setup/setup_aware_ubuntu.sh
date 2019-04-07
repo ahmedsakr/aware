@@ -25,22 +25,27 @@ sudo $PACKAGE_MANAGER update
 
 ################ Setup Basic utilities ###########
 
-# Install command-line editor
+# Install command-line editor.
 sudo $PACKAGE_MANAGER install -y vim
 
-# Install Visual Studio modern code editor
+# The microsoft repo must be added prior to attempting to install code.
 if [ "$OS" = "ubuntu" ]; then
     MICROSOFT_GPG_KEYS=https://packages.microsoft.com/keys/microsoft.asc
     MICROSOFT_PACKAGE_REPO="deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
     wget -qO- $MICROSOFT_GPG_KEYS | sudo apt-key add -
     sudo add-apt-repository $MICROSOFT_PACKAGE_REPO
-    sudo $PACKAGE_MANAGER install -y code
 else
-    print ""
-    # fedora implementation
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.
+    sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=\
+    https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\
+    \ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+    sudo $PACKAGE_MANAGER check-update
 fi
 
-# Intall version control
+# Install VS Code.
+sudo $PACKAGE_MANAGER install -y code
+
+# Install version control
 sudo $PACKAGE_MANAGER install -y git
 
 # Install node package manager
