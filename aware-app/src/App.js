@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './style/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import NavBar from './messaging-service/NavBar/NavBar'
-import ChatWindow from './messaging-service/ChatFeature/ChatWindow'
-import ChatTitle from './messaging-service/ChatFeature/ChatTitle'
+import ChatWindow from './messaging-service/ChatFeature/Window/ChatWindow'
+import ChatTitle from './messaging-service/ChatFeature/Title/ChatTitle'
 import DirectMessages from './messaging-service/DirectMessage/DirectMessages'
 import MessageInput from './messaging-service/ChatFeature/MessageInput'
 
