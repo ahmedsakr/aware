@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+  import React, { Component } from 'react';
 import './ChatTitle.css'
 
 class ChatTitle extends Component {
