@@ -5,7 +5,7 @@ import NavBar from './messaging-service/NavBar/NavBar'
 import ChatWindow from './messaging-service/ChatFeature/Window/ChatWindow'
 import ChatTitle from './messaging-service/ChatFeature/Title/ChatTitle'
 import DirectMessages from './messaging-service/DirectMessage/DirectMessages'
-import MessageInput from './messaging-service/ChatFeature/MessageInput'
+import MessageInput from './messaging-service/ChatFeature/InputBar/MessageInput'
 
 const TEST_DATA = [
   {

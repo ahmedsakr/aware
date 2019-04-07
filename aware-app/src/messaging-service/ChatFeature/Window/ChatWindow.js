@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ReceivedMessage from "../ReceivedMessage"
-import SentMessage from "../SentMessage"
+import ReceivedMessage from "../ReceivedMessages/ReceivedMessage"
+import SentMessage from "../SentMessages/SentMessage"
 import './ChatWindow.css'
 
 class ChatWindow extends Component {
