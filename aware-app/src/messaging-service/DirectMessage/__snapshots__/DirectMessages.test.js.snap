@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DirectMessages should render correctly in "debug" mode 1`] = `
+<div
+  class="row"
+  id="direct-messages"
+>
+  <p
+    class="col-12"
+    id="courses"
+  >
+    Private Messages
+  </p>
+  <input
+    id="textfield"
+    placeholder="Search Messages..."
+  />
+  <DirectMessage
+    name="Josh Campitelli"
+    src="/icons8-user-80.png"
+  />
+  <DirectMessage
+    name="Arsalan Sadiq"
+    src="/icons8-user-80.png"
+  />
+  <DirectMessage
+    name="Ahmed Sakr"
+    src="/icons8-user-80.png"
+  />
+  <DirectMessage
+    name="TheRealBoys"
+    src="/icons8-user-80.png"
+  />
+</div>
+`;
