@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './style/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
-import NavBar from './messaging-service/NavBar/NavBar'
+import NavBar from './messaging-service/NavigationBar/NavBar/NavBar'
 import ChatWindow from './messaging-service/ChatFeature/ChatWindow/ChatWindow'
 import ChatTitle from './messaging-service/ChatFeature/ChatTitle/ChatTitle'
-import DirectMessages from './messaging-service/DirectMessage/DirectMessages'
+import DirectMessages from './messaging-service/ChatSelector/DirectMessages/DirectMessages'
 import MessageInput from './messaging-service/ChatFeature/MessageInput/MessageInput'
 
 const TEST_DATA = [
