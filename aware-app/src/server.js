@@ -10,15 +10,15 @@ app.get('/server', (req, res) => {
 io.on('connection', function(socket) {
   console.log('Client Has Connected.')
 
-  // once a client has connected, we expect to get a ping from them saying what room they want to join
   socket.on('room', function(room) {
+    socket.join('/SYSC2100');
     console.log('client has joined ' + room)
-    socket.join(room);
   });
 
-  socket.on('chat message', function(msg){
-    console.log(msg)
-    io.to('abc123').emit('chat message', msg);
+  socket.on('chat message', function(room, msg){
+    // Above method for some reason doesn't actually create a room
+    socket.join('/SYSC2100');
+    io.in('/SYSC2100').emit('chat message', msg)
   });
 });
 

@@ -15,7 +15,8 @@ class App extends Component {
     this.state = {
       name: tempName(),
       messages: [],
-      socket: io()
+      socket: io(),
+      room: ""
     }
 
     this.state.socket.on('chat message', message => {
@@ -26,7 +27,7 @@ class App extends Component {
   }
 
   render() {
-    const { sendMessage, selectRoom } = this;
+    const {selectRoom, sendMessage } = this;
     return (
       <div class="container-fluid" className="App">
         <div class="row aware-container">
@@ -48,12 +49,12 @@ class App extends Component {
     );
   }
 
-  sendMessage = (message) => {
-    this.state.socket.emit('chat message', message)
-  }
-
   selectRoom = (room) => {
     this.state.socket.emit('room', room)
+  }
+
+  sendMessage = (message) => {
+    this.state.socket.emit('chat message', this.state.room, message)
   }
 }
 
