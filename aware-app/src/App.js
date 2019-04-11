@@ -26,12 +26,12 @@ class App extends Component {
   }
 
   render() {
-    const { sendMessage } = this;
+    const { sendMessage, selectRoom } = this;
     return (
       <div class="container-fluid" className="App">
         <div class="row aware-container">
           <div class="col-1 aware-column">
-            <NavBar />
+            <NavBar selectRoom={selectRoom}/>
           </div>
 
           <div class="col-8 aware-column">
@@ -50,6 +50,10 @@ class App extends Component {
 
   sendMessage = (message) => {
     this.state.socket.emit('chat message', message)
+  }
+
+  selectRoom = (room) => {
+    this.state.socket.emit('room', room)
   }
 }
 
