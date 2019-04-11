@@ -9,9 +9,16 @@ app.get('/server', (req, res) => {
 
 io.on('connection', function(socket) {
   console.log('Client Has Connected.')
+
+  // once a client has connected, we expect to get a ping from them saying what room they want to join
+  socket.on('room', function(room) {
+    console.log('client has joined ' + room)
+    socket.join(room);
+  });
+
   socket.on('chat message', function(msg){
     console.log(msg)
-    io.emit('chat message', msg);
+    io.to('abc123').emit('chat message', msg);
   });
 });
 
