@@ -15,7 +15,8 @@ class App extends Component {
     this.state = {
       name: tempName(),
       messages: [],
-      socket: io()
+      socket: io(),
+      chatTitle: ""
     }
 
     this.state.socket.on('chat message', message => {
@@ -35,7 +36,7 @@ class App extends Component {
           </div>
 
           <div class="col-8 aware-column">
-            <ChatTitle course="SYSC 2100" />
+            <ChatTitle chatTitle={this.state.chatTitle} />
             <ChatWindow messages={this.state.messages} name={this.state.name} />
             <MessageInput sendMessage={sendMessage} name={this.state.name}/>
           </div>
@@ -51,6 +52,8 @@ class App extends Component {
   selectRoom = (room) => {
     this.state.socket.emit('room', room)
     this.setState({ messages: [] });
+    this.setState({ chatTitle: room});
+
   }
 
   sendMessage = (message) => {
