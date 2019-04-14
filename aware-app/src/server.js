@@ -8,25 +8,21 @@ app.get('/server', (req, res) => {
 });
 
 io.on('connection', function(socket) {
-  console.log('Client Has Connected.')
+  console.log('Client Has Connected, id: ' + socket.id)
 
   socket.on('room', function(room) {
     var currentRoom = Object.keys(io.sockets.adapter.sids[socket.id]).filter(item => item!=socket.id);
-    console.log("current room: " + currentRoom + ", joining: " + room)
 
-    if (currentRoom == room) {
-      console.log('already in this room')
-    } else {
+    // Check if attempting to join current room
+    if (currentRoom != room) {
       socket.leave(currentRoom)
       socket.join(room);
-      console.log('client has left ' + currentRoom + ", joined " + room)
     }
   });
 
-  socket.on('chat message', function(msg){
-    // Above method for some reason doesn't actually create a room
+  socket.on('chat message', function(msg) {
+    // get current room of socket to emit message in
     var currentRoom = Object.keys(io.sockets.adapter.sids[socket.id]).filter(item => item!=socket.id);
-    console.log("Room Set to: " + currentRoom)
     io.in(currentRoom).emit('chat message', msg)
   });
 });
