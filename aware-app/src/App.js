@@ -15,8 +15,7 @@ class App extends Component {
     this.state = {
       name: tempName(),
       messages: [],
-      socket: io(),
-      room: ""
+      socket: io()
     }
 
     this.state.socket.on('chat message', message => {
@@ -54,7 +53,7 @@ class App extends Component {
   }
 
   sendMessage = (message) => {
-    this.state.socket.emit('chat message', this.state.room, message)
+    this.state.socket.emit('chat message', message)
   }
 }
 

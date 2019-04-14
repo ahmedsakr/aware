@@ -11,14 +11,23 @@ io.on('connection', function(socket) {
   console.log('Client Has Connected.')
 
   socket.on('room', function(room) {
-    socket.join('/SYSC2100');
-    console.log('client has joined ' + room)
+    var currentRoom = Object.keys(io.sockets.adapter.sids[socket.id]).filter(item => item!=socket.id);
+    console.log("current room: " + currentRoom + ", joining: " + room)
+
+    if (currentRoom == room) {
+      console.log('already in this room')
+    } else {
+      socket.leave(currentRoom)
+      socket.join(room);
+      console.log('client has left ' + currentRoom + ", joined " + room)
+    }
   });
 
-  socket.on('chat message', function(room, msg){
+  socket.on('chat message', function(msg){
     // Above method for some reason doesn't actually create a room
-    socket.join('/SYSC2100');
-    io.in('/SYSC2100').emit('chat message', msg)
+    var currentRoom = Object.keys(io.sockets.adapter.sids[socket.id]).filter(item => item!=socket.id);
+    console.log("Room Set to: " + currentRoom)
+    io.in(currentRoom).emit('chat message', msg)
   });
 });
 

@@ -5,7 +5,7 @@ class NavBarItem extends Component {
     const {src, name} = this.props;
 
     return (
-      <a href={this.props.room} onClick={() => { this.props.selectRoom(this.props.room)}} class="chat-navigation-item">
+      <a onClick={() => { this.props.selectRoom(this.props.room)}} class="chat-navigation-item">
           <img src={process.env.PUBLIC_URL + src} alt={name}/>
           <p>{name.toUpperCase()}</p>
       </a>
