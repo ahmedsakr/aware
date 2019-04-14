@@ -50,7 +50,7 @@ io.on('connection', function(socket) {
         io.to(socket.id).emit('chat message', chatHistory[room][i])
       }
     }
-  });
+  }
 
   function getRoom() {
     return Object.keys(io.sockets.adapter.sids[socket.id]).filter(item => item!=socket.id)[0];
