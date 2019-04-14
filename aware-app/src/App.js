@@ -50,6 +50,7 @@ class App extends Component {
 
   selectRoom = (room) => {
     this.state.socket.emit('room', room)
+    this.setState({ messages: [] });
   }
 
   sendMessage = (message) => {
