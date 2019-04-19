@@ -2,6 +2,8 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var chatHistory = {};
+
 // create a GET route
 app.get('/server', (req, res) => {
   res.send({ express: 'The Express Server is Connected to React' });
@@ -15,16 +17,40 @@ io.on('connection', function(socket) {
 
     // Check if attempting to join current room
     if (currentRoom != room) {
-      socket.leave(currentRoom)
-      socket.join(room);
+      socket.leave(currentRoom, function() {
+        socket.join(room, loadHistory(room));
+      })
+    } else {
+      loadHistory(room);
     }
   });
 
   socket.on('chat message', function(msg) {
     // get current room of socket to emit message in
     var currentRoom = getRoom();
-    io.in(currentRoom).emit('chat message', msg)
+    if (currentRoom != '') {
+      io.in(currentRoom).emit('chat message', msg)
+
+      // Append message to history for this room
+      chatHistory[currentRoom].push(msg);
+      console.log(chatHistory)
+    }
   });
+
+  function loadHistory(room) { 
+    // If room doesn't have chat history, create room in dictionary
+    if (!(room in chatHistory)) {
+      if (room != '') {
+        chatHistory[room] = []
+        console.log("added room to history" + room)
+        console.log(chatHistory)
+      }
+    } else {
+      for (var i = 0; i < chatHistory[room].length; i++) {
+        io.to(socket.id).emit('chat message', chatHistory[room][i])
+      }
+    }
+  }
 
   function getRoom() {
     return Object.keys(io.sockets.adapter.sids[socket.id]).filter(item => item!=socket.id)[0];
