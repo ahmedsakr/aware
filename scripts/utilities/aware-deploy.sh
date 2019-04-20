@@ -84,7 +84,7 @@ echo "Invoking 'npm install'..."
 npm install >& /dev/null
 inform_aligned "npm install" "complete"
     
-sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start/g" package.json
+sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start --disableHostCheck=true/g" package.json
 sed -i -s -e "s/server.js/server.js $3 --disableHostCheck=true/g" package.json
 sed -i -s -e "s/localhost:5001/localhost:$3/g" package.json
 
