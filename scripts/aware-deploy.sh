@@ -78,9 +78,8 @@ cd aware/aware-app
 git checkout $AWARE_BRANCH >& /dev/null
 inform_aligned "Git branch" "$AWARE_BRANCH"
 
-echo "Invoking 'npm install'..."
-npm install >& /dev/null
-inform_aligned "npm install" "complete"
+echo "Extracting node_modules.tar.gz..."
+../scripts/aware-modules.sh --extract
     
 sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start/g" package.json
 
