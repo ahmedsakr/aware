@@ -8,7 +8,9 @@ PACKAGE_FILE=$BASE_DIR/aware-app/package.json
 PACKAGE_LOCK_FILE=$BASE_DIR/aware-app/package-lock.json
 
 NODE_MODULES_DIRECTORY=$BASE_DIR/aware-app/node_modules
-NODE_MODULES_ARCHIVE=$BASE_DIR/aware-app/node_modules.tar.gz
+NODE_MODULES_ARCHIVE=$BASE_DIR/aware-app/npm-modules/node_modules.tar.gz
+NODE_MODULES_PARTS_NUM=10
+NODE_MODULES_PART_FORMAT="$NODE_MODULES_ARCHIVE.part.%d"
 
 # Allows execution of git commands anywhere in the system for this repo.
 PATH_INDEPENDENT_GIT="git --work-tree=$BASE_DIR --git-dir=$BASE_DIR/.git"
@@ -40,13 +42,51 @@ parse_options() {
     esac
 }
 
+split_archive() {
+    local ARCHIVE_SIZE=`stat --printf="%s" $NODE_MODULES_ARCHIVE`
+    local PART_SIZE=$((ARCHIVE_SIZE / NODE_MODULES_PARTS_NUM))
+    local LAST_PART_SIZE=$((ARCHIVE_SIZE % NODE_MODULES_PARTS_NUM))
+    local part_iterator=0
+
+    while [[ ! $part_iterator -eq $NODE_MODULES_PARTS_NUM ]]; do
+        local PART_NAME=`printf $NODE_MODULES_PART_FORMAT $part_iterator`
+        echo $PART_NAME
+        head -c $((PART_SIZE * (part_iterator + 1))) $NODE_MODULES_ARCHIVE > $PART_NAME.tmp
+        tail -c $PART_SIZE $PART_NAME.tmp > $PART_NAME
+        rm -f $PART_NAME.tmp
+        part_iterator=$((part_iterator + 1))
+    done
+
+    if [ $LAST_PART_SIZE -ne 0 ]; then
+        local last_part_name=`printf $NODE_MODULES_PART_FORMAT $NODE_MODULES_PART_NUM`
+        tail -c $LAST_PART_SIZE $NODE_MODULES_ARCHIVE > $last_part_name
+    fi
+
+    rm -f $NODE_MODULES_ARCHIVE
+}
+
+combine_archive() {
+    local part_iterator=0
+    while [[ ! $part_iterator -eq $NODE_MODULES_PARTS_NUM ]]; do
+        local part_name=`printf $NODE_MODULES_PART_FORMAT $part_iterator`
+        echo $part_name
+        head -c `stat --printf="%s" $part_name` $part_name >> $NODE_MODULES_ARCHIVE
+        part_iterator=$((part_iterator + 1))
+    done
+}
+
 update() {
     check_package
     [ $UPDATE_MODULES -eq 0 ] && check_package_lock
 
     if [ $UPDATE_MODULES -eq 1 ]; then
         [ -f $NODE_MODULES_ARCHIVE ] && rm -f $NODE_MODULES_ARCHIVE
-        tar cf $NODE_MODULES_ARCHIVE $NODE_MODULES_DIRECTORY >& /dev/null
+
+        tar cvf $NODE_MODULES_ARCHIVE -C $BASE_DIR/aware-app $(basename $NODE_MODULES_DIRECTORY)
+
+        # Split the archive into equal parts because it is quite big (~250 MB).
+        split_archive
+        
         echo "Updated node_modules archive."
     else
         echo "The node_modules archive does not require updating."
@@ -54,8 +94,13 @@ update() {
 }
 
 extract() {
+
+    # Orderly merges all the part archives into the full archive.
+    combine_archive
+
     rm -rf $NODE_MODULES_DIRECTORY
     tar xf $NODE_MODULES_ARCHIVE -C $BASE_DIR/aware-app
+    rm -f $NODE_MODULES_ARCHIVE
 }
 
 print_changes() {
