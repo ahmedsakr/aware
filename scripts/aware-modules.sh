@@ -50,7 +50,6 @@ split_archive() {
 
     while [[ ! $part_iterator -eq $NODE_MODULES_PARTS_NUM ]]; do
         local PART_NAME=`printf $NODE_MODULES_PART_FORMAT $part_iterator`
-        echo $PART_NAME
         head -c $((PART_SIZE * (part_iterator + 1))) $NODE_MODULES_ARCHIVE > $PART_NAME.tmp
         tail -c $PART_SIZE $PART_NAME.tmp > $PART_NAME
         rm -f $PART_NAME.tmp
@@ -69,7 +68,6 @@ combine_archive() {
     local part_iterator=0
     while [[ ! $part_iterator -eq $NODE_MODULES_PARTS_NUM ]]; do
         local part_name=`printf $NODE_MODULES_PART_FORMAT $part_iterator`
-        echo $part_name
         head -c `stat --printf="%s" $part_name` $part_name >> $NODE_MODULES_ARCHIVE
         part_iterator=$((part_iterator + 1))
     done
@@ -82,7 +80,7 @@ update() {
     if [ $UPDATE_MODULES -eq 1 ]; then
         [ -f $NODE_MODULES_ARCHIVE ] && rm -f $NODE_MODULES_ARCHIVE
 
-        tar cvf $NODE_MODULES_ARCHIVE -C $BASE_DIR/aware-app $(basename $NODE_MODULES_DIRECTORY)
+        tar cvf $NODE_MODULES_ARCHIVE -C $BASE_DIR/aware-app $(basename $NODE_MODULES_DIRECTORY) >& /dev/null
 
         # Split the archive into equal parts because it is quite big (~250 MB).
         split_archive
