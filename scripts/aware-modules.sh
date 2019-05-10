@@ -59,11 +59,9 @@ update() {
 extract() {
     rm -rf $NODE_MODULES_DIRECTORY
     tar xf $NODE_MODULES_ARCHIVE -C $BASE_DIR/aware-app
-    rm -f $NODE_MODULES_ARCHIVE
 }
 
 print_changes() {
-    echo "$1"
     # Additions and deletions start with '+' and '-', respectively.
     local ADDITIONS=`printf "$1" | grep -E "^\+{1}\s"`
     local DELETIONS=`printf "$1" | grep -E "^-{1}\s"`
