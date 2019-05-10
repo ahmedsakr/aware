@@ -42,38 +42,6 @@ parse_options() {
     esac
 }
 
-split_archive() {
-    local ARCHIVE_SIZE=`stat --printf="%s" $NODE_MODULES_ARCHIVE`
-    local PART_SIZE=$((ARCHIVE_SIZE / NODE_MODULES_PARTS_NUM))
-    local LAST_PART_SIZE=$((ARCHIVE_SIZE % NODE_MODULES_PARTS_NUM))
-    local part_iterator=0
-
-    while [[ ! $part_iterator -eq $NODE_MODULES_PARTS_NUM ]]; do
-        local PART_NAME=`printf $NODE_MODULES_PART_FORMAT $part_iterator`
-        head -c $((PART_SIZE * (part_iterator + 1))) $NODE_MODULES_ARCHIVE > $PART_NAME.tmp
-        echo -n -e "\x0" > $PART_NAME
-        tail -c $PART_SIZE $PART_NAME.tmp >> $PART_NAME
-        rm -f $PART_NAME.tmp
-        part_iterator=$((part_iterator + 1))
-    done
-
-    if [ $LAST_PART_SIZE -ne 0 ]; then
-        local last_part_name=`printf $NODE_MODULES_PART_FORMAT $NODE_MODULES_PART_NUM`
-        tail -c $LAST_PART_SIZE $NODE_MODULES_ARCHIVE > $last_part_name
-    fi
-
-    rm -f $NODE_MODULES_ARCHIVE
-}
-
-combine_archive() {
-    local part_iterator=0
-    while [[ ! $part_iterator -eq $NODE_MODULES_PARTS_NUM ]]; do
-        local part_name=`printf $NODE_MODULES_PART_FORMAT $part_iterator`
-        tail -c $((`stat --printf="%s" $part_name` - 1)) $part_name >> $NODE_MODULES_ARCHIVE
-        part_iterator=$((part_iterator + 1))
-    done
-}
-
 update() {
     check_package
     [ $UPDATE_MODULES -eq 0 ] && check_package_lock
@@ -82,10 +50,6 @@ update() {
         [ -f $NODE_MODULES_ARCHIVE ] && rm -f $NODE_MODULES_ARCHIVE
 
         tar cvf $NODE_MODULES_ARCHIVE -C $BASE_DIR/aware-app $(basename $NODE_MODULES_DIRECTORY) >& /dev/null
-
-        # Split the archive into equal parts because it is quite big (~250 MB).
-        split_archive
-        
         echo "Updated node_modules archive."
     else
         echo "The node_modules archive does not require updating."
@@ -93,16 +57,13 @@ update() {
 }
 
 extract() {
-
-    # Orderly merges all the part archives into the full archive.
-    combine_archive
-
     rm -rf $NODE_MODULES_DIRECTORY
     tar xf $NODE_MODULES_ARCHIVE -C $BASE_DIR/aware-app
     rm -f $NODE_MODULES_ARCHIVE
 }
 
 print_changes() {
+    echo "$1"
     # Additions and deletions start with '+' and '-', respectively.
     local ADDITIONS=`printf "$1" | grep -E "^\+{1}\s"`
     local DELETIONS=`printf "$1" | grep -E "^-{1}\s"`
