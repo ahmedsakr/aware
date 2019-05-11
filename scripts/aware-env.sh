@@ -17,5 +17,5 @@ fi
 
 # Useful export variables for potential new scripts.
 export AWARE_SERVER_JIRA="aware-jira"
-export AWARE_SERVER_DEPLOYMENT="aware-deploy-1"
+export AWARE_SERVER_DEV="aware-dev"
 export AWARE_REPO_SSH="git@github.com:ahmedsakr/aware.git"
