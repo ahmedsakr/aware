@@ -31,12 +31,10 @@ io.on('connection', function(socket) {
   socket.on('chat message', function(msg) {
     // get current room of socket to emit message in
     var currentRoom = getRoom();
-    if (currentRoom != '') {
+    if (currentRoom != null) {
       io.in(currentRoom).emit('chat message', msg)
-
       // Append message to history for this room
       chatHistory[currentRoom].push(msg);
-      console.log(chatHistory)
     }
   });
 
@@ -46,7 +44,6 @@ io.on('connection', function(socket) {
       if (room != '') {
         chatHistory[room] = []
         console.log("added room to history" + room)
-        console.log(chatHistory)
       }
     } else {
       for (var i = 0; i < chatHistory[room].length; i++) {
