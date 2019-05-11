@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CURRENT_DIRECTORY=`pwd`
-BASE_DIR=`dirname $CURRENT_DIRECTORY`
+# Root directory of the aware repository (one directory above where the script resides).
+BASE_DIR=$(dirname $(dirname `realpath $0`))
 
 # The NPM Configuration files that track the build dependencies.
 PACKAGE_FILE=$BASE_DIR/aware-app/package.json
