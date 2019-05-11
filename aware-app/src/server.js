@@ -1,6 +1,9 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+// Grab port from Nodemon command & if not specified set to 5001
+var port = process.argv[2];
+if (port == undefined) port = 5001;
 
 var chatHistory = {};
 
@@ -57,6 +60,6 @@ io.on('connection', function(socket) {
   }
 });
 
-http.listen(5001, function(){
-  console.log('listening on *:5001');
+http.listen(port, function(){
+  console.log('listening on *:' + port);
 });
