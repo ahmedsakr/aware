@@ -9,8 +9,6 @@ PACKAGE_LOCK_FILE=$BASE_DIR/aware-app/package-lock.json
 
 NODE_MODULES_DIRECTORY=$BASE_DIR/aware-app/node_modules
 NODE_MODULES_ARCHIVE=$BASE_DIR/aware-app/npm-modules/node_modules.tar.gz
-NODE_MODULES_PARTS_NUM=10
-NODE_MODULES_PART_FORMAT="$NODE_MODULES_ARCHIVE.part.%d"
 
 # Allows execution of git commands anywhere in the system for this repo.
 PATH_INDEPENDENT_GIT="git --work-tree=$BASE_DIR --git-dir=$BASE_DIR/.git"
