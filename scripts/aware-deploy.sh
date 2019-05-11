@@ -16,7 +16,7 @@ parse_options() {
             
             # Specify a port to run the app on.
             p)
-            AWARE_APP_PORT=$OPTARG
+            AWARE_APP_PORT_CLIENT=$OPTARG
             ;;
             # Modify how long the app runs before terminating
             r)
@@ -39,7 +39,8 @@ printf "aware-deploy\n=======\n\n"
 #
 # It must be above 1024 because only root is allowed to claim ports lower
 # than 1024.
-AWARE_APP_PORT=$((RANDOM + 1024))
+AWARE_APP_PORT_CLIENT=$((RANDOM + 1024))
+AWARE_APP_PORT_SERVER=$((RANDOM + 1024))
 AWARE_APP_RUNTIME=20
 
 # Parse all available options
@@ -51,13 +52,14 @@ if [ $# -ne 1 ]; then
     help
 fi
 
-inform_aligned "Aware Port" "$AWARE_APP_PORT"
+inform_aligned "Aware Client Port" "$AWARE_APP_PORT_CLIENT"
+inform_aligned "Aware Server Port" "$AWARE_APP_PORT_SERVER"
 inform_aligned "Branch to deploy" "$1"
 inform_aligned "Server" "$AWARE_SERVER_DEV"
 
 printf "\nConnecting to $AWARE_SERVER_DEV...\n"
 
-ssh root@"$AWARE_SERVER_DEV" "/bin/bash -s $1 $AWARE_APP_PORT $AWARE_APP_RUNTIME" << 'DEPLOY'
+ssh root@"$AWARE_SERVER_DEV" "/bin/bash -s $1 $AWARE_APP_PORT_CLIENT $AWARE_APP_PORT_SERVER $AWARE_APP_RUNTIME" << 'DEPLOY'
     
 inform_aligned() {
     printf "%-40s: %s\n" "$1" "$2"
@@ -81,16 +83,25 @@ inform_aligned "Git branch" "$AWARE_BRANCH"
 echo "Extracting node_modules.tar.gz..."
 ../scripts/aware-modules.sh --extract
     
-sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start/g" package.json
+sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start --disableHostCheck=true/g" package.json
+sed -i -s -e "s/server.js/server.js $3 --disableHostCheck=true/g" package.json
+sed -i -s -e "s/localhost:5001/localhost:$3/g" package.json
 
 echo "Invoking 'npm start...'"
-npm start > /dev/null &
-inform_aligned "npm start" "complete"
+npm run server > /dev/null &
+sleep 5s
+
+inform_aligned "npm run server" "complete"
+
+npm run client > /dev/null &
+inform_aligned "npm run client" "complete"
 
 inform_aligned "Deployment available at" "http://$AWARE_SERVER_DEV:$2"
 
-at now + $3 minutes >& /dev/null << CLEANUP
+at now + $4 minutes >& /dev/null << CLEANUP
 lsof -i :$2 | grep *:$2 | cut -d ' ' -f 5 | xargs kill
+lsof -i :$3 | grep *:$3 | cut -d ' ' -f 5 | xargs kill
+
 rm -rf /tmp/$DEPLOYMENT_DIR
 CLEANUP
 
