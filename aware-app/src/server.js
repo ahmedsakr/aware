@@ -14,7 +14,6 @@ app.get('/server', (req, res) => {
 
 io.on('connection', function(socket) {
   console.log('Client Has Connected, id: ' + socket.id)
-  console.log (port)
 
   socket.on('room', function(room) {
     var currentRoom = getRoom();
