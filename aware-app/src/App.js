@@ -8,7 +8,6 @@ import ChatTitle from './messaging-service/ChatFeature/ChatTitle/ChatTitle'
 import DirectMessages from './messaging-service/ChatSelector/DirectMessages/DirectMessages'
 import MessageInput from './messaging-service/ChatFeature/MessageInput/MessageInput'
 
-
 import io from 'socket.io-client'
 
 class App extends Component {
