@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SentMessage should render correctly in "debug" mode 1`] = `
+<div
+  class="sentMessage"
+>
+  <div
+    class="col-sm-3 sentMessage-timestamp"
+  />
+  <div
+    class="col-sm-7 sentMessage-text"
+  />
+  <div
+    class="col-sm-2 sentMessage-profile"
+  >
+    <img
+      class="sentMessage-profile-img"
+      src="undefined"
+    />
+    <p
+      class="sentMessage-profile-name"
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar should render correctly in "debug" mode 1`] = `
+<div
+  class="row"
+  id="vertical-menu"
+>
+  <NavBarItem
+    name="sysc 2100"
+    src="/icons8-monitor-64.png"
+  />
+  <NavBarItem
+    name="sysc 2003"
+    src="/icons8-monitor-64.png"
+  />
+  <NavBarItem
+    name="sysc 2004"
+    src="/icons8-monitor-64.png"
+  />
+  <NavBarItem
+    name="elec 2501"
+    src="/icons8-electronics-50.png"
+  />
+  <NavBarItem
+    name="elec 2607"
+    src="/icons8-electronics-50.png"
+  />
+</div>
+`;
