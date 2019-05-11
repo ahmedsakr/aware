@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageInput should render correctly in "debug" mode 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <div
+    id="message-input"
+  >
+    <img
+      alt="PDF"
+      class="col-1"
+      id="message-input-insert-png"
+      src="/icons8-document-80.png"
+    />
+    <input
+      class="col-10"
+      id="message-input-textfield"
+      name="message"
+      onChange={[Function]}
+      placeholder="Type here.."
+      type="text"
+      value=""
+    />
+    <input
+      alt="SEND"
+      class="col-1"
+      disabled={true}
+      id="message-input-send-img"
+      src="/icons8-send-letter-80.png"
+      type="image"
+    />
+  </div>
+</form>
+`;

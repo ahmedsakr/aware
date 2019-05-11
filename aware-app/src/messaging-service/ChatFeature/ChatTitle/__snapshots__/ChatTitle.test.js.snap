@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatTitle should render correctly in "debug" mode 1`] = `
+<div
+  id="chat-title"
+>
+  <p>
+     - Course Discussion
+  </p>
+</div>
+`;

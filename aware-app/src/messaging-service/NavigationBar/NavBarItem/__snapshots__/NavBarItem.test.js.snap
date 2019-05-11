@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBarItem should render correctly in "debug" mode 1`] = `
+<a
+  class="chat-navigation-item"
+  href="/"
+>
+  <img
+    alt="sysc 2100"
+    src="/icons8-monitor-64.png"
+  />
+  <p>
+    SYSC 2100
+  </p>
+</a>
+`;
