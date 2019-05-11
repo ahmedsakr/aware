@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import './style/App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
-import NavBar from './messaging-service/NavBar/NavBar'
-import ChatTitle from './messaging-service/ChatFeature/ChatTitle'
-import DirectMessages from './messaging-service/DirectMessage/DirectMessages'
-import MessageInput from './messaging-service/ChatFeature/MessageInput'
-import ChatWindow from './messaging-service/ChatFeature/ChatWindow'
+
+import NavBar from './messaging-service/NavigationBar/NavBar/NavBar'
+import ChatWindow from './messaging-service/ChatFeature/ChatWindow/ChatWindow'
+import ChatTitle from './messaging-service/ChatFeature/ChatTitle/ChatTitle'
+import DirectMessages from './messaging-service/ChatSelector/DirectMessages/DirectMessages'
+import MessageInput from './messaging-service/ChatFeature/MessageInput/MessageInput'
+
+
 import io from 'socket.io-client'
 
 class App extends Component {
