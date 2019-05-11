@@ -63,41 +63,41 @@ exports[`ChatWindow should render component correctly 1`] = `
         </div>
       </div>
     </ReceivedMessage>
-    <SentMessage
+    <ReceivedMessage
       avatar="/icons8-user-80blue.png"
       message="Same broda."
       student="Josh"
       timestamp="December 1, 2018 - 12:22 pm"
     >
       <div
-        class="sentMessage"
+        class="receivedMessage"
       >
         <div
-          class="col-sm-3 sentMessage-timestamp"
-        >
-          December 1, 2018 - 12:22 pm
-        </div>
-        <div
-          class="col-sm-7 sentMessage-text"
-        >
-          Same broda.
-        </div>
-        <div
-          class="col-sm-2 sentMessage-profile"
+          class="col-sm-2 receivedMessage-profile"
         >
           <img
             alt="Josh"
-            class="sentMessage-profile-img"
+            class="receivedMessage-profile-img"
             src="/icons8-user-80blue.png"
           />
           <p
-            class="sentMessage-profile-name"
+            class="receivedMessage-profile-name"
           >
             Josh
           </p>
         </div>
+        <div
+          class="col-sm-7 receivedMessage-text"
+        >
+          Same broda.
+        </div>
+        <div
+          class="col-sm-3 receivedMessage-timestamp"
+        >
+          December 1, 2018 - 12:22 pm
+        </div>
       </div>
-    </SentMessage>
+    </ReceivedMessage>
     <ReceivedMessage
       avatar="/icons8-user-80blue.png"
       message="guys, I am hungry."

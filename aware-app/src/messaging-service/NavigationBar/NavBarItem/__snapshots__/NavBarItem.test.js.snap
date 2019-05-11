@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NavBarItem should render correctly in "debug" mode 1`] = `
-<a
+<div
   class="chat-navigation-item"
-  href="/"
+  onClick={[Function]}
 >
   <img
     alt="sysc 2100"
@@ -12,5 +12,5 @@ exports[`NavBarItem should render correctly in "debug" mode 1`] = `
   <p>
     SYSC 2100
   </p>
-</a>
+</div>
 `;
