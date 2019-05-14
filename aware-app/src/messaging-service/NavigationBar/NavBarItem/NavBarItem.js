@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
-import './NavBar.css'
+import '../NavBar/NavBar.css';
+
 class NavBarLink extends Component {
   render() {
     const {className, icon, name} = this.props;
 
     return (
-      <a href="/" class={className + " navigation-menu-link"}>
+      <div onClick={() => { this.props.selectRoom(this.props.room)}} class={className + " navigation-menu-link"}>
         <span class={icon} aria-hidden="true"></span>
         <p>{name}</p>
-      </a>
+      </div>
     );
   }
 }

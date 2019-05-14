@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import './MessageInput.css';
-import {produceTimestamp} from '../../aware-utils.js'
+import {produceTimestamp} from '../../../aware-utils.js'
 
 class MessageInput extends Component {
   constructor() {
     super()
-    this.state = {
-       message: ''
-    }
+    this.state = {message: ''}
+
     //Need to bind 'this' to give access to keyword
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,7 +18,7 @@ class MessageInput extends Component {
         <div id="message-input">
           <img class="col-1" id="message-input-insert-png" src={process.env.PUBLIC_URL + "/icons8-document-80.png"} alt="PDF"/>
           <input class="col-10" id="message-input-textfield" type="text" name="message" placeholder="Type here.." onChange={this.handleChange} value={this.state.message}/>
-          <input class="col-1" id="message-input-send-img" type="image" src={process.env.PUBLIC_URL + "/icons8-send-letter-80.png"} alt="SEND" />
+          <input class="col-1" id="message-input-send-img" type="image" src={process.env.PUBLIC_URL + "/icons8-send-letter-80.png"} alt="SEND" disabled={!this.state.message}/>
         </div>
       </form>
     );
@@ -37,12 +36,13 @@ class MessageInput extends Component {
     e.preventDefault();
     // Build a message object to be sent
     const messageObj = {
-      studentName: "Josh",
+      studentName: this.props.name,
       text: this.state.message,
       timestamp: produceTimestamp(),
       avatar: "/icons8-user-80blue.png"
     };
     this.props.sendMessage(messageObj);
+
     //Reset state of input to erase previous message
     this.setState({
       message: ''

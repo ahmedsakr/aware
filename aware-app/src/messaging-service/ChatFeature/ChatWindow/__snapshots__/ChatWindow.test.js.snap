@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatWindow should render component correctly 1`] = `
+<ChatWindow
+  messages={
+    Array [
+      Object {
+        "avatar": "/icons8-user-80blue.png",
+        "studentName": "Ahmed",
+        "text": "Yeah, I am kinda drunk.",
+        "timestamp": "December 1, 2018 - 12:22 pm",
+      },
+      Object {
+        "avatar": "/icons8-user-80blue.png",
+        "studentName": "Josh",
+        "text": "Same broda.",
+        "timestamp": "December 1, 2018 - 12:22 pm",
+      },
+      Object {
+        "avatar": "/icons8-user-80blue.png",
+        "studentName": "Arsalan",
+        "text": "guys, I am hungry.",
+        "timestamp": "December 1, 2018 - 12:22 pm",
+      },
+    ]
+  }
+>
+  <div
+    id="chat"
+  >
+    <ReceivedMessage
+      avatar="/icons8-user-80blue.png"
+      message="Yeah, I am kinda drunk."
+      student="Ahmed"
+      timestamp="December 1, 2018 - 12:22 pm"
+    >
+      <div
+        class="receivedMessage"
+      >
+        <div
+          class="col-sm-2 receivedMessage-profile"
+        >
+          <img
+            alt="Ahmed"
+            class="receivedMessage-profile-img"
+            src="/icons8-user-80blue.png"
+          />
+          <p
+            class="receivedMessage-profile-name"
+          >
+            Ahmed
+          </p>
+        </div>
+        <div
+          class="col-sm-7 receivedMessage-text"
+        >
+          Yeah, I am kinda drunk.
+        </div>
+        <div
+          class="col-sm-3 receivedMessage-timestamp"
+        >
+          December 1, 2018 - 12:22 pm
+        </div>
+      </div>
+    </ReceivedMessage>
+    <ReceivedMessage
+      avatar="/icons8-user-80blue.png"
+      message="Same broda."
+      student="Josh"
+      timestamp="December 1, 2018 - 12:22 pm"
+    >
+      <div
+        class="receivedMessage"
+      >
+        <div
+          class="col-sm-2 receivedMessage-profile"
+        >
+          <img
+            alt="Josh"
+            class="receivedMessage-profile-img"
+            src="/icons8-user-80blue.png"
+          />
+          <p
+            class="receivedMessage-profile-name"
+          >
+            Josh
+          </p>
+        </div>
+        <div
+          class="col-sm-7 receivedMessage-text"
+        >
+          Same broda.
+        </div>
+        <div
+          class="col-sm-3 receivedMessage-timestamp"
+        >
+          December 1, 2018 - 12:22 pm
+        </div>
+      </div>
+    </ReceivedMessage>
+    <ReceivedMessage
+      avatar="/icons8-user-80blue.png"
+      message="guys, I am hungry."
+      student="Arsalan"
+      timestamp="December 1, 2018 - 12:22 pm"
+    >
+      <div
+        class="receivedMessage"
+      >
+        <div
+          class="col-sm-2 receivedMessage-profile"
+        >
+          <img
+            alt="Arsalan"
+            class="receivedMessage-profile-img"
+            src="/icons8-user-80blue.png"
+          />
+          <p
+            class="receivedMessage-profile-name"
+          >
+            Arsalan
+          </p>
+        </div>
+        <div
+          class="col-sm-7 receivedMessage-text"
+        >
+          guys, I am hungry.
+        </div>
+        <div
+          class="col-sm-3 receivedMessage-timestamp"
+        >
+          December 1, 2018 - 12:22 pm
+        </div>
+      </div>
+    </ReceivedMessage>
+    <div
+      id="scrollbar"
+    />
+  </div>
+</ChatWindow>
+`;

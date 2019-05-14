@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+  import React, { Component } from 'react';
 import './ChatTitle.css'
 
 class ChatTitle extends Component {
 
     render() {
-        const {course} = this.props;
+        const {chatTitle} = this.props;
 
         return(
             <div id="chat-title">
-                <p>{course} - Course Discussion</p>
+                <p>{chatTitle} - Course Discussion</p>
             </div>
         );
     }

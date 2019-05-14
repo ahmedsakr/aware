@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ReceivedMessage from "./ReceivedMessage"
-import SentMessage from "./SentMessage"
+import ReceivedMessage from "../ReceivedMessage/ReceivedMessage"
+import SentMessage from "../SentMessage/SentMessage"
 import './ChatWindow.css'
 
 class ChatWindow extends Component {
@@ -9,6 +9,18 @@ class ChatWindow extends Component {
     receivedMessage: ReceivedMessage
   };
 
+scrollToBottom = () => {
+  this.messagesEnd.scrollIntoView({ behavior: "auto" });//animate it to behavior:smooth
+}
+
+componentDidMount() {
+  this.scrollToBottom();
+}
+
+componentDidUpdate() {
+  this.scrollToBottom();
+}
+
   render() {
     //Can change to this.components.sentMessage to change its rendering.
     var Message = this.components.sentMessage;
@@ -16,7 +28,7 @@ class ChatWindow extends Component {
     return(
       <div id="chat">
         {this.props.messages.map(message => {
-          if (message.studentName === "Josh") {
+          if (message.studentName === this.props.name) {
             Message = this.components.sentMessage;
           } else {
             Message = this.components.receivedMessage;
@@ -25,7 +37,11 @@ class ChatWindow extends Component {
             <Message student={message.studentName} avatar={message.avatar} message={message.text} timestamp={message.timestamp}/>
           )
         })}
+        <div id="scrollbar" ref={(el) => {
+          this.messagesEnd = el;
+        }}></div>
       </div>
+
     );
   }
 }
