@@ -1,10 +1,11 @@
 #navigation-menu {
   background-color: #232f3e;
   display: block;
+  text-align: center;
 }
 
 .navigation-menu-title {
-  color: orange;
+  color: #ffc000;
 }
 
 .navigation-menu-logo > p {

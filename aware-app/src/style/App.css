@@ -1,13 +1,23 @@
-.App {
-  text-align: center;
-  display: block;
-}
-
 .aware-container {
   height: 100vh;
   max-height: 100vh;
+  flex-direction: column;
 }
 
 .aware-column {
   height: 100%;
+}
+
+#navigation-header{
+  flex: 0 1 auto;
+}
+
+#messenger-body {
+  flex: 1 0 auto;
+  display: flex;
+}
+
+#messenger {
+  display: flex;
+  flex-flow: column;
 }

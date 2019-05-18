@@ -11,5 +11,10 @@
 }
 
 #message-input {
+    background-color: #eaeff1;
     text-align: left;
+}
+
+form {
+    flex: 0 1 auto;
 }

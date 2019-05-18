@@ -34,18 +34,20 @@ class App extends Component {
     return (
       <div class="container-fluid" className="App">
         <div class="row aware-container">
-          <div class="col-12">
-            <NavBar activeRoom={this.state.chatTitle}/>
+          <div class="col-12" id="navigation-header">
+            <NavBar activeRoom={this.state.chatTitle} />
           </div>
 
-          <div class="col-2 pr-0">
-            <ChatSelector selectRoom={selectRoom}/>
-          </div>
+          <div class="col-12" id="messenger-body">
+            <div class="col-2 p-0">
+              <ChatSelector selectRoom={selectRoom} />
+            </div>
 
-          <div class="col-10 aware-column p-0">
-            <ActivityPanel />
-            <ChatWindow messages={this.state.messages} name={this.state.name} />
-            <MessageInput sendMessage={sendMessage} name={this.state.name}/>
+            <div id="messenger" class="col-10 p-0">
+              <ActivityPanel />
+              <ChatWindow messages={this.state.messages} name={this.state.name} />
+              <MessageInput sendMessage={sendMessage} name={this.state.name} />
+            </div>
           </div>
         </div>
       </div>
