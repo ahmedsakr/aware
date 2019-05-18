@@ -6,7 +6,7 @@ import '../node_modules/font-awesome/css/font-awesome.min.css'
 import NavBar from './messaging-service/NavigationBar/NavBar/NavBar'
 import ChatSelector from './messaging-service/ChatSelector/ChatSelector'
 import ChatWindow from './messaging-service/ChatFeature/ChatWindow/ChatWindow'
-import ChatTitle from './messaging-service/ChatFeature/ChatTitle/ChatTitle'
+import ActivityPanel from './messaging-service/ChatFeature/ActivityPanel/ActivityPanel'
 import MessageInput from './messaging-service/ChatFeature/MessageInput/MessageInput'
 
 import io from 'socket.io-client'
@@ -43,7 +43,7 @@ class App extends Component {
           </div>
 
           <div class="col-10 aware-column p-0">
-            <ChatTitle />
+            <ActivityPanel />
             <ChatWindow messages={this.state.messages} name={this.state.name} />
             <MessageInput sendMessage={sendMessage} name={this.state.name}/>
           </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ChatTitle from './ChatTitle';
+import ChatTitle from './ActivityPanel';
 
 describe('ChatTitle', () => {
   it('should render correctly in "debug" mode', () => {
