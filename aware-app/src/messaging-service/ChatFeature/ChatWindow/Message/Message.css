@@ -1,3 +1,8 @@
+/*
+ * Message styling
+ *
+ * Defines layout fundamentals for every message.
+ */
 .message {
     margin-top: 10px;
     display: flex;
