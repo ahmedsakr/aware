@@ -1,15 +1,8 @@
-#chat-title {
-    margin: 0px;
-    display: block;
+#activity-panel {
+    display: flex;
+    align-items: center;
     text-align: left;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
     background-color: #ebebeb;
     height: 5%;
-}
-
-#chat-title > p {
-    margin: 0px;
     padding-left: 5px;
 }
