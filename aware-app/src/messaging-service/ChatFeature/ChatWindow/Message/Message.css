@@ -1,79 +1,90 @@
-.received-message {
+.message {
     margin-top: 10px;
     display: flex;
 }
 
-.received-message-profile {
-    border: 2px solid rgb(54, 56, 58);
-    border-radius: 5px;
-    text-align: center;
-    padding: 0px;
-    margin-right: 5px;
-}
-
-.received-message-profile-img {
-    max-width: 30%;
-}
-
-.received-message-profile-name {
-    background-color: #bac1b8;
-    text-align: center;
-    margin: 0px;
-}
-
-.received-message-text {
-    background-color: #a1c6ea;
-    border-radius: 10px;
-    padding: 5px;
-    margin-right: 5px;
-}
-
-.received-message-timestamp {
-    padding: 0px;
-    text-align: left;
-    font-size: 0.6em;
+.received-message {
+    margin-left: 5px;
+    padding-left: 15px;
 }
 
 .sent-message {
-    margin-top: 10px;
-    display: flex;
     margin-right: 5px;
     padding-right: 15px;
-    text-align: center;
 }
 
-.sent-message-profile {
-    padding: 0px;
-    font-size: 0.8em;
-}
-
-.sent-message-profile-name {
-    margin: 0px;
-}
-
-.sent-message-text {
+/*
+ * Message text styling
+ *
+ * The messages bubbles are designed to be fluid in size relative to the size of the text.
+ */
+.message-text {
     display: flex;
     align-items: flex-end;
     text-align: left;
+}
+
+.message-text > p {
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.received-message-text > p {
+    background-color: #a1c6ea;
+    margin-right: 5px;
 }
 
 .sent-message-text > p {
     background-color: #507dbc;
-    border-radius: 10px;
-    padding: 5px;
     margin-left: 5px;
-    width: 100%;
-    margin-bottom: 0px;
 }
 
-.sent-message-timestamp {
+/*
+ * Profile styling
+ * 
+ * Profile elements for every message include the profile picture and the first
+ * name of the sender. The name is centered under the profile image.
+ */
+.message-profile {
     padding: 0px;
-    text-align: right;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.message-profile-name {
+    margin: 0px;
+}
+
+
+/*
+ * Timestamp styling
+ * 
+ * The timestamp is designed to be on the bottom level of the divider with a minor padding
+ * aware from the message.
+ */
+.message-timestamp {
+    padding: 0px;
     font-size: 1em;
     display: flex;
     align-items: flex-end;
-    justify-content: flex-end;
     opacity: 0.8;
+}
+
+.received-message-timestamp {
+    text-align: left;
+    justify-content: flex-start;
+}
+
+.sent-message-timestamp {
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.received-message-timestamp > p {
+    margin: 0;
+    padding-left: 5px;
 }
 
 .sent-message-timestamp > p {

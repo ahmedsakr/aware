@@ -6,18 +6,18 @@ class Message extends Component {
 
     produceMessageByThem(content) {
         return (
-            <div class="received-message">
-                <div class="col-sm-1 received-message-profile">
-                    <img class="received-message-profile-img" src={process.env.PUBLIC_URL + content.avatar} alt={content.student} />
-                    <p class="received-message-profile-name">{content.student}</p>
+            <div class="col-sm-12 message received-message">
+                <div class="col-sm-1 message-profile">
+                    <ProfilePicture instance="message" activity="online"  picture={content.avatar}/>
+                    <p class="message-profile-name">{content.studentName}</p>
                 </div>
 
-                <div class="col-sm-4 received-message-text">
-                    {content.text}
+                <div class="col-sm-4 message-text received-message-text">
+                    <p>{content.text}</p>
                 </div>
 
-                <div class="col-sm-2 received-message-timestamp">
-                    {content.timestamp}
+                <div class="col-sm-2 message-timestamp received-message-timestamp">
+                    <p>{content.timestamp}</p>
                 </div>
             </div>
         );
@@ -25,16 +25,16 @@ class Message extends Component {
 
     produceMessageByMe(content) {
         return (
-            <div class="col-sm-12 sent-message">
-                <div class="offset-sm-5 col-sm-2 sent-message-timestamp">
+            <div class="col-sm-12 message sent-message">
+                <div class="offset-sm-5 col-sm-2 message-timestamp sent-message-timestamp">
                     <p>{content.timestamp}</p> 
                 </div>
-                <div class="col-sm-4 sent-message-text">
+                <div class="col-sm-4 message-text sent-message-text">
                     <p>{content.text}</p>
                 </div>
-                <div class="col-sm-1 sent-message-profile">
+                <div class="col-sm-1 message-profile">
                     <ProfilePicture instance="message" activity="online"  picture={content.avatar}/>
-                    <p class="sent-message-profile-name">{content.studentName}</p>
+                    <p class="message-profile-name">{content.studentName}</p>
                 </div>
             </div>
         );
