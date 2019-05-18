@@ -1,42 +1,31 @@
 import React, { Component } from 'react';
-import ReceivedMessage from "../ReceivedMessage/ReceivedMessage"
-import SentMessage from "../SentMessage/SentMessage"
+import Message from "./Message/Message"
 import './ChatWindow.css'
 
 class ChatWindow extends Component {
-  components = {
-    sentMessage: SentMessage,
-    receivedMessage: ReceivedMessage
-  };
 
-scrollToBottom = () => {
-  this.messagesEnd.scrollIntoView({ behavior: "auto" });//animate it to behavior:smooth
-}
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "auto" });//animate it to behavior:smooth
+  }
 
-componentDidMount() {
-  this.scrollToBottom();
-}
+  componentDidMount() {
+    this.scrollToBottom();
+  }
 
-componentDidUpdate() {
-  this.scrollToBottom();
-}
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
 
   render() {
-    //Can change to this.components.sentMessage to change its rendering.
-    var Message = this.components.sentMessage;
-
     return(
       <div id="chat">
-        {this.props.messages.map(message => {
-          if (message.studentName === this.props.name) {
-            Message = this.components.sentMessage;
-          } else {
-            Message = this.components.receivedMessage;
-          }
-          return (
-            <Message student={message.studentName} avatar={message.avatar} message={message.text} timestamp={message.timestamp}/>
-          )
-        })}
+        {
+          this.props.messages.map(message => {
+            return (
+              <Message name={this.props.name} content={message} />
+            )
+          })
+        }
         <div id="scrollbar" ref={(el) => {
           this.messagesEnd = el;
         }}></div>
