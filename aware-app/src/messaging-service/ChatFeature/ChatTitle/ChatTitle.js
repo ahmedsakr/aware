@@ -4,11 +4,9 @@ import './ChatTitle.css'
 class ChatTitle extends Component {
 
     render() {
-        const {chatTitle} = this.props;
-
         return(
             <div id="chat-title">
-                <p>{chatTitle} - Course Discussion</p>
+                <p>Course Discussion</p>
             </div>
         );
     }

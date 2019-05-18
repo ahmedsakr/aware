@@ -43,7 +43,7 @@ class App extends Component {
           </div>
 
           <div class="col-10 aware-column p-0">
-            <ChatTitle chatTitle={this.state.chatTitle} />
+            <ChatTitle />
             <ChatWindow messages={this.state.messages} name={this.state.name} />
             <MessageInput sendMessage={sendMessage} name={this.state.name}/>
           </div>
