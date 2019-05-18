@@ -35,7 +35,7 @@ class App extends Component {
       <div class="container-fluid" className="App">
         <div class="row aware-container">
           <div class="col-12">
-            <NavBar/>
+            <NavBar activeRoom={this.state.chatTitle}/>
           </div>
 
           <div class="col-2 pr-0">
