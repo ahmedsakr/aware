@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import './Message.css'
+import ProfilePicture from '../../Profile/ProfilePicture'
 
 class Message extends Component {
 
     produceMessageByThem(content) {
         return (
             <div class="received-message">
-                <div class="col-sm-2 received-message-profile">
+                <div class="col-sm-1 received-message-profile">
                     <img class="received-message-profile-img" src={process.env.PUBLIC_URL + content.avatar} alt={content.student} />
                     <p class="received-message-profile-name">{content.student}</p>
                 </div>
 
-                <div class="col-sm-7 received-message-text">
+                <div class="col-sm-4 received-message-text">
                     {content.text}
                 </div>
 
-                <div class="col-sm-3 received-message-timestamp">
+                <div class="col-sm-2 received-message-timestamp">
                     {content.timestamp}
                 </div>
             </div>
@@ -24,16 +25,16 @@ class Message extends Component {
 
     produceMessageByMe(content) {
         return (
-            <div class="sent-message">
-                <div class="col-sm-3 sent-message-timestamp">
-                    {content.timestamp}
+            <div class="col-sm-12 sent-message">
+                <div class="offset-sm-5 col-sm-2 sent-message-timestamp">
+                    <p>{content.timestamp}</p> 
                 </div>
-                <div class="col-sm-7 sent-message-text">
-                    {content.text}
+                <div class="col-sm-4 sent-message-text">
+                    <p>{content.text}</p>
                 </div>
-                <div class="col-sm-2 sent-message-profile">
-                    <img class="sent-message-profile-img" src={process.env.PUBLIC_URL + content.avatar} alt={content.student} />
-                    <p class="sent-message-profile-name">{content.student}</p>
+                <div class="col-sm-1 sent-message-profile">
+                    <ProfilePicture instance="message" activity="online"  picture={content.avatar}/>
+                    <p class="sent-message-profile-name">{content.studentName}</p>
                 </div>
             </div>
         );
