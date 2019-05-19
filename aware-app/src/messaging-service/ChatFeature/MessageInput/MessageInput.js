@@ -38,7 +38,7 @@ class MessageInput extends Component {
       studentName: this.props.name,
       text: this.state.message,
       timestamp: produceTimestamp(),
-      avatar: "/icons8-user-80blue.png"
+      avatar: "/" + this.props.name + "-pic.jpg"
     };
     this.props.sendMessage(messageObj);
 
