@@ -25,15 +25,22 @@
  */
 .message-text {
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     text-align: left;
+}
+
+.sent-message-text {
+    justify-content: right;
+}
+
+.received-message-text {
+    justify-content: left;
 }
 
 .message-text > p {
     border-radius: 10px;
     padding: 5px;
     margin-bottom: 0px;
-    width: 100%;
 }
 
 .received-message-text > p {
