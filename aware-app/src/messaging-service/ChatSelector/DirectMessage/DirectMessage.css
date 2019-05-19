@@ -1,5 +1,5 @@
 .direct-message {
-    color: white;
+    color: #babdc0;
     padding: 0;
     margin: 0;
 }
@@ -28,5 +28,4 @@
 }
 .direct-message-preview {
     border-radius: 5px;
-    font-style: italic;
 }
