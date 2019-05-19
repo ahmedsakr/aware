@@ -16,9 +16,8 @@ class MessageInput extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div id="message-input">
-          <img class="col-1" id="message-input-insert-png" src={process.env.PUBLIC_URL + "/icons8-document-80.png"} alt="PDF"/>
-          <input class="col-10" id="message-input-textfield" type="text" name="message" placeholder="Type here.." onChange={this.handleChange} value={this.state.message}/>
-          <input class="col-1" id="message-input-send-img" type="image" src={process.env.PUBLIC_URL + "/icons8-send-letter-80.png"} alt="SEND" disabled={!this.state.message}/>
+          <input class="col-11" id="message-input-textfield" type="text" name="message" placeholder="Type here.." onChange={this.handleChange} value={this.state.message} />
+          <input class="col-1" id="message-input-send-img" type="image" src={process.env.PUBLIC_URL + "/icons8-send-letter-80.png"} alt="SEND" disabled={!this.state.message} />
         </div>
       </form>
     );
