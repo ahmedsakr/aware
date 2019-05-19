@@ -39,8 +39,8 @@
 
 .message-text > p {
     border-radius: 10px;
-    padding: 5px;
     margin-bottom: 0px;
+    padding: 0px 10px 0px 10px;
 }
 
 .received-message-text > p {
