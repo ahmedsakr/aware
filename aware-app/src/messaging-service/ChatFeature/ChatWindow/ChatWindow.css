@@ -3,6 +3,7 @@
   padding: 10px;
   background: #ffffff;
   overflow: auto;
+  max-height: 400px;
   word-wrap: break-word;
   flex: 1 0 auto;
 }

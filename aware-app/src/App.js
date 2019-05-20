@@ -32,14 +32,14 @@ class App extends Component {
   render() {
     const {selectRoom, sendMessage } = this;
     return (
-      <div class="container-fluid" className="App">
-        <div class="row aware-container">
-          <div class="col-12" id="navigation-header">
+      <div class="container-fluid aware-container" className="App">
+        <div class="row">
+          <div class="col-12 pr-0" id="navigation-header">
             <NavBar activeRoom={this.state.chatTitle} />
           </div>
 
-          <div class="col-12" id="messenger-body">
-            <div class="col-2 p-0">
+          <div class="col-12 pr-0" id="messenger-body">
+            <div class="col-2 pr-0">
               <ChatSelector selectRoom={selectRoom} />
             </div>
 

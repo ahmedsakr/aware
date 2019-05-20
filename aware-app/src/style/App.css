@@ -20,4 +20,5 @@
 #messenger {
   display: flex;
   flex-flow: column;
+  justify-items: stretch;
 }
