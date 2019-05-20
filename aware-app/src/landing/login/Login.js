@@ -19,7 +19,7 @@ class Login extends Component {
 
                         <button type="submit">Login</button>
 
-                        <label>Don't have an account? <a href="#">register now!</a></label>
+                        <label>Don't have an account? <a href="#" onClick={() => this.props.switch()}>register now!</a></label>
                     </div>
                 </form>
             </div>

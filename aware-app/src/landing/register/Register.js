@@ -14,9 +14,12 @@ class Register extends Component {
                         <label>Password</label>
                         <input type="password"></input>
 
-                        <button type="submit">Login</button>
+                        <label>Confirm Password</label>
+                        <input type="password"></input>
 
-                        <label>Already have an account? <a href="#">login now!</a></label>
+                        <button type="submit">Register</button>
+
+                        <label>Already have an account? <a href="#" onClick={() => this.props.switch()}>login now!</a></label>
                     </div>
                 </form>
             </div>

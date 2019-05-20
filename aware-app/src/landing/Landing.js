@@ -7,16 +7,43 @@ import Login from './login/Login'
 import Register from './register/Register'
 
 class Landing extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      component: Register
+    }
+  }
+
   render() {
+    var Component;
+    if (this.state.component === Login) {
+      Component = Login;
+    } else {
+      Component = Register;
+    }
+
     return (
       <div className="container-fluid aware-container">
         <div id="landing-canvas" className="aware-column row">
           <div id="test-flex" className="col-3 offset-3">
-            <Login />
+            <Component switch = {this.switchView}/>
           </div>
         </div>
       </div>
     );
+  }
+
+  switchView = () => {
+    if (this.state.component === Login) {
+      this.setState({
+        component: Register
+      })
+    } else {
+      this.setState({
+        component: Login
+      })
+    }
   }
 }
 
