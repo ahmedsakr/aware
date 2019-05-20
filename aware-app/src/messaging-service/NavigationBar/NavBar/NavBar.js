@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import NavBarLink, {NavBarLogo, NavBarTitle} from '../NavBarItem/NavBarItem'
+import NavBarLink, {NavBarLogo, NavBarTitle} from '../NavBarLink/NavBarLink'
 import './NavBar.css';
 
 class NavBar extends Component {
