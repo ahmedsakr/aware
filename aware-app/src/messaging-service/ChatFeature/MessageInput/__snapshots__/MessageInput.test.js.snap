@@ -7,14 +7,8 @@ exports[`MessageInput should render correctly in "debug" mode 1`] = `
   <div
     id="message-input"
   >
-    <img
-      alt="PDF"
-      class="col-1"
-      id="message-input-insert-png"
-      src="/icons8-document-80.png"
-    />
     <input
-      class="col-10"
+      class="col-11"
       id="message-input-textfield"
       name="message"
       onChange={[Function]}

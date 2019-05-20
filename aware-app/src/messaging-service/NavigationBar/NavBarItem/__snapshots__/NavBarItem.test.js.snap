@@ -2,15 +2,14 @@
 
 exports[`NavBarItem should render correctly in "debug" mode 1`] = `
 <div
-  class="chat-navigation-item"
+  class="undefined navigation-menu-link"
   onClick={[Function]}
 >
-  <img
-    alt="sysc 2100"
-    src="/icons8-monitor-64.png"
+  <span
+    aria-hidden="true"
   />
   <p>
-    SYSC 2100
+    sysc 2100
   </p>
 </div>
 `;
