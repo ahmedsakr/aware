@@ -9,17 +9,17 @@ class Login extends Component {
                 <h4>Login now to gain access</h4>
                 <form>
                     <div class="container">
-                        <label>Username</label>
+                        <label id="login-username">Username</label>
                         <input type="text"></input>
 
-                        <label>Password</label>
+                        <label id="login-password">Password</label>
                         <input type="password"></input>
 
                         <label><a href="#">Forgot password?</a></label>
 
                         <button type="submit">Login</button>
 
-                        <label>Don't have an account? <a href="#" onClick={() => this.props.switch()}>register now!</a></label>
+                        <label id="login-register">Don't have an account? <a href="#" onClick={() => this.props.switch()}>register now!</a></label>
                     </div>
                 </form>
             </div>

@@ -8,3 +8,11 @@
     color: #c1c7c9;
     text-align: center;    
 }
+
+#register-username, #register-password, #register-confirm {
+    margin-top: 15px;
+}
+
+#register-login {
+    margin-top: 10px;
+}

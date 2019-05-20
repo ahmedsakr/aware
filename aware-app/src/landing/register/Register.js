@@ -8,18 +8,18 @@ class Register extends Component {
                 <h2 id="welcome-message">Create an Aware Account</h2>
                 <form>
                     <div class="container">
-                        <label>Username</label>
+                        <label id="register-username">Username</label>
                         <input type="text"></input>
 
-                        <label>Password</label>
+                        <label id="register-password">Password</label>
                         <input type="password"></input>
 
-                        <label>Confirm Password</label>
+                        <label id="register-confirm">Confirm Password</label>
                         <input type="password"></input>
 
                         <button type="submit">Register</button>
 
-                        <label>Already have an account? <a href="#" onClick={() => this.props.switch()}>login now!</a></label>
+                        <label id="register-login">Already have an account? <a href="#" onClick={() => this.props.switch()}>login now!</a></label>
                     </div>
                 </form>
             </div>
