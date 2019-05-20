@@ -19,16 +19,19 @@ class ChatWindow extends Component {
   render() {
     return(
       <div id="chat">
-        {
-          this.props.messages.map(message => {
-            return (
-              <Message name={this.props.name} content={message} />
-            )
-          })
-        }
-        <div id="scrollbar" ref={(el) => {
-          this.messagesEnd = el;
-        }}></div>
+        <div id="chat-messages">
+          {
+            this.props.messages.map(message => {
+              return (
+                <Message name={this.props.name} content={message} />
+              )
+            })
+          }
+          <div id="scrollbar" ref={(el) => {
+            this.messagesEnd = el;
+          }}></div>
+        </div>
+
       </div>
 
     );
