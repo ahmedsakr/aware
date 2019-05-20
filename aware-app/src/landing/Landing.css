@@ -16,6 +16,7 @@ input[type=text], input[type=password] {
     border: 1px solid #ccc;
     border-color: #18202c;
     border-radius: 7px;
+    color: #a7afb2;
 }
 
 button {
