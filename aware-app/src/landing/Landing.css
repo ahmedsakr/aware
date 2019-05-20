@@ -28,3 +28,14 @@ button {
     border-radius: 7px;
     margin-top: 15px;
 }
+
+label > span {
+    cursor:pointer;
+    color:#008080;
+    text-decoration:underline;
+}
+
+label > span:hover {
+    text-decoration:none;
+    text-shadow: 1px 1px 1px #555;
+}

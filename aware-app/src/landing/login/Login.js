@@ -15,11 +15,11 @@ class Login extends Component {
                         <label id="login-password">Password</label>
                         <input id="landing-textfield" type="password"></input>
 
-                        <label><a href="#">Forgot password?</a></label>
+                        <label><span>Forgot password?</span></label>
 
                         <button type="submit" onClick={() => this.props.loadMessenger()}>Login</button>
 
-                        <label id="login-register">Don't have an account? <a href="#" onClick={() => this.props.switch()}>register now!</a></label>
+                        <label id="login-register">Don't have an account? <span onClick={() => this.props.switch()}>register now!</span></label>
                     </div>
                 </form>
             </div>
