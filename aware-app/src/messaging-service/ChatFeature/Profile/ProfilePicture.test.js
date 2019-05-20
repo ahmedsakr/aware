@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ChatTitle from './ActivityPanel';
+import ProfilePicture from './ProfilePicture';
 
-describe('ChatTitle', () => {
+describe('ProfilePicture', () => {
   it('should render correctly in "debug" mode', () => {
 
-    const component = shallow(<ChatTitle debug />);
+    const component = shallow(<ProfilePicture debug />);
   
     expect(component).toMatchSnapshot();
   });

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfilePicture should render correctly in "debug" mode 1`] = `
+<div
+  class="profile-picture-canvas profile-picture-undefined-size profile-picture-activity-undefined"
+>
+  <img
+    src="undefined"
+  />
+</div>
+`;

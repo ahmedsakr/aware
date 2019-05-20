@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CourseDiscussion should render correctly in "debug" mode 1`] = `
+<div
+  class="chat-navigation-item"
+  onClick={[Function]}
+>
+  <div
+    class="navbar-item-avatar col-2"
+  >
+    <img
+      src="undefined"
+    />
+  </div>
+  <div
+    class="navbar-item-name col-9"
+  >
+    <p />
+  </div>
+</div>
+`;

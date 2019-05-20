@@ -41,7 +41,7 @@ class Message extends Component {
     }
     
     render() {
-        if (this.props.content.studentName === this.props.name) {
+        if (this.props.content.studentName == this.props.name) {
             return this.produceMessageByMe(this.props.content);
         } else {
             return this.produceMessageByThem(this.props.content);

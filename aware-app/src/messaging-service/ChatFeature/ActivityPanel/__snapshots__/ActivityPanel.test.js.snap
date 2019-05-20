@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ChatTitle should render correctly in "debug" mode 1`] = `
+exports[`ActivityPanel should render correctly in "debug" mode 1`] = `
 <div
   class="col-sm-12"
   id="activity-panel"
