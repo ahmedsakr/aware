@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityPanel should render correctly in "debug" mode 1`] = `
+<div
+  class="col-sm-12"
+  id="activity-panel"
+>
+  <ProfilePicture
+    activity="online"
+    instance="activity"
+    picture="ahmed-pic.jpg"
+  />
+  <ProfilePicture
+    activity="online"
+    instance="activity"
+    picture="josh-pic.jpg"
+  />
+  <ProfilePicture
+    activity="online"
+    instance="activity"
+    picture="arsalan-pic.jpg"
+  />
+  <ProfilePicture
+    activity="online"
+    instance="activity"
+    picture="louis-ck-pic.JPG"
+  />
+  <ProfilePicture
+    activity="online"
+    instance="activity"
+    picture="mia-khalifa-pic.jpg"
+  />
+  <ProfilePicture
+    activity="offline"
+    instance="activity"
+    picture="bill-gates-pic.jpg"
+  />
+  <ProfilePicture
+    activity="offline"
+    instance="activity"
+    picture="megan-fox-pic.jpg"
+  />
+</div>
+`;

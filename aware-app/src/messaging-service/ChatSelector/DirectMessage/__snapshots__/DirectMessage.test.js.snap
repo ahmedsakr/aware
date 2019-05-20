@@ -2,17 +2,17 @@
 
 exports[`DirectMessage should render correctly in "debug" mode 1`] = `
 <div
-  class="direct-message"
+  class="col-12 direct-message"
 >
   <div
-    class="direct-message-avatar col-3"
+    class="direct-message-avatar col-2"
   >
     <img
       src="undefined"
     />
   </div>
   <div
-    class="direct-message-content col-9"
+    class="direct-message-content col-10"
   >
     <p
       class="col-12"

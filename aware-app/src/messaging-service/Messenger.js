@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import './Messenger.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css'
+import '../../node_modules/font-awesome/css/font-awesome.min.css'
 
 import NavBar from './NavigationBar/NavBar/NavBar'
+import ChatSelector from './ChatSelector/ChatSelector'
 import ChatWindow from './ChatFeature/ChatWindow/ChatWindow'
-import ChatTitle from './ChatFeature/ChatTitle/ChatTitle'
-import DirectMessages from './ChatSelector/DirectMessages/DirectMessages'
+import ActivityPanel from './ChatFeature/ActivityPanel/ActivityPanel'
 import MessageInput from './ChatFeature/MessageInput/MessageInput'
 
 import io from 'socket.io-client'
 
-class Messenger extends Component {
+class App extends Component {
   constructor() {
     super()
 
@@ -31,22 +32,27 @@ class Messenger extends Component {
   render() {
     const {selectRoom, sendMessage } = this;
     return (
-      <div class="container-fluid" className="Messenger">
-        <div class="row aware-container">
-          <div class="col-1 aware-column">
-            <NavBar selectRoom={selectRoom}/>
-          </div>
+      <div class="aware-container" className="App">
+        <div className="container-fluid aware-container">
+          <div id="messenger-root" class="row">
+            <div class="col-12 p-0" id="navigation-header">
+              <NavBar activeRoom={this.state.chatTitle} />
+            </div>
 
-          <div class="col-8 aware-column">
-            <ChatTitle chatTitle={this.state.chatTitle} />
-            <ChatWindow messages={this.state.messages} name={this.state.name} />
-            <MessageInput sendMessage={sendMessage} name={this.state.name}/>
-          </div>
+            <div class="col-12 p-0" id="messenger-body">
+              <div class="col-2 p-0">
+                <ChatSelector selectRoom={selectRoom} />
+              </div>
 
-          <div class="col-3 aware-column">
-            <DirectMessages />
+              <div id="messenger" class="col-10 p-0">
+                <ActivityPanel />
+                <ChatWindow messages={this.state.messages} name={this.state.name} />
+                <MessageInput sendMessage={sendMessage} name={this.state.name} />
+              </div>
+            </div>
           </div>
         </div>
+        
       </div>
     );
   }
@@ -73,4 +79,4 @@ function tempName() {
   }
 }
 
-export default Messenger;
+export default App;

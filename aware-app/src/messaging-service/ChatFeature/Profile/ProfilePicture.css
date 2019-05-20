@@ -1,0 +1,28 @@
+.profile-picture-canvas {
+    display: inline-block;
+}
+
+.profile-picture-activity-size {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.profile-picture-message-size {
+    width: 48px;
+    height: 48px;
+}
+
+.profile-picture-activity-online {
+    opacity: 1.0;
+}
+
+.profile-picture-activity-offline {
+    opacity: 0.4;
+}
+
+.profile-picture-canvas > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}

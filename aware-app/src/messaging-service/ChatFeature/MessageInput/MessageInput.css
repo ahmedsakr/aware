@@ -1,9 +1,7 @@
 #message-input-textfield {
-  font-size: 24px;
-}
-
-#message-input-insert-png, #message-input-send-img {
-    height: 65px;
+    background-color: #eaeff1;
+    border: none;
+    height: 100%;
 }
 
 #message-input-send-img {
@@ -11,5 +9,13 @@
 }
 
 #message-input {
+    flex: 1 0 auto;
+    background-color: #eaeff1;
     text-align: left;
+}
+
+form {
+    flex: 0 1 auto;
+    display: flex;
+    flex-flow: column;
 }

@@ -1,0 +1,85 @@
+.navigation-menu-title {
+    color: #ffc000;
+}
+
+.navigation-menu-logo > p {
+    color: #babdc0;
+    display: inline;
+    font-size: 1.5em;
+}
+
+.navigation-menu-link:hover {
+    background-color: #18202c;
+    text-decoration: none;
+}
+
+.navigation-menu-link > p {
+    color: #babdc0;
+    display: inline;
+    padding-left: 5px;
+    font-size: 1em;
+    text-align: center;
+}
+
+.navigation-menu-link > span {
+    display: inline;
+    color: #babdc0;
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    .navigation-menu-title > p {
+      font-size: 0.8em;
+    }
+  
+    .navigation-menu-link {
+      font-size: 0.75em;
+    }
+  }
+  
+  @media screen and (min-width: 768px) and (max-width: 992px) {
+    .navigation-menu-title > p {
+      font-size: 1em;
+    }
+  
+    .navigation-menu-link {
+      font-size: 0.75em;
+    }
+  }
+  
+  @media screen and (min-width: 992px) and (max-width: 1200px) {
+    .navigation-menu-title > p {
+      font-size: 1.5em;
+    }
+  
+    .navigation-menu-link {
+      font-size: 0.9em;
+    }
+  }
+  
+  @media screen and (min-width: 1200px) {
+    .navigation-menu-title > p {
+      font-size: 2em;
+    }
+  
+    .navigation-menu-link {
+      font-size: 1.1em;
+    }
+  }
+  
+  @media screen and (max-height: 800px) {
+    .navigation-menu-logo, .navigation-menu-link, .navigation-menu-title {
+      display: inline-block;
+      height: 50px;
+      line-height: 50px;
+      vertical-align: middle;
+    }
+  }
+  
+  @media screen and (max-height: 2000px) {
+    .navigation-menu-logo, .navigation-menu-link, .navigation-menu-title {
+      display: inline-block;
+      height: 70px;
+      line-height: 70px;
+      vertical-align: middle;
+    }
+  }
