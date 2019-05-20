@@ -36,3 +36,52 @@ exports[`ChatTitle should render correctly in "debug" mode 1`] = `
   </div>
 </div>
 `;
+
+exports[`Messenger should render correctly in "debug" mode 1`] = `
+<div
+  class="aware-container"
+  className="App"
+>
+  <div
+    className="container-fluid aware-container"
+  >
+    <div
+      class="row"
+      id="messenger-root"
+    >
+      <div
+        class="col-12 p-0"
+        id="navigation-header"
+      >
+        <NavBar
+          activeRoom=""
+        />
+      </div>
+      <div
+        class="col-12 p-0"
+        id="messenger-body"
+      >
+        <div
+          class="col-2 p-0"
+        >
+          <ChatSelector
+            selectRoom={[Function]}
+          />
+        </div>
+        <div
+          class="col-10 p-0"
+          id="messenger"
+        >
+          <ActivityPanel />
+          <ChatWindow
+            messages={Array []}
+          />
+          <MessageInput
+            sendMessage={[Function]}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
