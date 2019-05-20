@@ -10,7 +10,6 @@ exports[`Landing should render correctly in "debug" mode 1`] = `
   >
     <div
       className="col-3 offset-3"
-      id="test-flex"
     >
       <Register
         switch={[Function]}

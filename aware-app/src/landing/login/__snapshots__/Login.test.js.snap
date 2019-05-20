@@ -22,7 +22,7 @@ exports[`Login should render correctly in "debug" mode 1`] = `
         Username
       </label>
       <input
-        id="landing-textfield"
+        class="landing-textfield"
         type="text"
       />
       <label
@@ -31,15 +31,13 @@ exports[`Login should render correctly in "debug" mode 1`] = `
         Password
       </label>
       <input
-        id="landing-textfield"
+        class="landing-textfield"
         type="password"
       />
       <label>
-        <a
-          href="#"
-        >
+        <span>
           Forgot password?
-        </a>
+        </span>
       </label>
       <button
         onClick={[Function]}
@@ -51,12 +49,11 @@ exports[`Login should render correctly in "debug" mode 1`] = `
         id="login-register"
       >
         Don't have an account? 
-        <a
-          href="#"
+        <span
           onClick={[Function]}
         >
           register now!
-        </a>
+        </span>
       </label>
     </div>
   </form>

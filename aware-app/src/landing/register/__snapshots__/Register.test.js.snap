@@ -19,7 +19,7 @@ exports[`Register should render correctly in "debug" mode 1`] = `
         Username
       </label>
       <input
-        id="landing-textfield"
+        class="landing-textfield"
         type="text"
       />
       <label
@@ -28,7 +28,7 @@ exports[`Register should render correctly in "debug" mode 1`] = `
         Password
       </label>
       <input
-        id="landing-textfield"
+        class="landing-textfield"
         type="password"
       />
       <label
@@ -37,7 +37,7 @@ exports[`Register should render correctly in "debug" mode 1`] = `
         Confirm Password
       </label>
       <input
-        id="landing-textfield"
+        class="landing-textfield"
         type="password"
       />
       <button
@@ -49,12 +49,11 @@ exports[`Register should render correctly in "debug" mode 1`] = `
         id="register-login"
       >
         Already have an account? 
-        <a
-          href="#"
+        <span
           onClick={[Function]}
         >
           login now!
-        </a>
+        </span>
       </label>
     </div>
   </form>
