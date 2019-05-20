@@ -1,6 +1,7 @@
 #landing-canvas {
     flex-direction: column;
     justify-content: center;
+    background-image: url('/shrek.jpg');
 }
 
 label {
