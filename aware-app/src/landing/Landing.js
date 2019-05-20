@@ -25,7 +25,7 @@ class Landing extends Component {
     return (
       <div className="container-fluid aware-container">
         <div id="landing-canvas" className="aware-column row">
-          <div id="test-flex" className="col-3 offset-3">
+          <div className="col-3 offset-3">
             <Component switch = {this.switchView} loadMessenger = {this.props.loadMessenger}/>
           </div>
         </div>
