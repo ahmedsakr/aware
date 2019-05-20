@@ -1,0 +1,27 @@
+#landing-canvas {
+    flex-direction: column;
+    justify-content: center;
+}
+
+label {
+    color: #a7afb2;
+}
+
+input[type=text], input[type=password] {
+    background-color: #18202c;
+    width: 100%;
+    padding: 8px 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-color: #18202c;
+    border-radius: 7px;
+}
+
+button {
+    background-color: #ffc000;
+    color: black;
+    padding: 10px 10px;
+    border: none;
+    width: 100%;
+    border-radius: 7px;
+}

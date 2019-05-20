@@ -5,14 +5,14 @@ class Login extends Component {
     render() {
         return(
             <div id="login">
-                <h2 id="welcome-message">Welcome back to Aware!</h2>
+                <h2 id="welcome-message">Welcome back to Aware</h2>
                 <h4>Login now to gain access</h4>
                 <form>
                     <div class="container">
-                        <label id="login-username">Username</label>
+                        <label>Username</label>
                         <input type="text"></input>
 
-                        <label id="login-password">Password</label>
+                        <label>Password</label>
                         <input type="password"></input>
 
                         <label><a href="#">Forgot password?</a></label>
