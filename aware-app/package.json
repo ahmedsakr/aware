@@ -1,16 +1,17 @@
 {
   "name": "aware-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "ajv": "6.10.0",
     "bootstrap": "^4.3.1",
+    "express": "^4.17.0",
+    "font-awesome": "4.7.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "^3.0.1",
-    "sprintf-js": "^1.1.2",
-    "express": "^4.16.4",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "sprintf-js": "^1.1.2"
   },
   "scripts": {
     "client": "react-scripts start",

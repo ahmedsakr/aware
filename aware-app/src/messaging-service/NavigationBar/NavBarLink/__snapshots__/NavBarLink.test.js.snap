@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBarLink should render correctly in "debug" mode 1`] = `
+<div
+  class="undefined navigation-menu-link"
+  onClick={[Function]}
+>
+  <span
+    aria-hidden="true"
+  />
+  <p>
+    sysc 2100
+  </p>
+</div>
+`;

@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message should render component correctly 1`] = `
+<Message
+  content={
+    Object {
+      "avatar": "/icons8-user-80blue.png",
+      "studentName": "Ahmed",
+      "text": "Yeah, I am kinda drunk.",
+      "timestamp": "December 1, 2018 - 12:22 pm",
+    }
+  }
+  name="Ahmed"
+>
+  <div
+    class="col-sm-12 message sent-message"
+  >
+    <div
+      class="offset-sm-5 col-sm-2 message-timestamp sent-message-timestamp"
+    >
+      <p>
+        December 1, 2018 - 12:22 pm
+      </p>
+    </div>
+    <div
+      class="col-sm-4 message-text sent-message-text"
+    >
+      <p>
+        Yeah, I am kinda drunk.
+      </p>
+    </div>
+    <div
+      class="col-sm-1 message-profile"
+    >
+      <ProfilePicture
+        activity="online"
+        instance="message"
+        picture="/icons8-user-80blue.png"
+      >
+        <div
+          class="profile-picture-canvas profile-picture-message-size profile-picture-activity-online"
+        >
+          <img
+            alt="/icons8-user-80blue.png"
+            src="/icons8-user-80blue.png"
+          />
+        </div>
+      </ProfilePicture>
+      <p
+        class="message-profile-name"
+      >
+        Ahmed
+      </p>
+    </div>
+  </div>
+</Message>
+`;
