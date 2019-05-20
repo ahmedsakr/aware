@@ -10,10 +10,10 @@ class Login extends Component {
                 <form>
                     <div class="container">
                         <label id="login-username">Username</label>
-                        <input id="landing-textfield" type="text"></input>
+                        <input class="landing-textfield" type="text"></input>
 
                         <label id="login-password">Password</label>
-                        <input id="landing-textfield" type="password"></input>
+                        <input class="landing-textfield" type="password"></input>
 
                         <label><span>Forgot password?</span></label>
 
