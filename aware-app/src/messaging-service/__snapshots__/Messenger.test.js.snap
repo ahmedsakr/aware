@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatTitle should render correctly in "debug" mode 1`] = `
+<div
+  class="container-fluid"
+  className="Messenger"
+>
+  <div
+    class="row aware-container"
+  >
+    <div
+      class="col-1 aware-column"
+    >
+      <NavBar
+        selectRoom={[Function]}
+      />
+    </div>
+    <div
+      class="col-8 aware-column"
+    >
+      <ChatTitle
+        chatTitle=""
+      />
+      <ChatWindow
+        messages={Array []}
+      />
+      <MessageInput
+        sendMessage={[Function]}
+      />
+    </div>
+    <div
+      class="col-3 aware-column"
+    >
+      <DirectMessages />
+    </div>
+  </div>
+</div>
+`;
