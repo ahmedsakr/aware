@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login should render correctly in "debug" mode 1`] = `
+<div
+  id="login"
+>
+  <h2
+    id="welcome-message"
+  >
+    Welcome back to Aware
+  </h2>
+  <h4>
+    Login now to gain access
+  </h4>
+  <form>
+    <div
+      class="container"
+    >
+      <label
+        id="login-username"
+      >
+        Username
+      </label>
+      <input
+        class="landing-textfield"
+        type="text"
+      />
+      <label
+        id="login-password"
+      >
+        Password
+      </label>
+      <input
+        class="landing-textfield"
+        type="password"
+      />
+      <label>
+        <span>
+          Forgot password?
+        </span>
+      </label>
+      <button
+        onClick={[Function]}
+        type="submit"
+      >
+        Login
+      </button>
+      <label
+        id="login-register"
+      >
+        Don't have an account? 
+        <span
+          onClick={[Function]}
+        >
+          register now!
+        </span>
+      </label>
+    </div>
+  </form>
+</div>
+`;
