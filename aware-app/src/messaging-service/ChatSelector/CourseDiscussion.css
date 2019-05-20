@@ -29,6 +29,10 @@
   color: #babdc0;
 }
 
+.navbar-item-name > p {
+  margin: 0px;
+}
+
 .chat-navigation-item:hover {
     background-color: #232f3e;
     text-decoration: none;

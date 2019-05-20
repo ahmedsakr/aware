@@ -8,6 +8,11 @@
   height: 100%;
 }
 
+#messenger-root {
+  flex-direction: column;
+  height: 100%;
+}
+
 #navigation-header{
   flex: 0 1 auto;
 }
