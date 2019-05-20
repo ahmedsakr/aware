@@ -8,7 +8,7 @@ label {
     color: #a7afb2;
 }
 
-input[type=text], input[type=password] {
+#landing-textfield {
     background-color: #18202c;
     width: 100%;
     padding: 8px 10px;

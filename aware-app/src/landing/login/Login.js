@@ -10,14 +10,14 @@ class Login extends Component {
                 <form>
                     <div class="container">
                         <label id="login-username">Username</label>
-                        <input type="text"></input>
+                        <input id="landing-textfield" type="text"></input>
 
                         <label id="login-password">Password</label>
-                        <input type="password"></input>
+                        <input id="landing-textfield" type="password"></input>
 
                         <label><a href="#">Forgot password?</a></label>
 
-                        <button type="submit">Login</button>
+                        <button type="submit" onClick={() => this.props.loadMessenger()}>Login</button>
 
                         <label id="login-register">Don't have an account? <a href="#" onClick={() => this.props.switch()}>register now!</a></label>
                     </div>

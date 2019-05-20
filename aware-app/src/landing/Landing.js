@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css'
-import '../style/App.css'
 import './Landing.css'
 
 import Login from './login/Login'
@@ -27,7 +26,7 @@ class Landing extends Component {
       <div className="container-fluid aware-container">
         <div id="landing-canvas" className="aware-column row">
           <div id="test-flex" className="col-3 offset-3">
-            <Component switch = {this.switchView}/>
+            <Component switch = {this.switchView} loadMessenger = {this.props.loadMessenger}/>
           </div>
         </div>
       </div>

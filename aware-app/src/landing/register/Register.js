@@ -9,13 +9,13 @@ class Register extends Component {
                 <form>
                     <div class="container">
                         <label id="register-username">Username</label>
-                        <input type="text"></input>
+                        <input id="landing-textfield" type="text"></input>
 
                         <label id="register-password">Password</label>
-                        <input type="password"></input>
+                        <input id="landing-textfield" type="password"></input>
 
                         <label id="register-confirm">Confirm Password</label>
-                        <input type="password"></input>
+                        <input id="landing-textfield" type="password"></input>
 
                         <button type="submit">Register</button>
 
