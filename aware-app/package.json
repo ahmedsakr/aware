@@ -33,7 +33,10 @@
   "devDependencies": {
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.0",
-    "enzyme-to-json": "^3.3.5"
+    "enzyme-to-json": "^3.3.5",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0",
+    "typescript": "^3.4.5"
   },
   "jest": {
     "snapshotSerializers": [
