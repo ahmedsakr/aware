@@ -16,7 +16,6 @@ class App extends Component {
     super()
 
     this.state = {
-      name: tempName(),
       messages: [],
       socket: io(),
       chatTitle: ""
@@ -46,8 +45,8 @@ class App extends Component {
 
               <div id="messenger" class="col-10 p-0">
                 <ActivityPanel />
-                <ChatWindow messages={this.state.messages} name={this.state.name} />
-                <MessageInput sendMessage={sendMessage} name={this.state.name} />
+                <ChatWindow messages={this.state.messages} name={this.props.name} />
+                <MessageInput sendMessage={sendMessage} name={this.props.name} />
               </div>
             </div>
           </div>

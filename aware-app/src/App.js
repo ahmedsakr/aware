@@ -17,7 +17,7 @@ class App extends Component {
         var Component = this.state.component;
         
         return (
-            <Component userFunction = {this.setUsername} loadMessenger = {this.loadMessenger}/>
+            <Component userFunction = {this.setUsername} name = {this.state.username} loadMessenger = {this.loadMessenger}/>
         );
     }
 
@@ -31,7 +31,6 @@ class App extends Component {
         this.setState({
             username: value
         })
-        alert(value)
     }
 
     getUsername = () => {
