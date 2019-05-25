@@ -55,11 +55,11 @@ fi
 inform_aligned "Aware Client Port" "$AWARE_APP_PORT_CLIENT"
 inform_aligned "Aware Server Port" "$AWARE_APP_PORT_SERVER"
 inform_aligned "Branch to deploy" "$1"
-inform_aligned "Server" "$AWARE_SERVER_DEV"
+inform_aligned "Server" "$AWARE_SERVER_DEPLOY"
 
-printf "\nConnecting to $AWARE_SERVER_DEV...\n"
+printf "\nConnecting to $AWARE_SERVER_DEPLOY...\n"
 
-ssh root@"$AWARE_SERVER_DEV" "/bin/bash -s $1 $AWARE_APP_PORT_CLIENT $AWARE_APP_PORT_SERVER $AWARE_APP_RUNTIME" << 'DEPLOY'
+ssh root@"$AWARE_SERVER_DEPLOY" "/bin/bash -s $1 $AWARE_APP_PORT_CLIENT $AWARE_APP_PORT_SERVER $AWARE_APP_RUNTIME" << 'DEPLOY'
     
 inform_aligned() {
     printf "%-40s: %s\n" "$1" "$2"
@@ -86,7 +86,7 @@ echo "Extracting node_modules.tar.gz..."
 sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start --disableHostCheck=true/g" package.json
 sed -i -s -e "s/server.js/server.js $3 --disableHostCheck=true/g" package.json
 sed -i -s -e "s/localhost:5001/localhost:$3/g" package.json
-sed -i -s -e "s/localhost/$AWARE_SERVER_DEV/g" .env
+sed -i -s -e "s/localhost/$AWARE_SERVER_DEPLOY/g" .env
 
 npm run server > /dev/null &
 sleep 5s
@@ -96,7 +96,7 @@ inform_aligned "npm run server" "complete"
 npm run client > /dev/null &
 inform_aligned "npm run client" "complete"
 
-inform_aligned "Deployment available at" "http://$AWARE_SERVER_DEV:$2"
+inform_aligned "Deployment available at" "http://$AWARE_SERVER_DEPLOY:$2"
 
 at now + $4 minutes >& /dev/null << CLEANUP
 lsof -i :$2 | grep *:$2 | cut -d ' ' -f 5 | xargs kill
