@@ -6,7 +6,7 @@ class NavBarLink extends Component {
     const {className, icon, name} = this.props;
 
     return (
-      <div onClick={() => { this.props.selectRoom(this.props.room)}} class={className + " navigation-menu-link"}>
+      <div class={className + " navigation-menu-link"}>
         <span class={icon} aria-hidden="true"></span>
         <p>{name}</p>
       </div>

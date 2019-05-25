@@ -8,6 +8,7 @@ import ChatSelector from './ChatSelector/ChatSelector'
 import ChatWindow from './ChatFeature/ChatWindow/ChatWindow'
 import ActivityPanel from './ChatFeature/ActivityPanel/ActivityPanel'
 import MessageInput from './ChatFeature/MessageInput/MessageInput'
+import NewsletterOverlay from '../shared/overlay/test/NewsletterOverlay'
 
 import io from 'socket.io-client'
 
@@ -34,6 +35,8 @@ class App extends Component {
     return (
       <div class="aware-container" className="App">
         <div className="container-fluid aware-container">
+          <NewsletterOverlay />
+
           <div id="messenger-root" class="row">
             <div class="col-12 p-0" id="navigation-header">
               <NavBar activeRoom={this.state.chatTitle} />

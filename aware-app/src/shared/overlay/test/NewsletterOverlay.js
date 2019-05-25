@@ -10,7 +10,6 @@ class NewsletterOverlay extends Component {
             <AwareOverlay
                 name={this.name()}
                 title={this.title()}
-                toggle={this.toggle()}
                 content={this.content()}
                 footer={this.footer()}
             />
@@ -25,14 +24,6 @@ class NewsletterOverlay extends Component {
         return "Subscribe to our Newsletter"
     }
 
-    toggle() {
-        return (
-            <button type="button" class="btn">
-              Subscribe to Newsletter
-            </button>
-        )
-    }
-    
     content() {
         return (
             <div class="content-layer">

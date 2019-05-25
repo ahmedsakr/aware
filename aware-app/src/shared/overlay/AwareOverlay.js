@@ -5,13 +5,10 @@ import './AwareOverlay.css'
 class AwareOverlay extends Component {
 
     render() {
-        const {name, title, toggle, content, footer} = this.props;
+        const {name, title, content, footer} = this.props;
     
         return(
             <div class="overlay-container">
-                <div class="toggle-container" data-toggle="modal" data-target={"#" + name}>
-                    {toggle}
-                </div>
                 <div class="modal fade" id={name} tabindex="-1" role="dialog" aria-labelledby={name + "Label"} aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
