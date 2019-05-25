@@ -36,10 +36,6 @@ class Login extends Component {
     handleChange(event) {
         this.setState({username: event.target.value});
     }
-
-    shouldComponentUpdate = (nextProps, nextState) => {
-        return false;
-    }
 }
 
 export default Login;
