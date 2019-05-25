@@ -1,0 +1,62 @@
+#footer-layer, #content-layer {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#footer-layer > * {
+    margin: 0 5px 0 5px;
+}
+
+#subscribe-blurb {
+    text-align: justify;
+    text-justify: inter-cluster;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+#subscribe-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    margin-top: 10px;
+}
+
+#subscribe-data > p {
+    margin: 0;
+    align-self: center;
+}
+
+#subscribe-data > p:before {
+    content: "Note: ";
+    color: orangered;
+}
+
+#developer-pictures {
+    display: flex;
+    justify-content: center;
+}
+
+.developer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    border: 1px solid black;
+    background: darksalmon;
+    flex: 1;
+}
+
+.developer > img {
+    width: 100%;
+    height: 100%;
+    align-self: auto;
+}
+
+.developer > p {
+    padding: 5px;
+    margin: 0;
+}

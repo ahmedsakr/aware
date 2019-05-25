@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AwareOverlay should render correctly in "debug" mode 1`] = `
+<div
+  class="overlay-container"
+>
+  <div
+    aria-hidden="true"
+    aria-labelledby="undefinedLabel"
+    class="modal fade"
+    role="dialog"
+    tabindex="-1"
+  >
+    <div
+      class="modal-dialog"
+      role="document"
+    >
+      <div
+        class="modal-content"
+      >
+        <div
+          class="modal-header"
+        >
+          <div
+            class="modal-title"
+          />
+          <button
+            aria-label="Close"
+            class="close"
+            data-dismiss="modal"
+            id="custom-overlay-close"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+            >
+              ×
+            </span>
+          </button>
+        </div>
+        <div
+          class="modal-body"
+        />
+        <div
+          class="modal-footer"
+        >
+          <div
+            class="overlay-footer"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,7 +1,6 @@
 .aware-container {
   height: 100vh;
   max-height: 100vh;
-  flex-direction: column;
 }
 
 .aware-column {
