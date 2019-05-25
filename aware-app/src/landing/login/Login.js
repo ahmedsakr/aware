@@ -7,6 +7,7 @@ class Login extends Component {
         this.state = {
             username: undefined
         }
+        this.handleChange = this.handleChange.bind(this);
     }
 
     render() {
@@ -16,8 +17,8 @@ class Login extends Component {
                 <h4>Login now to gain access</h4>
                 <form>
                     <div class="container">
-                        <label id="login-username" onChange = {this.setState({username: "josh"})}>Username</label>
-                        <input class="landing-textfield" type="text"></input>
+                        <label id="login-username">Username</label>
+                        <input class="landing-textfield" type="text" value={this.state.username} onChange={this.handleChange}></input>
 
                         <label id="login-password">Password</label>
                         <input class="landing-textfield" type="password"></input>
@@ -31,6 +32,9 @@ class Login extends Component {
                 </form>
             </div>
         );
+    }
+    handleChange(event) {
+        this.setState({username: event.target.value});
     }
 
     shouldComponentUpdate = (nextProps, nextState) => {
