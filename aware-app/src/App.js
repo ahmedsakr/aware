@@ -8,7 +8,8 @@ class App extends Component {
         super()
     
         this.state = {
-          component: Landing
+          component: Landing,
+          username: undefined
         }
     }
 
@@ -16,7 +17,7 @@ class App extends Component {
         var Component = this.state.component;
         
         return (
-            <Component loadMessenger = {this.loadMessenger}/>
+            <Component userFunction = {this.setUsername} loadMessenger = {this.loadMessenger}/>
         );
     }
 
@@ -24,6 +25,17 @@ class App extends Component {
         this.setState({
             component: Messenger
         })
+    }
+
+    setUsername = (value) => {
+        this.setState({
+            username: value
+        })
+        alert(value)
+    }
+
+    getUsername = () => {
+        return this.state.username;
     }
 }
 
