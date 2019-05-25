@@ -33,6 +33,9 @@ inform_aligned() {
     printf "%-40s: %s\n" "$1" "$2"
 }
 
+BASE_DIR=$(dirname `realpath $0`)
+source $BASE_DIR/aware-env.sh
+
 printf "aware-deploy\n=======\n\n"
 
 # Random port chosen.
