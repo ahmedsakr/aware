@@ -25,7 +25,7 @@ class Login extends Component {
 
                         <label><span>Forgot password?</span></label>
 
-                        <button type="submit" onClick={() => {this.props.userFunction(this.state.username); this.props.loadMessenger()}}>Login</button>
+                        <button type="submit" onClick={() => {this.props.setUsername(this.state.username); this.props.loadMessenger()}}>Login</button>
 
                         <label id="login-register">Don't have an account? <span onClick={() => this.props.switch()}>register now!</span></label>
                     </div>

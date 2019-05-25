@@ -69,13 +69,4 @@ class App extends Component {
   }
 }
 
-function tempName() {
-  var name = prompt("Please enter your name:", "Bot1");
-  if (name === null || name === "") {
-    return "Bot1";
-  } else {
-    return name;
-  }
-}
-
 export default App;
