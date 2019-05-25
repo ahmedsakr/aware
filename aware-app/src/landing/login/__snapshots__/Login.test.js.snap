@@ -23,6 +23,7 @@ exports[`Login should render correctly in "debug" mode 1`] = `
       </label>
       <input
         class="landing-textfield"
+        onChange={[Function]}
         type="text"
       />
       <label

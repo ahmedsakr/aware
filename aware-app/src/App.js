@@ -8,7 +8,8 @@ class App extends Component {
         super()
     
         this.state = {
-          component: Landing
+          component: Landing,
+          username: null
         }
     }
 
@@ -16,13 +17,19 @@ class App extends Component {
         var Component = this.state.component;
         
         return (
-            <Component loadMessenger = {this.loadMessenger}/>
+            <Component setUsername = {this.setUsername} name = {this.state.username} loadMessenger = {this.loadMessenger}/>
         );
     }
 
     loadMessenger = () => {
         this.setState({
             component: Messenger
+        })
+    }
+
+    setUsername = (value) => {
+        this.setState({
+            username: value
         })
     }
 }
