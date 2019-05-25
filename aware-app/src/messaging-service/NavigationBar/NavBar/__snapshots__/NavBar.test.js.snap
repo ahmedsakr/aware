@@ -38,6 +38,7 @@ exports[`NavBar should render correctly in "debug" mode 1`] = `
       data-toggle="modal"
     >
       <NavBarLink
+        className="col-12 p-0"
         icon="fa fa-cogs"
         name="Settings"
       />
