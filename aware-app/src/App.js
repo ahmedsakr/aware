@@ -9,7 +9,7 @@ class App extends Component {
     
         this.state = {
           component: Landing,
-          username: undefined
+          username: null
         }
     }
 
