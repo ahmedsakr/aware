@@ -3,7 +3,6 @@
 exports[`NavBarLink should render correctly in "debug" mode 1`] = `
 <div
   class="undefined navigation-menu-link"
-  onClick={[Function]}
 >
   <span
     aria-hidden="true"

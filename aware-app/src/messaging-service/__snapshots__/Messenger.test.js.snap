@@ -8,6 +8,7 @@ exports[`Messenger should render correctly in "debug" mode 1`] = `
   <div
     className="container-fluid aware-container"
   >
+    <NewsletterOverlay />
     <div
       class="row"
       id="messenger-root"

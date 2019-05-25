@@ -32,11 +32,16 @@ exports[`NavBar should render correctly in "debug" mode 1`] = `
   <div
     class="col-lg-2 col-md-2 col-sm-3 p-0 navigation-menu-group"
   >
-    <NavBarLink
-      className="col-lg-6 col-md-6 col-sm-6 p-0"
-      icon="fa fa-cogs"
-      name="Settings"
-    />
+    <div
+      className="col-lg-6 col-md-6 col-sm-6 p-0 overlay-div"
+      data-target="#newsletter-overlay"
+      data-toggle="modal"
+    >
+      <NavBarLink
+        icon="fa fa-cogs"
+        name="Settings"
+      />
+    </div>
     <NavBarLink
       className="col-lg-6 col-md-6 col-sm-6 p-0"
       icon="fa fa-user-circle"
