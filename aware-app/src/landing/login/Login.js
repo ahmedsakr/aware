@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import "./Login.css";
 
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 class Login extends Component {
     constructor() {
         super()
         this.state = {
-            username: null,
+            username: cookies.get('aware-user'),
             rememberMe: false
         }
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
