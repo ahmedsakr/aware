@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import Messenger from './messaging-service/Messenger'
 import Landing from './landing/Landing'
 
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 class App extends Component {
     constructor() {
         super()
@@ -30,7 +33,7 @@ class App extends Component {
     setUsername = (value) => {
         this.setState({
             username: value
-        })
+        }, cookies.set('aware-user', value, { path: '/' }));        
     }
 }
 
