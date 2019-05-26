@@ -1,6 +1,6 @@
 {
   "name": "aware-app",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "dependencies": {
     "ajv": "6.10.0",
@@ -11,7 +11,8 @@
     "react-dom": "^16.8.6",
     "react-scripts": "^3.0.1",
     "socket.io": "^2.2.0",
-    "sprintf-js": "^1.1.2"
+    "sprintf-js": "^1.1.2",
+    "universal-cookie": "^4.0.0"
   },
   "scripts": {
     "client": "react-scripts start",
