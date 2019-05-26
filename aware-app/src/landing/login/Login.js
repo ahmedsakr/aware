@@ -9,7 +9,7 @@ class Login extends Component {
         super()
         this.state = {
             username: cookies.get('aware-user'),
-            rememberMe: false
+            rememberMe: !(cookies.get('aware-user') === undefined)
         }
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
@@ -30,7 +30,7 @@ class Login extends Component {
                         <input class="landing-textfield" type="password"></input>
 
                         <label id="remember-me">
-                            <input type="checkbox" onChange={this.handleCheckboxChange}/> 
+                            <input type="checkbox" onChange={this.handleCheckboxChange} checked={this.state.rememberMe}/> 
                             Remember me
                         </label>
                         <label id="forgot-password"><span>Forgot password?</span></label>
