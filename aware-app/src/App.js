@@ -27,13 +27,13 @@ class App extends Component {
     loadMessenger = (rememberMe) => {
         this.setState({
             component: Messenger
+        }, function () {
+            if (rememberMe) {
+                cookies.set('aware-user', this.state.username, {path: '/'});
+            } else {
+                cookies.remove('aware-user', {path: '/'})
+            }  
         }); 
-
-        if (rememberMe) {
-            cookies.set('aware-user', this.state.username, {path: '/'});
-        } else {
-            cookies.remove('aware-user', {path: '/'})
-        }   
     }
 
     setUsername = (value) => {
