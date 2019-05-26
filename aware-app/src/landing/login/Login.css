@@ -16,3 +16,12 @@
 #login-register {
     margin-top: 10px;
 }
+
+#forgot-password {
+    margin-top: 10px;
+    float: right;
+}
+
+#remember-me {
+    margin-top: 10px;
+}
