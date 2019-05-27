@@ -35,7 +35,19 @@ exports[`Login should render correctly in "debug" mode 1`] = `
         class="landing-textfield"
         type="password"
       />
-      <label>
+      <label
+        id="remember-me"
+      >
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        Remember me
+      </label>
+      <label
+        id="forgot-password"
+      >
         <span>
           Forgot password?
         </span>
