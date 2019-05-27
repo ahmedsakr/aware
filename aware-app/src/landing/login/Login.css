@@ -18,10 +18,9 @@
 }
 
 #forgot-password {
-    margin-top: 10px;
     float: right;
 }
 
-#remember-me {
+#checkbox-forgot {
     margin-top: 10px;
 }

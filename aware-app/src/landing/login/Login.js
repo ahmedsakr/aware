@@ -28,12 +28,13 @@ class Login extends Component {
                         <label id="login-password">Password</label>
 
                         <input class="landing-textfield" type="password"></input>
-
-                        <label id="remember-me">
-                            <input type="checkbox" onChange={this.handleCheckboxChange} checked={this.state.rememberMe}/> 
-                            Remember me
-                        </label>
-                        <label id="forgot-password"><span>Forgot password?</span></label>
+                        <div id="checkbox-forgot">
+                            <label>
+                                <input type="checkbox" onChange={this.handleCheckboxChange} checked={this.state.rememberMe}/> 
+                                &nbsp; Remember me
+                            </label>
+                            <label id="forgot-password"><span>Forgot password?</span></label>
+                        </div>
 
                         <button type="submit" onClick={() => {this.props.setUsername(this.state.username); this.props.loadMessenger(this.state.rememberMe)}}>Login</button>
 

@@ -27,7 +27,7 @@ class App extends Component {
     loadMessenger = (rememberMe) => {
         this.setState({
             component: Messenger
-        }, function () {
+        }, () => {
             if (rememberMe) {
                 cookies.set('aware-user', this.state.username, {path: '/'});
             } else {
@@ -39,7 +39,7 @@ class App extends Component {
     setUsername = (value) => {
         this.setState({
             username: value
-        });        
+        })    
     }
 }
 
