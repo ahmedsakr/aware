@@ -9,7 +9,7 @@ class Login extends Component {
         super()
         this.state = {
             username: cookies.get('aware-user'),
-            rememberMe: (cookies.get('aware-user') === undefined)
+            rememberMe: cookies.get('aware-user') !== undefined
         }
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
