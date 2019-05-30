@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import "./Login.css";
 
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 class Login extends Component {
     constructor() {
         super()
         this.state = {
-            username: undefined
+            username: cookies.get('aware-user'),
+            rememberMe: cookies.get('aware-user') !== undefined
         }
-        this.handleChange = this.handleChange.bind(this);
+        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     }
 
     render() {
@@ -18,14 +23,20 @@ class Login extends Component {
                 <form>
                     <div class="container">
                         <label id="login-username">Username</label>
-                        <input class="landing-textfield" type="text" value={this.state.username} onChange={this.handleChange}></input>
+                        <input class="landing-textfield" type="text" value={this.state.username} onChange={this.handleUsernameChange}></input>
 
                         <label id="login-password">Password</label>
+
                         <input class="landing-textfield" type="password"></input>
+                        <div id="checkbox-forgot">
+                            <label>
+                                <input type="checkbox" onChange={this.handleCheckboxChange} checked={this.state.rememberMe}/> 
+                                &nbsp; Remember me
+                            </label>
+                            <span id="forgot-password">Forgot password?</span>
+                        </div>
 
-                        <label><span>Forgot password?</span></label>
-
-                        <button type="submit" onClick={() => {this.props.setUsername(this.state.username); this.props.loadMessenger()}}>Login</button>
+                        <button type="submit" onClick={() => {this.props.setUsername(this.state.username); this.props.loadMessenger(this.state.rememberMe)}}>Login</button>
 
                         <label id="login-register">Don't have an account? <span onClick={() => this.props.switch()}>register now!</span></label>
                     </div>
@@ -33,8 +44,13 @@ class Login extends Component {
             </div>
         );
     }
-    handleChange(event) {
+
+    handleUsernameChange = (event) => {
         this.setState({username: event.target.value});
+    }
+
+    handleCheckboxChange = (event) => {
+        this.setState({ rememberMe: event.target.checked});
     }
 }
 

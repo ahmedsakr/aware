@@ -10,7 +10,7 @@ class Landing extends Component {
     super()
 
     this.state = {
-      component: Register
+      component: Login
     }
   }
 

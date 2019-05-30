@@ -16,3 +16,11 @@
 #login-register {
     margin-top: 10px;
 }
+
+#forgot-password {
+    float: right;
+}
+
+#checkbox-forgot {
+    margin-top: 10px;
+}
