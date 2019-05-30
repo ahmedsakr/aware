@@ -46,13 +46,11 @@ exports[`Login should render correctly in "debug" mode 1`] = `
           />
             Remember me
         </label>
-        <label
+        <span
           id="forgot-password"
         >
-          <span>
-            Forgot password?
-          </span>
-        </label>
+          Forgot password?
+        </span>
       </div>
       <button
         onClick={[Function]}
