@@ -39,7 +39,7 @@ class App extends Component {
     setUsername = (value) => {
         this.setState({
             username: value
-        })    
+        })
     }
 }
 
