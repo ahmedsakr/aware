@@ -2,16 +2,26 @@ const {Pool} = require('pg');
 const db = new Pool();
 
 /**
- * Asynchronously query the aware database.
+ * Asynchronously query the aware database, returning the rows resulting from the
+ * transaction.
  * 
  * @param {String} queryStr The string representation of the query. 
  */
 async function awdb(queryStr) {
+    let result = [];
+
+    // Insert the query-terminating semicolon if it was not given.
     if (queryStr[queryStr.length - 1] !== ';') {
-        return await db.query(queryStr + ';');
-    } else {
-        return await db.query(queryStr)
+        queryStr = queryStr + ';';
     }
+
+    await db.query(queryStr).then((data) => {
+        if (data.rowCount > 0) {
+            result = data.rows;
+        }
+    });
+
+    return result;
 }
 
 /**
