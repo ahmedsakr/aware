@@ -1,4 +1,5 @@
 let awdb = require('../../shared/database/awdb').awdb;
+let uuid = require ('../../shared/uuid/aware-uuid').uuid;
 let db_table = "user_accounts"
 
 /**
@@ -30,7 +31,7 @@ async function registerUser(username, password) {
     }
 
     let db_columns = "user_id, username, user_password";
-    let user_values = `'8', '${username}', '${password}'`;
+    let user_values = `'${uuid()}', '${username}', '${password}'`;
     return await awdb(`INSERT INTO ${db_table} (${db_columns}) VALUES (${user_values})`);
 }
 
