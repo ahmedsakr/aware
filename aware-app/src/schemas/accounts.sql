@@ -11,7 +11,7 @@ CREATE TABLE user_accounts (
 CREATE TABLE message (
     message_id int PRIMARY KEY,
     message_content VARCHAR(1024),
-    time_stamp DATETIME
+    time_stamp TIMESTAMP
 );
 
 CREATE TABLE groups (
