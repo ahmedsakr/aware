@@ -7,7 +7,7 @@ const db = new Pool();
  * 
  * @param {String} queryStr The string representation of the query. 
  */
-async function awdb(queryStr) {
+async function awaredb(queryStr) {
     let result = [];
 
     // Insert the query-terminating semicolon if it was not given.
@@ -33,4 +33,4 @@ async function destroy() {
     return await db.end()
 }
 
-module.exports.awdb = awdb;
+module.exports.awaredb = awaredb;

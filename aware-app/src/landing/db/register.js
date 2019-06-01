@@ -1,4 +1,4 @@
-let awdb = require('../../shared/database/awdb').awdb;
+let awaredb = require('../../shared/database/awaredb').awaredb;
 let uuid = require ('../../shared/uuid/aware-uuid').uuid;
 let db_table = "user_accounts"
 
@@ -8,7 +8,7 @@ let db_table = "user_accounts"
  * @param {String} username 
  */
 async function isExistingUser(username) {
-    let query = await awdb(`SELECT username from ${db_table} WHERE username='${username}'`);
+    let query = await awaredb(`SELECT username from ${db_table} WHERE username='${username}'`);
 
     if (query.length > 1) {
         console.log("Fatal error - more than 1 entry match a username and user_password.");
@@ -32,7 +32,7 @@ async function registerUser(username, password) {
 
     let db_columns = "user_id, username, user_password";
     let user_values = `'${uuid()}', '${username}', '${password}'`;
-    return await awdb(`INSERT INTO ${db_table} (${db_columns}) VALUES (${user_values})`);
+    return await awaredb(`INSERT INTO ${db_table} (${db_columns}) VALUES (${user_values})`);
 }
 
 module.exports.registerUser = registerUser;
