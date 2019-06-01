@@ -1,3 +1,6 @@
+CREATE DATABASE aware;
+USE aware;
+
 CREATE TABLE user_accounts (
     user_id int PRIMARY KEY,
     username VARCHAR(32),
