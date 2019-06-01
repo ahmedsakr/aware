@@ -1,29 +1,29 @@
 CREATE DATABASE aware;
-USE aware;
+\c aware;
 
 CREATE TABLE user_accounts (
-    user_id int PRIMARY KEY,
+    user_id VARCHAR(36) PRIMARY KEY,
     username VARCHAR(32),
     user_password VARCHAR(128),
     date_created DATE
 );
 
 CREATE TABLE message (
-    message_id int PRIMARY KEY,
+    message_id VARCHAR(36) PRIMARY KEY,
     message_content VARCHAR(1024),
     time_stamp TIMESTAMP
 );
 
 CREATE TABLE groups (
-    group_id int PRIMARY KEY,
+    group_id VARCHAR(36) PRIMARY KEY,
     name VARCHAR(32),
-    user_id int,
+    user_id VARCHAR(36),
     FOREIGN KEY (user_id) REFERENCES user_accounts(user_id)
 );
 
 CREATE TABLE messages (
-    message_id int,
-    group_id int,
+    message_id VARCHAR(36),
+    group_id VARCHAR(36),
     FOREIGN KEY (message_id) REFERENCES message(message_id),
     FOREIGN KEY (group_id) REFERENCES groups(group_id)
 );
