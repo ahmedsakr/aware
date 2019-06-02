@@ -62,28 +62,19 @@ io.on('connection', function(socket) {
       message.insertMessage(msg)
       .then(() => {
         io.in(currentRoom).emit('chat message', msg)
-        // Append message to history for this room
-        chatHistory[currentRoom].push(msg);
       })
     }
   });
 
   function loadHistory(room) { 
     // If room doesn't have chat history, create room in dictionary
-    if (!(room in chatHistory)) {
-      if (room != '') {
-        chatHistory[room] = []
-        console.log("added room to history" + room)
+    message.getMessages(room)
+    .then((result) => {
+      for (var i = 0; i < result.length; i++) {
+        let message = { studentName: result[i]['username'], text: result[i]['message_content'], timestamp: result[i]['time_stamp'], avatar: '/josh-pic.jpg'}
+        io.to(socket.id).emit('chat message', message);
       }
-    } else {
-      message.getMessages('groupid')
-      .then((result) => {
-        for (var i = 0; i < result.length; i++) {
-          let message = { studentName: result[i]['username'], text: result[i]['message_content'], timestamp: result[i]['time_stamp'], avatar: '/josh-pic.jpg'}
-          io.to(socket.id).emit('chat message', message);
-        }
-      })
-    }
+    })
   }
 
   function getRoom() {
