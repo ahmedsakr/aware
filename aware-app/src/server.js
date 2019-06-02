@@ -22,7 +22,6 @@ io.on('connection', function(socket) {
       if (result) {
         io.to(socket.id).emit("login-request", true);
       } else {
-        console.log("Client not verified!");
         io.to(socket.id).emit("login-request", false);
       }
     })
