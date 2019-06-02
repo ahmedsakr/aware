@@ -26,6 +26,14 @@ async function isExistingUser(username) {
  */
 async function registerUser(username, password) {
 
+    if (username == null || username.length < 3 || username.length > 32) {
+        return false;
+    }
+
+    if (password == null || password.length < 8 || password.length > 128) {
+        return false;
+    }
+
     if (await isExistingUser(username)) {
         return false;
     }

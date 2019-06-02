@@ -2,6 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var verifier = require('./landing/db/verifier');
+var registration = require('./landing/db/register');
 
 // Grab port from Nodemon command & if not specified set to 5001
 var port = process.argv[2];
@@ -25,6 +26,17 @@ io.on('connection', function(socket) {
         io.to(socket.id).emit("login-request", true);
       } else {
         io.to(socket.id).emit("login-request", false);
+      }
+    })
+  });
+
+  socket.on('register', (username, password) => {
+    registration.registerUser(username, password)
+    .then((result) => {
+      if (result) {
+        io.to(socket.id).emit("register-request", true);
+      } else {
+        io.to(socket.id).emit("register-request", false);
       }
     })
   });
