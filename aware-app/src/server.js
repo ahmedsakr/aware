@@ -3,6 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var verifier = require('./landing/db/verifier');
 var registration = require('./landing/db/register');
+var message = require('./messaging-service/db/message')
 
 // Grab port from Nodemon command & if not specified set to 5001
 var port = process.argv[2];
@@ -58,9 +59,12 @@ io.on('connection', function(socket) {
     // get current room of socket to emit message in
     var currentRoom = getRoom();
     if (currentRoom != null) {
-      io.in(currentRoom).emit('chat message', msg)
-      // Append message to history for this room
-      chatHistory[currentRoom].push(msg);
+      message.insertMessage(msg)
+      .then(() => {
+        io.in(currentRoom).emit('chat message', msg)
+        // Append message to history for this room
+        chatHistory[currentRoom].push(msg);
+      })
     }
   });
 
@@ -72,9 +76,13 @@ io.on('connection', function(socket) {
         console.log("added room to history" + room)
       }
     } else {
-      for (var i = 0; i < chatHistory[room].length; i++) {
-        io.to(socket.id).emit('chat message', chatHistory[room][i])
-      }
+      message.getMessages('groupid')
+      .then((result) => {
+        for (var i = 0; i < result.length; i++) {
+          let message = { studentName: result[i]['username'], text: result[i]['message_content'], timestamp: result[i]['time_stamp'], avatar: '/josh-pic.jpg'}
+          io.to(socket.id).emit('chat message', message);
+        }
+      })
     }
   }
 
