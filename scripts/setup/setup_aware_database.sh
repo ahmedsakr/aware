@@ -28,4 +28,3 @@ sleep 5s
 PGPASSWORD=aware psql -h localhost -p $AWARE_DATABASE_PORT -U aware -c "\\i $SCHEMA_DIR/accounts.sql;" >& /dev/null
 
 printf "PostgreSQL Container created: localhost:$AWARE_DATABASE_PORT\n"
-printf "Database: aware, Username: aware, Password: aware\n"
