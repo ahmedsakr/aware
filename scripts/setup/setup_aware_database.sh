@@ -21,7 +21,7 @@ printf "Container ID:"
 sudo docker run -d --rm -p $AWARE_DATABASE_PORT:5432 --name $CONAINER_NAME -v $SCHEMA_DIR:/schemas -it $IMAGE_NAME
 
 # Change database port in App to match conatiner's port
-sed -i -s -e "s/5432/$AWARE_DATABASE_PORT/g" ./../../aware-app/package.json
+sed -i -s -e "s/5432/$AWARE_DATABASE_PORT/g" "$BASE_DIR/../../aware-app/package.json"
 
 printf "Connecting to PSQL & Creating Tables...\n"
 sleep 5s
