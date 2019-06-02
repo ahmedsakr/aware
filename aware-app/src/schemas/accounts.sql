@@ -14,7 +14,7 @@ CREATE TABLE message (
     time_stamp TIMESTAMP
 );
 
-CREATE TABLE groups (
+CREATE TABLE user_groups (
     group_id VARCHAR(36) PRIMARY KEY,
     name VARCHAR(32),
     user_id VARCHAR(36),
@@ -25,7 +25,7 @@ CREATE TABLE messages (
     message_id VARCHAR(36),
     group_id VARCHAR(36),
     FOREIGN KEY (message_id) REFERENCES message(message_id),
-    FOREIGN KEY (group_id) REFERENCES groups(group_id)
+    FOREIGN KEY (group_id) REFERENCES user_groups(group_id)
 );
 
 INSERT INTO user_accounts (user_id, username, user_password) VALUES ('aabbcc', 'josh', 'password');
