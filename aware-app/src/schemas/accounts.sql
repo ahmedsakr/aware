@@ -27,3 +27,6 @@ CREATE TABLE messages (
     FOREIGN KEY (message_id) REFERENCES message(message_id),
     FOREIGN KEY (group_id) REFERENCES groups(group_id)
 );
+
+INSERT INTO user_accounts (user_id, username, user_password) VALUES ('aabbcc', 'josh', 'password');
+INSERT INTO user_accounts (user_id, username, user_password) VALUES ('ccbbaa', 'ahmed', 'password');
