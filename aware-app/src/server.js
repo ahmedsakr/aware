@@ -19,7 +19,7 @@ io.on('connection', function(socket) {
 
   // Listen for login requests from users
   socket.on('login', (username, password) => {
-    verifier.isValidLogin(username, password)
+    verifier.verifyLogin(username, password)
     .then((result) => {
       if (result) {
         io.to(socket.id).emit("login-request", true);

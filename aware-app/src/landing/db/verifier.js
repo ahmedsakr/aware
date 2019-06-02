@@ -8,8 +8,8 @@ let db_columns = "username, user_password";
  * @param {String} username 
  * @param {String} password 
  */
-async function isValidLogin(username, password) {
-    let conditions = `username = \'${username}\' and user_password = \'${password}'`
+async function verifyLogin(username, password) {
+    let conditions = `username = '${username}' and user_password = '${password}'`
     let query = await awaredb.query(`SELECT ${db_columns} from ${db_table} WHERE ${conditions}`);
 
     if (query.length > 1) {
@@ -20,4 +20,4 @@ async function isValidLogin(username, password) {
     }
 }
 
-module.exports.isValidLogin = isValidLogin;
+module.exports.verifyLogin = verifyLogin;
