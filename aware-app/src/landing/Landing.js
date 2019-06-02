@@ -26,7 +26,7 @@ class Landing extends Component {
       <div className="container-fluid aware-container">
         <div id="landing-canvas" className="aware-column row">
           <div className="col-3 offset-3">
-            <Component switch = {this.switchView} loadMessenger = {this.props.loadMessenger} setUsername = {this.props.setUsername}/>
+            <Component socket={this.props.socket} switch = {this.switchView} loadMessenger = {this.props.loadMessenger} setUsername = {this.props.setUsername}/>
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var isValidLogin = require('./landing/db/verifier').isValidLogin;
+
 // Grab port from Nodemon command & if not specified set to 5001
 var port = process.argv[2];
 if (port == undefined) port = 5001;
@@ -14,6 +16,17 @@ app.get('/server', (req, res) => {
 
 io.on('connection', function(socket) {
   console.log('Client Has Connected, id: ' + socket.id)
+
+  socket.on('login', (username, password) => {
+    isValidLogin(username, password).then((result) => {
+      if (result) {
+        io.to(socket.id).emit("login-request", true);
+      } else {
+        console.log("Client not verified!");
+        io.to(socket.id).emit("login-request", false);
+      }
+    })
+  });
 
   socket.on('room', function(room) {
     var currentRoom = getRoom();

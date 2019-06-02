@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client'
 
 import Messenger from './messaging-service/Messenger'
 import Landing from './landing/Landing'
@@ -9,6 +10,7 @@ class App extends Component {
     
         this.state = {
           component: Landing,
+          socket: io(),
           username: null
         }
     }
@@ -17,7 +19,7 @@ class App extends Component {
         var Component = this.state.component;
         
         return (
-            <Component setUsername = {this.setUsername} name = {this.state.username} loadMessenger = {this.loadMessenger}/>
+            <Component socket={this.state.socket} setUsername = {this.setUsername} name = {this.state.username} loadMessenger = {this.loadMessenger}/>
         );
     }
 

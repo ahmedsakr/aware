@@ -10,19 +10,18 @@ import ActivityPanel from './ChatFeature/ActivityPanel/ActivityPanel'
 import MessageInput from './ChatFeature/MessageInput/MessageInput'
 import NewsletterOverlay from '../shared/overlay/test/NewsletterOverlay'
 
-import io from 'socket.io-client'
-
-class App extends Component {
+class Messenger extends Component {
   constructor() {
     super()
 
     this.state = {
       messages: [],
-      socket: io(),
       chatTitle: ""
     }
+  }
 
-    this.state.socket.on('chat message', message => {
+  componentDidMount() {
+    this.props.socket.on('chat message', message => {
       this.setState({
         messages: this.state.messages.concat([message])
       })
@@ -31,6 +30,7 @@ class App extends Component {
 
   render() {
     const {selectRoom, sendMessage } = this;
+
     return (
       <div class="aware-container" className="App">
         <div className="container-fluid aware-container">
@@ -60,7 +60,7 @@ class App extends Component {
   }
 
   selectRoom = (room) => {
-    this.state.socket.emit('room', room)
+    this.props.socket.emit('room', room)
     this.setState({ 
       messages: [],
       chatTitle: room,
@@ -68,8 +68,8 @@ class App extends Component {
   }
 
   sendMessage = (message) => {
-    this.state.socket.emit('chat message', message)
+    this.props.socket.emit('chat message', message)
   }
 }
 
-export default App;
+export default Messenger;
