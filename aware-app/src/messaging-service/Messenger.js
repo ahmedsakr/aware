@@ -26,6 +26,12 @@ class Messenger extends Component {
         messages: this.state.messages.concat([message])
       })
     })
+
+    this.props.socket.on('chat history', messages => {
+      this.setState({
+        messages: messages
+      })
+    })
   }
 
   render() {
