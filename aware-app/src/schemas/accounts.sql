@@ -2,7 +2,7 @@ CREATE DATABASE aware;
 \c aware;
 
 CREATE TABLE user_accounts (
-    PRIMARY KEY username VARCHAR(32),
+    username VARCHAR(32) PRIMARY KEY,
     user_password VARCHAR(128),
     date_created DATE
 );
