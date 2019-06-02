@@ -1,4 +1,4 @@
-let awaredb = require('../../shared/database/awaredb').awaredb;
+let awaredb = require('../../shared/database/awaredb');
 let db_table = "user_accounts";
 let db_columns = "username, user_password";
 
@@ -10,7 +10,7 @@ let db_columns = "username, user_password";
  */
 async function isValidLogin(username, password) {
     let conditions = `username = \'${username}\' and user_password = \'${password}'`
-    let query = await awaredb(`SELECT ${db_columns} from ${db_table} WHERE ${conditions}`);
+    let query = await awaredb.query(`SELECT ${db_columns} from ${db_table} WHERE ${conditions}`);
 
     if (query.length > 1) {
         console.log("Fatal error - more than 1 entry match a username and user_password.");
