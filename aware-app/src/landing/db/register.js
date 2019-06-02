@@ -1,5 +1,6 @@
 let awaredb = require('../../shared/database/awaredb');
-let uuid = require ('../../shared/uuid/aware-uuid').uuid;
+let verification = require('../../shared/verification/user');
+let uuid = require('../../shared/uuid/aware-uuid').uuid;
 let db_table = "user_accounts"
 
 /**
@@ -26,11 +27,7 @@ async function isExistingUser(username) {
  */
 async function registerUser(username, password) {
 
-    if (username == null || username.length < 3 || username.length > 32) {
-        return false;
-    }
-
-    if (password == null || password.length < 8 || password.length > 128) {
+    if (!verification.verifyUsername(username) || !verification.verifyPassword(password)) {
         return false;
     }
 

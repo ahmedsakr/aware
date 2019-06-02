@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import verification from '../../shared/verification/user';
 import "./Login.css";
 
 class Login extends Component {
@@ -24,13 +25,13 @@ class Login extends Component {
     }
 
     login() {
-        if (this.state.username.length === 0) {
-            alert("No username provided!");
+        if (!verification.verifyUsername(this.state.username)) {
+            alert("Please provide a username between 3 and 32 characters.");
             return;
         }
 
-        if (this.state.password.length === 0) {
-            alert("No password provided!");
+        if (!verification.verifyPassword(this.state.password)) {
+            alert("Please provide a password between 8 and 128 characters.");
             return;
         }
 
