@@ -27,7 +27,7 @@ async function isExistingUser(username) {
  */
 async function registerUser(username, password) {
 
-    if (!verification.verifyUsername(username) || verification.verifyPassword(password)) {
+    if (!verification.verifyUsername(username) || !verification.verifyPassword(password)) {
         return false;
     }
 
