@@ -35,8 +35,8 @@ class MessageInput extends Component {
     e.preventDefault();
     // Build a message object to be sent
     const messageObj = {
-      studentName: this.props.name,
-      text: this.state.message,
+      username: this.props.name,
+      content: this.state.message,
       timestamp: produceTimestamp(),
       avatar: "/" + this.props.name + "-pic.jpg"
     };
