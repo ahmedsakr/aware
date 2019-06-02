@@ -91,6 +91,9 @@ sed -i -s -e "s/server.js/server.js $3 --disableHostCheck=true/g" package.json
 sed -i -s -e "s/localhost:5001/localhost:$3/g" package.json
 sed -i -s -e "s/localhost/$AWARE_SERVER_DEPLOY/g" .env
 
+printf "\nSetting up database docker container...\n"
+../scripts/setup/setup_aware_database.sh
+
 npm run server > /dev/null &
 sleep 5s
 
