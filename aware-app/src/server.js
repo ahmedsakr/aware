@@ -44,9 +44,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('get-rooms', (username) => {
-    console.log(username);
     rooms.getRooms(username).then((userRooms) => {
-      console.log(userRooms);
       io.to(socket.id).emit("user-rooms", userRooms);
     });
   });
