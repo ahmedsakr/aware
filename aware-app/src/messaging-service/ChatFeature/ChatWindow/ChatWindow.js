@@ -22,6 +22,8 @@ class ChatWindow extends Component {
         <div id="chat-messages">
           {
             this.props.messages.map(message => {
+              message['avatar'] = "/" + message.username + "-pic.jpg";
+              console.log(message)
               return (
                 <Message name={this.props.name} content={message} />
               )
