@@ -62,11 +62,11 @@ io.on('connection', function(socket) {
     }
   });
 
-  socket.on('chat message', function(msg) {
+  socket.on('chat message', function(msg, groupId, username) {
     // get current room of socket to emit message in
     var currentRoom = getRoom();
     if (currentRoom != null) {
-      message.insertMessage(msg)
+      message.insertMessage(msg, groupId, username)
       .then(() => {
         io.in(currentRoom).emit('chat message', msg)
       })
