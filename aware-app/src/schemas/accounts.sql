@@ -4,40 +4,54 @@ CREATE DATABASE aware;
 CREATE TABLE user_accounts (
     username VARCHAR(32) PRIMARY KEY,
     user_password VARCHAR(128),
-    date_created DATE
+    date_created VARCHAR(32)
 );
 
 CREATE TABLE message (
     message_id VARCHAR(36) PRIMARY KEY,
     message_content VARCHAR(1024),
-    time_stamp TIMESTAMP
+    time_stamp VARCHAR(32)
 );
 
-CREATE TABLE user_groups (
+CREATE TABLE messenger_group (
     group_id VARCHAR(36) PRIMARY KEY,
-    name VARCHAR(32),
+    group_name VARCHAR(32),
+    group_icon VARCHAR(128)
+);
+
+CREATE TABLE user_chats (
+    group_id VARCHAR(36),
     username VARCHAR(36),
-    FOREIGN KEY (username) REFERENCES user_accounts(username)
+    FOREIGN KEY (group_id) REFERENCES messenger_group(group_id),
+    FOREIGN KEY (username) REFERENCES user_accounts(username),
+    PRIMARY KEY (group_id, username)
 );
 
 CREATE TABLE messages (
     message_id VARCHAR(36),
     group_id VARCHAR(36),
+    username VARCHAR(36),
     FOREIGN KEY (message_id) REFERENCES message(message_id),
-    FOREIGN KEY (group_id) REFERENCES user_groups(group_id)
+    FOREIGN KEY (group_id, username) REFERENCES user_chats(group_id, username)
 );
 
 INSERT INTO user_accounts (username, user_password) VALUES ('josh', 'password');
 INSERT INTO user_accounts (username, user_password) VALUES ('ahmed', 'password');
 
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2100', 'SYSC 2100', 'ahmed');
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2004', 'SYSC 2004', 'ahmed');
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc3110', 'SYSC 3110', 'ahmed');
-INSERT INTO user_groups (group_id, name, username) VALUES ('elec2501', 'ELEC 2501', 'ahmed');
-INSERT INTO user_groups (group_id, name, username) VALUES ('math2004', 'MATH 2004', 'ahmed');
+INSERT INTO messenger_group (group_id, group_name, group_icon) VALUES ('sysc2100', 'SYSC 2100', 'sysc.png');
+INSERT INTO messenger_group (group_id, group_name, group_icon) VALUES ('sysc2004', 'SYSC 2004', 'sysc.png');
+INSERT INTO messenger_group (group_id, group_name, group_icon) VALUES ('sysc3110', 'SYSC 3110', 'sysc.png');
+INSERT INTO messenger_group (group_id, group_name, group_icon) VALUES ('math2004', 'MATH 2004', 'math.png');
+INSERT INTO messenger_group (group_id, group_name, group_icon) VALUES ('elec2501', 'ELEC 2501', 'elec.png');
 
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2100', 'SYSC 2100', 'josh');
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2004', 'SYSC 2004', 'josh');
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc3110', 'SYSC 3110', 'josh');
-INSERT INTO user_groups (group_id, name, username) VALUES ('elec2501', 'ELEC 2501', 'josh');
-INSERT INTO user_groups (group_id, name, username) VALUES ('math2004', 'MATH 2004', 'josh');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc2100', 'ahmed');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc2004', 'ahmed');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc3110', 'ahmed');
+INSERT INTO user_chats (group_id, username) VALUES ('math2004', 'ahmed');
+INSERT INTO user_chats (group_id, username) VALUES ('elec2501', 'ahmed');
+
+INSERT INTO user_chats (group_id, username) VALUES ('sysc2100', 'josh');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc2004', 'josh');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc3110', 'josh');
+INSERT INTO user_chats (group_id, username) VALUES ('math2004', 'josh');
+INSERT INTO user_chats (group_id, username) VALUES ('elec2501', 'josh');
