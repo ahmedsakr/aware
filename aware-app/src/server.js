@@ -74,6 +74,9 @@ io.on('connection', function(socket) {
   });
 
   function loadHistory(room) { 
+    // Temporary hack again to get the proper formatted room
+    room = room.replace(/\s/g, '').toLowerCase();
+
     // If room doesn't have chat history, create room in dictionary
     message.getMessages(room)
     .then((result) => {
