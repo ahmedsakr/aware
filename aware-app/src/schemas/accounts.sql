@@ -7,12 +7,6 @@ CREATE TABLE user_accounts (
     date_created VARCHAR(32)
 );
 
-CREATE TABLE message (
-    message_id VARCHAR(36) PRIMARY KEY,
-    message_content VARCHAR(1024),
-    time_stamp VARCHAR(32)
-);
-
 CREATE TABLE messenger_group (
     group_id VARCHAR(36) PRIMARY KEY,
     group_name VARCHAR(32),
@@ -28,10 +22,11 @@ CREATE TABLE user_chats (
 );
 
 CREATE TABLE messages (
-    message_id VARCHAR(36),
+    message_id VARCHAR(36) PRIMARY KEY,
+    message_content VARCHAR(1024),
+    time_stamp VARCHAR(32)
     group_id VARCHAR(36),
     username VARCHAR(36),
-    FOREIGN KEY (message_id) REFERENCES message(message_id),
     FOREIGN KEY (group_id, username) REFERENCES user_chats(group_id, username)
 );
 
