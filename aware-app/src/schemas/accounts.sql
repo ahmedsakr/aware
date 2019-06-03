@@ -30,14 +30,14 @@ CREATE TABLE messages (
 INSERT INTO user_accounts (username, user_password) VALUES ('josh', 'password');
 INSERT INTO user_accounts (username, user_password) VALUES ('ahmed', 'password');
 
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2100', 'SYSC 2100', 'ahmed')
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2004', 'SYSC 2004', 'ahmed')
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc3110', 'SYSC 3110', 'ahmed')
-INSERT INTO user_groups (group_id, name, username) VALUES ('elec2501', 'ELEC 2501', 'ahmed')
-INSERT INTO user_groups (group_id, name, username) VALUES ('math2004', 'MATH 2004', 'ahmed')
+INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2100', 'SYSC 2100', 'ahmed');
+INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2004', 'SYSC 2004', 'ahmed');
+INSERT INTO user_groups (group_id, name, username) VALUES ('sysc3110', 'SYSC 3110', 'ahmed');
+INSERT INTO user_groups (group_id, name, username) VALUES ('elec2501', 'ELEC 2501', 'ahmed');
+INSERT INTO user_groups (group_id, name, username) VALUES ('math2004', 'MATH 2004', 'ahmed');
 
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2100', 'SYSC 2100', 'josh')
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2004', 'SYSC 2004', 'josh')
-INSERT INTO user_groups (group_id, name, username) VALUES ('sysc3110', 'SYSC 3110', 'josh')
-INSERT INTO user_groups (group_id, name, username) VALUES ('elec2501', 'ELEC 2501', 'josh')
-INSERT INTO user_groups (group_id, name, username) VALUES ('math2004', 'MATH 2004', 'josh')
+INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2100', 'SYSC 2100', 'josh');
+INSERT INTO user_groups (group_id, name, username) VALUES ('sysc2004', 'SYSC 2004', 'josh');
+INSERT INTO user_groups (group_id, name, username) VALUES ('sysc3110', 'SYSC 3110', 'josh');
+INSERT INTO user_groups (group_id, name, username) VALUES ('elec2501', 'ELEC 2501', 'josh');
+INSERT INTO user_groups (group_id, name, username) VALUES ('math2004', 'MATH 2004', 'josh');
