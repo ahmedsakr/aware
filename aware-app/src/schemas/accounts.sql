@@ -24,7 +24,7 @@ CREATE TABLE user_chats (
 CREATE TABLE messages (
     message_id VARCHAR(36) PRIMARY KEY,
     message_content VARCHAR(1024),
-    time_stamp VARCHAR(32)
+    time_stamp VARCHAR(32),
     group_id VARCHAR(36),
     username VARCHAR(36),
     FOREIGN KEY (group_id, username) REFERENCES user_chats(group_id, username)
