@@ -83,7 +83,7 @@ class Messenger extends Component {
   }
 
   sendMessage = (message) => {
-    this.props.socket.emit('chat message', message)
+    this.props.socket.emit('chat message', message, this.state.chatTitle, this.props.name)
   }
 }
 
