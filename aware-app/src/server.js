@@ -3,7 +3,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var verifier = require('./landing/db/verifier');
 var registration = require('./landing/db/register');
-var message = require('./messaging-service/db/message')
+var message = require('./messaging-service/db/message');
+var rooms = require('./messaging-service/db/rooms');
 
 // Grab port from Nodemon command & if not specified set to 5001
 var port = process.argv[2];
@@ -40,6 +41,14 @@ io.on('connection', function(socket) {
         io.to(socket.id).emit("register-request", false);
       }
     })
+  });
+
+  socket.on('get-rooms', (username) => {
+    console.log(username);
+    rooms.getRooms(username).then((userRooms) => {
+      console.log(userRooms);
+      io.to(socket.id).emit("user-rooms", userRooms);
+    });
   });
 
   socket.on('room', function(room) {

@@ -17,9 +17,13 @@ class App extends Component {
 
     render() {
         var Component = this.state.component;
-        
+
         return (
-            <Component socket={this.state.socket} setUsername = {this.setUsername} name = {this.state.username} loadMessenger = {this.loadMessenger}/>
+            <Component
+                socket={this.state.socket}
+                setUsername = {this.setUsername}
+                name = {this.state.username}
+                loadMessenger = {this.loadMessenger} />
         );
     }
 

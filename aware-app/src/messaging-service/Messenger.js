@@ -12,7 +12,7 @@ import NewsletterOverlay from '../shared/overlay/test/NewsletterOverlay'
 
 class Messenger extends Component {
   constructor() {
-    super()
+    super();
 
     this.state = {
       messages: [],
@@ -43,13 +43,22 @@ class Messenger extends Component {
 
             <div class="col-12 p-0" id="messenger-body">
               <div class="col-2 p-0">
-                <ChatSelector selectRoom={selectRoom} />
+                <ChatSelector
+                  socket={this.props.socket}
+                  username={this.props.name}
+                  selectRoom={selectRoom} />
               </div>
 
               <div id="messenger" class="col-10 p-0">
                 <ActivityPanel />
-                <ChatWindow messages={this.state.messages} name={this.props.name} />
-                <MessageInput sendMessage={sendMessage} name={this.props.name} />
+
+                <ChatWindow
+                  messages={this.state.messages}
+                  name={this.props.name} />
+
+                <MessageInput
+                  sendMessage={sendMessage}
+                  name={this.props.name} />
               </div>
             </div>
           </div>
