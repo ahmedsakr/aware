@@ -20,7 +20,7 @@ async function insertMessage(message) {
  * @param {String} groupId 
  */
 async function getMessages(groupId) {
-    return await awaredb.query(`SELECT user_accounts.username, message.message_content, message.time_stamp FROM messages JOIN message ON messages.message_id = message.message_id JOIN user_groups ON messages.group_id = user_groups.group_id JOIN user_accounts ON user_groups.username = user_accounts.username WHERE messages.group_id = '${groupId}'`);
+    return await awaredb.query(`SELECT user_accounts.username, message.message_content AS content, message.time_stamp AS timestamp FROM messages JOIN message ON messages.message_id = message.message_id JOIN user_groups ON messages.group_id = user_groups.group_id JOIN user_accounts ON user_groups.username = user_accounts.username WHERE messages.group_id = '${groupId}'`);
 }
 
 module.exports.insertMessage = insertMessage;

@@ -79,10 +79,7 @@ io.on('connection', function(socket) {
     // If room doesn't have chat history, create room in dictionary
     message.getMessages(room)
     .then((result) => {
-      for (var i = 0; i < result.length; i++) {
-        let message = { studentName: result[i]['username'], text: result[i]['message_content'], timestamp: result[i]['time_stamp'], avatar: '/josh-pic.jpg'}
-        io.to(socket.id).emit('chat message', message);
-      }
+      io.to(socket.id).emit('chat history', result);
     })
   }
 
