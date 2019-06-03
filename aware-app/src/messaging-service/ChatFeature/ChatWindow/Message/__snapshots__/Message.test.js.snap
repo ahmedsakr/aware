@@ -13,22 +13,8 @@ exports[`Message should render component correctly 1`] = `
   name="Ahmed"
 >
   <div
-    class="col-sm-12 message sent-message"
+    class="col-sm-12 message received-message"
   >
-    <div
-      class="offset-sm-5 col-sm-2 message-timestamp sent-message-timestamp"
-    >
-      <p>
-        December 1, 2018 - 12:22 pm
-      </p>
-    </div>
-    <div
-      class="col-sm-4 message-text sent-message-text"
-    >
-      <p>
-        Yeah, I am kinda drunk.
-      </p>
-    </div>
     <div
       class="col-sm-1 message-profile"
     >
@@ -48,8 +34,18 @@ exports[`Message should render component correctly 1`] = `
       </ProfilePicture>
       <p
         class="message-profile-name"
-      >
-        Ahmed
+      />
+    </div>
+    <div
+      class="col-sm-4 message-text received-message-text"
+    >
+      <p />
+    </div>
+    <div
+      class="col-sm-2 message-timestamp received-message-timestamp"
+    >
+      <p>
+        December 1, 2018 - 12:22 pm
       </p>
     </div>
   </div>

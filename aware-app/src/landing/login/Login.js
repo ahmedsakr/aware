@@ -14,14 +14,16 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        this.props.socket.on('login-request', (result) => {
-            if (result) {
-                this.props.setUsername(this.state.username);
-                this.props.loadMessenger();
-            } else {
-                alert("Invalid username or password.");
-            }
-        })
+        if (this.props.socket) {
+            this.props.socket.on('login-request', (result) => {
+                if (result) {
+                    this.props.setUsername(this.state.username);
+                    this.props.loadMessenger();
+                } else {
+                    alert("Invalid username or password.");
+                }
+            })
+        }
     }
 
     login() {

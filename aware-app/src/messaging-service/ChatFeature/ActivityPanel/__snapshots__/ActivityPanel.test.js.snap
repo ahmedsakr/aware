@@ -18,11 +18,6 @@ exports[`ActivityPanel should render correctly in "debug" mode 1`] = `
   <ProfilePicture
     activity="online"
     instance="activity"
-    picture="arsalan-pic.jpg"
-  />
-  <ProfilePicture
-    activity="online"
-    instance="activity"
     picture="louis-ck-pic.JPG"
   />
   <ProfilePicture

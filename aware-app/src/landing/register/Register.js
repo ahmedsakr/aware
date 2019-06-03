@@ -16,14 +16,16 @@ class Register extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount() {
-        this.props.socket.on('register-request', (result) => {
-            if (result) {
-                alert("Registration successful!");
-                this.props.switch();
-            } else {
-                alert("Registration failure");
-            }
-        });
+        if (this.props.socket) {
+            this.props.socket.on('register-request', (result) => {
+                if (result) {
+                    alert("Registration successful!");
+                    this.props.switch();
+                } else {
+                    alert("Registration failure");
+                }
+            });
+        }
     }
 
     handleChange(event) {

@@ -12,51 +12,54 @@ exports[`Login should render correctly in "debug" mode 1`] = `
   <h4>
     Login now to gain access
   </h4>
-  <form>
-    <div
-      class="container"
+  <div
+    class="container"
+  >
+    <label
+      id="login-username"
     >
-      <label
-        id="login-username"
-      >
-        Username
-      </label>
-      <input
-        class="landing-textfield"
-        onChange={[Function]}
-        type="text"
-      />
-      <label
-        id="login-password"
-      >
-        Password
-      </label>
-      <input
-        class="landing-textfield"
-        type="password"
-      />
-      <label>
-        <span>
-          Forgot password?
-        </span>
-      </label>
-      <button
+      Username
+    </label>
+    <input
+      class="landing-textfield"
+      name="username"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <label
+      id="login-password"
+    >
+      Password
+    </label>
+    <input
+      class="landing-textfield"
+      name="password"
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+    <label>
+      <span>
+        Forgot password?
+      </span>
+    </label>
+    <button
+      onClick={[Function]}
+      type="submit"
+    >
+      Login
+    </button>
+    <label
+      id="login-register"
+    >
+      Don't have an account? 
+      <span
         onClick={[Function]}
-        type="submit"
       >
-        Login
-      </button>
-      <label
-        id="login-register"
-      >
-        Don't have an account? 
-        <span
-          onClick={[Function]}
-        >
-          register now!
-        </span>
-      </label>
-    </div>
-  </form>
+        register now!
+      </span>
+    </label>
+  </div>
 </div>
 `;

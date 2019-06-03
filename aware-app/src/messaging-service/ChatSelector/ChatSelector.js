@@ -14,17 +14,18 @@ class ChatSelector extends Component {
   }
 
   componentWillMount() {
+    if (this.props.socket) {
 
-    // Retrieve all rooms that the user is subscribed to.
-    this.props.socket.emit('get-rooms', this.props.username);
+      // Retrieve all rooms that the user is subscribed to.
+      this.props.socket.emit('get-rooms', this.props.username);
 
-    // Listen for any updates in subscribed rooms for this user.
-    this.props.socket.on('user-rooms', (rooms) => {
-      this.setState({
-        rooms: rooms
+      // Listen for any updates in subscribed rooms for this user.
+      this.props.socket.on('user-rooms', (rooms) => {
+        this.setState({
+          rooms: rooms
+        });
       });
-    });
-
+    }
   }
 
   updateSelectedRoom(room) {

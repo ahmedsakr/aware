@@ -21,17 +21,19 @@ class Messenger extends Component {
   }
 
   componentDidMount() {
-    this.props.socket.on('chat message', message => {
-      this.setState({
-        messages: this.state.messages.concat([message])
+    if (this.props.socket) {
+      this.props.socket.on('chat message', message => {
+        this.setState({
+          messages: this.state.messages.concat([message])
+        })
       })
-    })
 
-    this.props.socket.on('chat history', messages => {
-      this.setState({
-        messages: messages
+      this.props.socket.on('chat history', messages => {
+        this.setState({
+          messages: messages
+        })
       })
-    })
+    }
   }
 
   render() {

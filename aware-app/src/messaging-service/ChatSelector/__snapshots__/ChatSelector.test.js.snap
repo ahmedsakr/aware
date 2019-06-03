@@ -7,36 +7,6 @@ exports[`ChatSelector should render correctly in "debug" mode 1`] = `
   <h3>
     Course Discussion
   </h3>
-  <CourseDiscussion
-    name="SYSC 2100"
-    room="SYSC2100"
-    src="/messenger-icons/sysc.png"
-    updateRoom={[Function]}
-  />
-  <CourseDiscussion
-    name="SYSC 2004"
-    room="SYSC2004"
-    src="/messenger-icons/sysc.png"
-    updateRoom={[Function]}
-  />
-  <CourseDiscussion
-    name="SYSC 3110"
-    room="SYSC3110"
-    src="/messenger-icons/sysc.png"
-    updateRoom={[Function]}
-  />
-  <CourseDiscussion
-    name="ELEC 2501"
-    room="ELEC2501"
-    src="/messenger-icons/eelc.png"
-    updateRoom={[Function]}
-  />
-  <CourseDiscussion
-    name="MATH 2004"
-    room="MATH2004"
-    src="/messenger-icons/math.png"
-    updateRoom={[Function]}
-  />
   <hr />
   <h3>
     Direct Messages

@@ -5,19 +5,19 @@ exports[`ChatWindow should render component correctly 1`] = `
   messages={
     Array [
       Object {
-        "avatar": "/icons8-user-80blue.png",
+        "avatar": "/undefined-pic.jpg",
         "studentName": "Ahmed",
         "text": "Yeah, I am kinda drunk.",
         "timestamp": "December 1, 2018 - 12:22 pm",
       },
       Object {
-        "avatar": "/icons8-user-80blue.png",
+        "avatar": "/undefined-pic.jpg",
         "studentName": "Josh",
         "text": "Same broda.",
         "timestamp": "December 1, 2018 - 12:22 pm",
       },
       Object {
-        "avatar": "/icons8-user-80blue.png",
+        "avatar": "/undefined-pic.jpg",
         "studentName": "Arsalan",
         "text": "guys, I am hungry.",
         "timestamp": "December 1, 2018 - 12:22 pm",
@@ -34,7 +34,7 @@ exports[`ChatWindow should render component correctly 1`] = `
       <Message
         content={
           Object {
-            "avatar": "/icons8-user-80blue.png",
+            "avatar": "/undefined-pic.jpg",
             "studentName": "Ahmed",
             "text": "Yeah, I am kinda drunk.",
             "timestamp": "December 1, 2018 - 12:22 pm",
@@ -42,51 +42,47 @@ exports[`ChatWindow should render component correctly 1`] = `
         }
       >
         <div
-          class="col-sm-12 message received-message"
+          class="col-sm-12 message sent-message"
         >
+          <div
+            class="offset-sm-5 col-sm-2 message-timestamp sent-message-timestamp"
+          >
+            <p>
+              December 1, 2018 - 12:22 pm
+            </p>
+          </div>
+          <div
+            class="col-sm-4 message-text sent-message-text"
+          >
+            <p />
+          </div>
           <div
             class="col-sm-1 message-profile"
           >
             <ProfilePicture
               activity="online"
               instance="message"
-              picture="/icons8-user-80blue.png"
+              picture="/undefined-pic.jpg"
             >
               <div
                 class="profile-picture-canvas profile-picture-message-size profile-picture-activity-online"
               >
                 <img
-                  alt="/icons8-user-80blue.png"
-                  src="/icons8-user-80blue.png"
+                  alt="/undefined-pic.jpg"
+                  src="/undefined-pic.jpg"
                 />
               </div>
             </ProfilePicture>
             <p
               class="message-profile-name"
-            >
-              Ahmed
-            </p>
-          </div>
-          <div
-            class="col-sm-4 message-text received-message-text"
-          >
-            <p>
-              Yeah, I am kinda drunk.
-            </p>
-          </div>
-          <div
-            class="col-sm-2 message-timestamp received-message-timestamp"
-          >
-            <p>
-              December 1, 2018 - 12:22 pm
-            </p>
+            />
           </div>
         </div>
       </Message>
       <Message
         content={
           Object {
-            "avatar": "/icons8-user-80blue.png",
+            "avatar": "/undefined-pic.jpg",
             "studentName": "Josh",
             "text": "Same broda.",
             "timestamp": "December 1, 2018 - 12:22 pm",
@@ -94,51 +90,47 @@ exports[`ChatWindow should render component correctly 1`] = `
         }
       >
         <div
-          class="col-sm-12 message received-message"
+          class="col-sm-12 message sent-message"
         >
+          <div
+            class="offset-sm-5 col-sm-2 message-timestamp sent-message-timestamp"
+          >
+            <p>
+              December 1, 2018 - 12:22 pm
+            </p>
+          </div>
+          <div
+            class="col-sm-4 message-text sent-message-text"
+          >
+            <p />
+          </div>
           <div
             class="col-sm-1 message-profile"
           >
             <ProfilePicture
               activity="online"
               instance="message"
-              picture="/icons8-user-80blue.png"
+              picture="/undefined-pic.jpg"
             >
               <div
                 class="profile-picture-canvas profile-picture-message-size profile-picture-activity-online"
               >
                 <img
-                  alt="/icons8-user-80blue.png"
-                  src="/icons8-user-80blue.png"
+                  alt="/undefined-pic.jpg"
+                  src="/undefined-pic.jpg"
                 />
               </div>
             </ProfilePicture>
             <p
               class="message-profile-name"
-            >
-              Josh
-            </p>
-          </div>
-          <div
-            class="col-sm-4 message-text received-message-text"
-          >
-            <p>
-              Same broda.
-            </p>
-          </div>
-          <div
-            class="col-sm-2 message-timestamp received-message-timestamp"
-          >
-            <p>
-              December 1, 2018 - 12:22 pm
-            </p>
+            />
           </div>
         </div>
       </Message>
       <Message
         content={
           Object {
-            "avatar": "/icons8-user-80blue.png",
+            "avatar": "/undefined-pic.jpg",
             "studentName": "Arsalan",
             "text": "guys, I am hungry.",
             "timestamp": "December 1, 2018 - 12:22 pm",
@@ -146,44 +138,40 @@ exports[`ChatWindow should render component correctly 1`] = `
         }
       >
         <div
-          class="col-sm-12 message received-message"
+          class="col-sm-12 message sent-message"
         >
+          <div
+            class="offset-sm-5 col-sm-2 message-timestamp sent-message-timestamp"
+          >
+            <p>
+              December 1, 2018 - 12:22 pm
+            </p>
+          </div>
+          <div
+            class="col-sm-4 message-text sent-message-text"
+          >
+            <p />
+          </div>
           <div
             class="col-sm-1 message-profile"
           >
             <ProfilePicture
               activity="online"
               instance="message"
-              picture="/icons8-user-80blue.png"
+              picture="/undefined-pic.jpg"
             >
               <div
                 class="profile-picture-canvas profile-picture-message-size profile-picture-activity-online"
               >
                 <img
-                  alt="/icons8-user-80blue.png"
-                  src="/icons8-user-80blue.png"
+                  alt="/undefined-pic.jpg"
+                  src="/undefined-pic.jpg"
                 />
               </div>
             </ProfilePicture>
             <p
               class="message-profile-name"
-            >
-              Arsalan
-            </p>
-          </div>
-          <div
-            class="col-sm-4 message-text received-message-text"
-          >
-            <p>
-              guys, I am hungry.
-            </p>
-          </div>
-          <div
-            class="col-sm-2 message-timestamp received-message-timestamp"
-          >
-            <p>
-              December 1, 2018 - 12:22 pm
-            </p>
+            />
           </div>
         </div>
       </Message>

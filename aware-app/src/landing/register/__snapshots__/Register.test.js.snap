@@ -9,53 +9,61 @@ exports[`Register should render correctly in "debug" mode 1`] = `
   >
     Create an Aware Account
   </h2>
-  <form>
-    <div
-      class="container"
+  <div
+    class="container"
+  >
+    <label
+      id="register-username"
     >
-      <label
-        id="register-username"
+      Username
+    </label>
+    <input
+      class="landing-textfield"
+      name="username"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <label
+      id="register-password"
+    >
+      Password
+    </label>
+    <input
+      class="landing-textfield"
+      name="password"
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+    <label
+      id="register-confirm"
+    >
+      Confirm Password
+    </label>
+    <input
+      class="landing-textfield"
+      name="confirmPassword"
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+    <button
+      onClick={[Function]}
+      type="submit"
+    >
+      Register
+    </button>
+    <label
+      id="register-login"
+    >
+      Already have an account? 
+      <span
+        onClick={[Function]}
       >
-        Username
-      </label>
-      <input
-        class="landing-textfield"
-        type="text"
-      />
-      <label
-        id="register-password"
-      >
-        Password
-      </label>
-      <input
-        class="landing-textfield"
-        type="password"
-      />
-      <label
-        id="register-confirm"
-      >
-        Confirm Password
-      </label>
-      <input
-        class="landing-textfield"
-        type="password"
-      />
-      <button
-        type="submit"
-      >
-        Register
-      </button>
-      <label
-        id="register-login"
-      >
-        Already have an account? 
-        <span
-          onClick={[Function]}
-        >
-          login now!
-        </span>
-      </label>
-    </div>
-  </form>
+        login now!
+      </span>
+    </label>
+  </div>
 </div>
 `;
