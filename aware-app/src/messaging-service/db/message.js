@@ -10,9 +10,9 @@ let db_table = "messages"
  * @param {String} username 
  */
 async function insertMessage(message, groupId, username) {
-    let {text, timestamp} = message;
+    let {content, timestamp} = message;
     let db_columns = 'message_id, message_content, time_stamp, group_id, username';
-    let user_values = `'${uuid()}', '${text}', '${timestamp}', '${groupId}', '${username}'`;
+    let user_values = `'${uuid()}', '${content}', '${timestamp}', '${groupId}', '${username}'`;
     await awaredb.query(`INSERT INTO ${db_table} (${db_columns}) VALUES (${user_values})`);
 }
 
