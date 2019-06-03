@@ -20,7 +20,6 @@ class ChatSelector extends Component {
 
     // Listen for any updates in subscribed rooms for this user.
     this.props.socket.on('user-rooms', (rooms) => {
-      console.log(rooms);
       this.setState({
         rooms: rooms
       });
