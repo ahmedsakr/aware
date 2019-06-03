@@ -62,7 +62,7 @@ class ChatSelector extends Component {
               <CourseDiscussion
                 updateRoom={this.updateSelectedRoom.bind(this)}
                 room={room.group_id}
-                src="/messenger-icons/sysc.png"
+                src={"/messenger-icons/" + room.icon}
                 name={room.name} />
             )
           })
