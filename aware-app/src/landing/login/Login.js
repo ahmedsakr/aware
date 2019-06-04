@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import verification from '../../shared/verification/user';
 import "./Login.css";
 
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 class Login extends Component {
     constructor() {
         super()
         this.state = {
-            username: "",
-            password: ""
+            username: cookies.get('aware-user') === undefined ? "": cookies.get('aware-user'),
+            password: "",
+            rememberMe: cookies.get('aware-user') !== undefined
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -66,7 +70,17 @@ class Login extends Component {
                             value={this.state.password}
                             onChange={this.handleChange} />
 
-                        <label><span>Forgot password?</span></label>
+                        <input class="landing-textfield" type="password"></input>
+                        <div id="checkbox-forgot">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    onChange={this.handleChange}
+                                    checked={this.state.rememberMe} /> 
+                                &nbsp; Remember me
+                            </label>
+                            <span id="forgot-password">Forgot password?</span>
+                        </div>
 
                         <button type="submit" onClick={() => {this.login()}}>Login</button>
 
