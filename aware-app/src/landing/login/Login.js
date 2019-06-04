@@ -55,40 +55,39 @@ class Login extends Component {
             <div id="login">
                 <h2 id="welcome-message">Welcome back to Aware</h2>
                 <h4>Login now to gain access</h4>
-                    <div class="container">
-                        <label id="login-username">Username</label>
-                        <input
-                            class="landing-textfield"
-                            name="username"
-                            type="text"
-                            value={this.state.username}
-                            onChange={this.handleChange} />
+                <div class="container">
+                    <label id="login-username">Username</label>
+                    <input
+                        class="landing-textfield"
+                        name="username"
+                        type="text"
+                        value={this.state.username}
+                        onChange={this.handleChange} />
 
-                        <label id="login-password">Password</label>
-                        <input
-                            class="landing-textfield"
-                            name="password"
-                            type="password"
-                            value={this.state.password}
-                            onChange={this.handleChange} />
+                    <label id="login-password">Password</label>
+                    <input
+                        class="landing-textfield"
+                        name="password"
+                        type="password"
+                        value={this.state.password}
+                        onChange={this.handleChange} />
 
-                        <div id="checkbox-forgot">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    name="rememberMe"
-                                    onChange={this.handleChange}
-                                    checked={this.state.rememberMe} /> 
-                                &nbsp; Remember me
+                    <div id="checkbox-forgot">
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="rememberMe"
+                                onChange={this.handleChange}
+                                checked={this.state.rememberMe} />
+                            &nbsp; Remember me
                             </label>
-                            <span id="forgot-password">Forgot password?</span>
-                        </div>
+                        <span id="forgot-password">Forgot password?</span>
+                    </div>
 
-                        <button type="submit" onClick={() => {this.login()}}>Login</button>
+                    <button type="submit" onClick={() => { this.login() }}>Login</button>
 
-                        <label id="login-register">Don't have an account? <span onClick={() => this.props.switch()}>register now!</span></label>
-                    </div>  
-                
+                    <label id="login-register">Don't have an account? <span onClick={() => this.props.switch()}>register now!</span></label>
+                </div>  
             </div>
         );
     }
