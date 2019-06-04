@@ -9,13 +9,7 @@ let db_table = "user_accounts"
  */
 async function isExistingUser(username) {
     let query = await awaredb.query(`SELECT username from ${db_table} WHERE username='${username}'`);
-
-    if (query.length > 1) {
-        console.log("Fatal error - more than 1 entry match a username and user_password.");
-        return false;
-    } else {
-        return query.length === 1;
-    } 
+    return query.length === 1;
 }
 
 /**
