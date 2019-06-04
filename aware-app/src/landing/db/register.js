@@ -9,13 +9,7 @@ let db_table = "user_accounts"
  */
 async function isExistingUser(username) {
     let query = await awaredb.query(`SELECT username from ${db_table} WHERE username='${username}'`);
-
-    if (query.length > 1) {
-        console.log("Fatal error - more than 1 entry match a username and user_password.");
-        return false;
-    } else {
-        return query.length === 1;
-    } 
+    return query.length === 1;
 }
 
 /**
@@ -36,7 +30,7 @@ async function registerUser(username, password) {
 
     let db_columns = "username, user_password";
     let user_values = `'${username}', '${password}'`;
-    return await awaredb.query(`INSERT INTO ${db_table} (${db_columns}) VALUES (${user_values})`);
+    await awaredb.query(`INSERT INTO ${db_table} (${db_columns}) VALUES (${user_values})`);
 }
 
 module.exports.registerUser = registerUser;

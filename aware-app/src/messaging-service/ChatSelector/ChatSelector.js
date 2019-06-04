@@ -41,12 +41,12 @@ class ChatSelector extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     
-    if (this.state.selectedRoom !== null) {
+    if (this.state.selectedRoom) {
       this.props.selectRoom(this.state.selectedRoom.props.name);
       this.state.selectedRoom.setState({ selected: true });
     }
  
-    if (prevState.selectedRoom != null) {
+    if (prevState.selectedRoom) {
       prevState.selectedRoom.setState({ selected: false });
     }
   }
