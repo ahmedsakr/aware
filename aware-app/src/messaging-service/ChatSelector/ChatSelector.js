@@ -33,16 +33,15 @@ class ChatSelector extends Component {
       selectedRoom: room
     });
   }
-  
+
   shouldComponentUpdate(nextProps, nextState) {
-    return  (this.state.rooms !== nextState.rooms)
-            || (this.state.selectedRoom !== nextState.selectedRoom);
+    return  (this.state.rooms !== nextState.rooms) || (this.state.selectedRoom !== nextState.selectedRoom);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     
     if (this.state.selectedRoom) {
-      this.props.selectRoom(this.state.selectedRoom.props.name);
+      this.props.selectRoom(this.state.selectedRoom.props.room, this.state.selectedRoom.props.name);
       this.state.selectedRoom.setState({ selected: true });
     }
  

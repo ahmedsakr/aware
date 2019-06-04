@@ -76,25 +76,18 @@ class Messenger extends Component {
     );
   }
 
-  selectRoom = (room) => {
-    this.props.socket.emit('room', room)
+  selectRoom = (groupId, title) => {
+    this.props.socket.emit('room', groupId)
     this.setState({ 
       messages: [],
-      chatTitle: room,
+      chatTitle: title,
+      groupId: groupId
      });
   }
 
   sendMessage = (message) => {
-    let groupId = getGroupId(this.state.chatTitle);
-    this.props.socket.emit('chat message', message, groupId, this.props.name)
+    this.props.socket.emit('chat message', message, this.state.groupId, this.props.name);
   }
-}
-
-/***
- *      Temporary hack function to get id from the chat title.
- */
-function getGroupId(title) {
-  return title.replace(/\s/g, '').toLowerCase();
 }
 
 export default Messenger;
