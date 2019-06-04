@@ -8,6 +8,7 @@ const cookies = new Cookies();
 class Login extends Component {
     constructor() {
         super()
+
         this.state = {
             username: cookies.get('aware-user') === undefined ? "": cookies.get('aware-user'),
             password: "",
@@ -22,7 +23,7 @@ class Login extends Component {
             this.props.socket.on('login-request', (result) => {
                 if (result) {
                     this.props.setUsername(this.state.username);
-                    this.props.loadMessenger();
+                    this.props.loadMessenger(this.state.rememberMe);
                 } else {
                     alert("Invalid username or password.");
                 }
@@ -45,7 +46,8 @@ class Login extends Component {
     }
 
     handleChange(event) {
-        this.setState({[event.target.name]: event.target.value});
+        let value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+        this.setState({[event.target.name]: value});
     }
 
     render() {
@@ -70,11 +72,11 @@ class Login extends Component {
                             value={this.state.password}
                             onChange={this.handleChange} />
 
-                        <input class="landing-textfield" type="password"></input>
                         <div id="checkbox-forgot">
                             <label>
                                 <input
                                     type="checkbox"
+                                    name="rememberMe"
                                     onChange={this.handleChange}
                                     checked={this.state.rememberMe} /> 
                                 &nbsp; Remember me
