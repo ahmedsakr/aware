@@ -10,7 +10,7 @@ class Login extends Component {
         super()
 
         this.state = {
-            username: cookies.get('aware-user') === undefined ? "": cookies.get('aware-user'),
+            username: cookies.get('aware-user'),
             password: "",
             rememberMe: cookies.get('aware-user') !== undefined
         }

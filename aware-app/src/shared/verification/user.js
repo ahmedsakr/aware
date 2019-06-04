@@ -8,11 +8,11 @@ const passwordMinimum = 8;
 const passwordMaximum = 128;
 
 function verifyUsername(username) {
-    return  username !== null && username !== "" &&
+    return  username !== undefined && username !== null && username !== "" &&
             username.length >= usernameMinimum && username.length <= usernameMaximum;
 }
 function verifyPassword(password) {
-    return  password !== null && password !== "" &&
+    return  password !== undefined && password !== null && password !== "" &&
             password.length >= passwordMinimum && password.length <= passwordMaximum;
 }
 
