@@ -1,27 +1,3 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`DirectMessage should render correctly in "debug" mode 1`] = `
-<div
-  class="col-12 direct-message"
->
-  <div
-    class="direct-message-avatar col-2"
-  >
-    <img
-      src="undefined"
-    />
-  </div>
-  <div
-    class="direct-message-content col-10"
-  >
-    <p
-      class="col-12"
-    />
-    <p
-      class="direct-message-preview"
-    >
-      Preview of last message...
-    </p>
-  </div>
-</div>
-`;
+version https://git-lfs.github.com/spec/v1
+oid sha256:e8d116dd917a437bdb234c5740e4faa09024f81045c530b077c8ac1c8370b27b
+size 451

@@ -1,11 +1,3 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ProfilePicture should render correctly in "debug" mode 1`] = `
-<div
-  class="profile-picture-canvas profile-picture-undefined-size profile-picture-activity-undefined"
->
-  <img
-    src="undefined"
-  />
-</div>
-`;
+version https://git-lfs.github.com/spec/v1
+oid sha256:d15d6afe39b3146d62104fd30aeabb00bcf87b2eaae3e0cb601dc0bf20f7216c
+size 264
