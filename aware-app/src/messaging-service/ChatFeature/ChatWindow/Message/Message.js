@@ -9,11 +9,11 @@ class Message extends Component {
             <div class="col-sm-12 message received-message">
                 <div class="col-sm-1 message-profile">
                     <ProfilePicture instance="message" activity="online"  picture={content.avatar}/>
-                    <p class="message-profile-name">{content.studentName}</p>
+                    <p class="message-profile-name">{content.username}</p>
                 </div>
 
                 <div class="col-sm-4 message-text received-message-text">
-                    <p>{content.text}</p>
+                    <p>{content.content}</p>
                 </div>
 
                 <div class="col-sm-2 message-timestamp received-message-timestamp">
@@ -30,18 +30,18 @@ class Message extends Component {
                     <p>{content.timestamp}</p> 
                 </div>
                 <div class="col-sm-4 message-text sent-message-text">
-                    <p>{content.text}</p>
+                    <p>{content.content}</p>
                 </div>
                 <div class="col-sm-1 message-profile">
                     <ProfilePicture instance="message" activity="online"  picture={content.avatar}/>
-                    <p class="message-profile-name">{content.studentName}</p>
+                    <p class="message-profile-name">{content.username}</p>
                 </div>
             </div>
         );
     }
     
     render() {
-        if (this.props.content.studentName === this.props.name) {
+        if (this.props.content.username === this.props.name) {
             return this.produceMessageByMe(this.props.content);
         } else {
             return this.produceMessageByThem(this.props.content);

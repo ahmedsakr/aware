@@ -10,7 +10,31 @@ class Landing extends Component {
     super()
 
     this.state = {
-      component: Login
+      component: Login,
+      username: null
+    }
+
+    this.setUsername.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.socket) {
+      this.props.socket.on('login-request', (result) => {
+        if (result) {
+          this.props.loadMessenger(this.state.username);
+        } else {
+          alert("Invalid username or password.");
+        }
+      })
+
+      this.props.socket.on('register-request', (result) => {
+        if (result) {
+          alert("Registration successful!");
+          this.switchView();
+        } else {
+          alert("Registration failure");
+        }
+      });
     }
   }
 
@@ -26,7 +50,10 @@ class Landing extends Component {
       <div className="container-fluid aware-container">
         <div id="landing-canvas" className="aware-column row">
           <div className="col-3 offset-3">
-            <Component switch = {this.switchView} loadMessenger = {this.props.loadMessenger} setUsername = {this.props.setUsername}/>
+            <Component
+              socket={this.props.socket}
+              switch={this.switchView} 
+              setUsername={this.setUsername} />
           </div>
         </div>
       </div>
@@ -43,6 +70,12 @@ class Landing extends Component {
         component: Login
       })
     }
+  }
+
+  setUsername = (username) => {
+    this.setState({
+      username: username
+    });
   }
 }
 

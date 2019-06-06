@@ -3,12 +3,28 @@ import CourseDiscussion from './CourseDiscussion'
 import './CourseDiscussion.css';
 import DirectMessage from './DirectMessage/DirectMessage'
 
-
 class ChatSelector extends Component {
   constructor() {
     super()
+    
     this.state = {
+      rooms: [],
       selectedRoom: null
+    };
+  }
+
+  componentWillMount() {
+    if (this.props.socket) {
+
+      // Retrieve all rooms that the user is subscribed to.
+      this.props.socket.emit('get-rooms', this.props.username);
+
+      // Listen for any updates in subscribed rooms for this user.
+      this.props.socket.on('user-rooms', (rooms) => {
+        this.setState({
+          rooms: rooms
+        });
+      });
     }
   }
 
@@ -19,14 +35,17 @@ class ChatSelector extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.selectedRoom !== nextState.selectedRoom;
+    return  (this.state.rooms !== nextState.rooms) || (this.state.selectedRoom !== nextState.selectedRoom);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    this.props.selectRoom(this.state.selectedRoom.props.name);
-    this.state.selectedRoom.setState({ selected: true });
     
-    if (prevState.selectedRoom != null) {
+    if (this.state.selectedRoom) {
+      this.props.selectRoom(this.state.selectedRoom.props.room, this.state.selectedRoom.props.name);
+      this.state.selectedRoom.setState({ selected: true });
+    }
+ 
+    if (prevState.selectedRoom) {
       prevState.selectedRoom.setState({ selected: false });
     }
   }
@@ -36,11 +55,18 @@ class ChatSelector extends Component {
     return (
       <div id="vertical-menu">
         <h3>Course Discussion</h3>
-        <CourseDiscussion updateRoom={this.updateSelectedRoom.bind(this)} room="SYSC2100" src="/messenger-icons/sysc.png" name="SYSC 2100" />
-        <CourseDiscussion updateRoom={this.updateSelectedRoom.bind(this)} room="SYSC2004" src="/messenger-icons/sysc.png" name="SYSC 2004" />
-        <CourseDiscussion updateRoom={this.updateSelectedRoom.bind(this)} room="SYSC3110" src="/messenger-icons/sysc.png" name="SYSC 3110" />
-        <CourseDiscussion updateRoom={this.updateSelectedRoom.bind(this)} room="ELEC2501" src="/messenger-icons/eelc.png" name="ELEC 2501" />
-        <CourseDiscussion updateRoom={this.updateSelectedRoom.bind(this)} room="MATH2004" src="/messenger-icons/math.png" name="MATH 2004" />
+
+        {
+          this.state.rooms.map(room => {
+            return (
+              <CourseDiscussion
+                updateRoom={this.updateSelectedRoom.bind(this)}
+                room={room.group_id}
+                src={"/messenger-icons/" + room.icon}
+                name={room.name} />
+            )
+          })
+        }
 
         <hr></hr>
 

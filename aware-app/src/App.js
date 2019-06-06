@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client'
 
 import Messenger from './messaging-service/Messenger'
 import Landing from './landing/Landing'
-
-import Cookies from 'universal-cookie';
-const cookies = new Cookies();
 
 class App extends Component {
     constructor() {
@@ -12,34 +10,36 @@ class App extends Component {
     
         this.state = {
           component: Landing,
+          socket: io(),
           username: null
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.state.component !== nextState.component;
+    }
+
     render() {
-        var Component = this.state.component;
-        
-        return (
-            <Component setUsername = {this.setUsername} name = {this.state.username} loadMessenger = {this.loadMessenger}/>
-        );
+        if (this.state.component === Landing) {
+            return (
+                <Landing
+                    socket={this.state.socket}
+                    loadMessenger = {this.loadMessenger} />
+            );     
+        } else {
+            return (
+                <Messenger
+                    socket={this.state.socket}
+                    username={this.state.username} />
+            );
+        }
     }
 
-    loadMessenger = (rememberMe) => {
+    loadMessenger = (username) => {
         this.setState({
-            component: Messenger
-        }, () => {
-            if (rememberMe) {
-                cookies.set('aware-user', this.state.username, {path: '/'});
-            } else {
-                cookies.remove('aware-user', {path: '/'})
-            }  
+            component: Messenger,
+            username: username
         }); 
-    }
-
-    setUsername = (value) => {
-        this.setState({
-            username: value
-        })
     }
 }
 
