@@ -31,6 +31,7 @@ async function registerUser(username, password) {
     let db_columns = "username, user_password";
     let user_values = `'${username}', '${password}'`;
     await awaredb.query(`INSERT INTO ${db_table} (${db_columns}) VALUES (${user_values})`);
+    return true;
 }
 
 module.exports.registerUser = registerUser;
