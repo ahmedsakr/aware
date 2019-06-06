@@ -18,22 +18,24 @@ class Landing extends Component {
   }
 
   componentDidMount() {
-    this.props.socket.on('login-request', (result) => {
-      if (result) {
+    if (this.props.socket) {
+      this.props.socket.on('login-request', (result) => {
+        if (result) {
           this.props.loadMessenger(this.state.username);
-      } else {
+        } else {
           alert("Invalid username or password.");
-      }
-    })
+        }
+      })
 
-    this.props.socket.on('register-request', (result) => {
-      if (result) {
+      this.props.socket.on('register-request', (result) => {
+        if (result) {
           alert("Registration successful!");
           this.switchView();
-      } else {
+        } else {
           alert("Registration failure");
-      }
-  });
+        }
+      });
+    }
   }
 
   render() {
