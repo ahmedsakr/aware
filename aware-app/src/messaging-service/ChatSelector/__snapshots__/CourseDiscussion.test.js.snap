@@ -1,21 +1,3 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`CourseDiscussion should render correctly in "debug" mode 1`] = `
-<div
-  class="chat-navigation-item"
-  onClick={[Function]}
->
-  <div
-    class="navbar-item-avatar col-2"
-  >
-    <img
-      src="undefined"
-    />
-  </div>
-  <div
-    class="navbar-item-name col-9"
-  >
-    <p />
-  </div>
-</div>
-`;
+version https://git-lfs.github.com/spec/v1
+oid sha256:722e10e9f696987637a724b3a465fc87bb423ae6a4d2bcc6e1dc254e144a1b5b
+size 349

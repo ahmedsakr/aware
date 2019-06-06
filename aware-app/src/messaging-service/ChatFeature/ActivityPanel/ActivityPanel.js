@@ -9,7 +9,6 @@ class ActivityPanel extends Component {
             <div class="col-sm-12" id="activity-panel">
                 <ProfilePicture instance="activity" activity="online"  picture="ahmed-pic.jpg"/>
                 <ProfilePicture instance="activity" activity="online" picture="josh-pic.jpg"/>
-                <ProfilePicture instance="activity" activity="online" picture="arsalan-pic.jpg"/>
                 <ProfilePicture instance="activity" activity="online" picture="louis-ck-pic.JPG"/>
                 <ProfilePicture instance="activity" activity="online" picture="mia-khalifa-pic.jpg"/>
                 <ProfilePicture instance="activity" activity="offline" picture="bill-gates-pic.jpg"/>

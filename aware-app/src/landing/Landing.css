@@ -29,13 +29,13 @@ button {
     margin-top: 15px;
 }
 
-label > span {
+label > span, #forgot-password {
     cursor:pointer;
     color:#008080;
     text-decoration:underline;
 }
 
-label > span:hover {
+label > span:hover, #forgot-password {
     text-decoration:none;
     text-shadow: 1px 1px 1px #555;
 }

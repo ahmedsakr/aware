@@ -1,29 +1,3 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`MessageInput should render correctly in "debug" mode 1`] = `
-<form
-  onSubmit={[Function]}
->
-  <div
-    id="message-input"
-  >
-    <input
-      class="col-11"
-      id="message-input-textfield"
-      name="message"
-      onChange={[Function]}
-      placeholder="Type here.."
-      type="text"
-      value=""
-    />
-    <input
-      alt="SEND"
-      class="col-1"
-      disabled={true}
-      id="message-input-send-img"
-      src="/icons8-send-letter-80.png"
-      type="image"
-    />
-  </div>
-</form>
-`;
+version https://git-lfs.github.com/spec/v1
+oid sha256:07844ad6e8c22208d7620b337e9d7eb7163dd91eae648d391c55d3687fb57643
+size 557

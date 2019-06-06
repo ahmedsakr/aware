@@ -1,6 +1,11 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var verifier = require('./landing/db/verifier');
+var registration = require('./landing/db/register');
+var message = require('./messaging-service/db/message');
+var rooms = require('./messaging-service/db/rooms');
+
 // Grab port from Nodemon command & if not specified set to 5001
 var port = process.argv[2];
 if (port == undefined) port = 5001;
@@ -15,6 +20,35 @@ app.get('/server', (req, res) => {
 io.on('connection', function(socket) {
   console.log('Client Has Connected, id: ' + socket.id)
 
+  // Listen for login requests from users
+  socket.on('login', (username, password) => {
+    verifier.verifyLogin(username, password)
+    .then((result) => {
+      io.to(socket.id).emit("login-request", result);
+    })
+    .catch(() => {
+
+      // The query to login failed for some reason; return false to the user.
+      io.to(socket.id).emit("login-request", false);
+    });
+  });
+
+  socket.on('register', (username, password) => {
+    registration.registerUser(username, password)
+    .then((result) => {
+      io.to(socket.id).emit("register-request", result);
+    })
+    .catch(() => {
+      io.to(socket.id).emit("register-request", false);
+    });
+  });
+
+  socket.on('get-rooms', (username) => {
+    rooms.getRooms(username).then((userRooms) => {
+      io.to(socket.id).emit("user-rooms", userRooms);
+    });
+  });
+
   socket.on('room', function(room) {
     var currentRoom = getRoom();
 
@@ -28,28 +62,26 @@ io.on('connection', function(socket) {
     }
   });
 
-  socket.on('chat message', function(msg) {
+  socket.on('chat message', function(msg, groupId, username) {
     // get current room of socket to emit message in
     var currentRoom = getRoom();
     if (currentRoom != null) {
-      io.in(currentRoom).emit('chat message', msg)
-      // Append message to history for this room
-      chatHistory[currentRoom].push(msg);
+      message.insertMessage(msg, groupId, username)
+      .then(() => {
+        io.in(currentRoom).emit('chat message', msg)
+      })
     }
   });
 
   function loadHistory(room) { 
+    // Temporary hack again to get the proper formatted room
+    room = room.replace(/\s/g, '').toLowerCase();
+
     // If room doesn't have chat history, create room in dictionary
-    if (!(room in chatHistory)) {
-      if (room != '') {
-        chatHistory[room] = []
-        console.log("added room to history" + room)
-      }
-    } else {
-      for (var i = 0; i < chatHistory[room].length; i++) {
-        io.to(socket.id).emit('chat message', chatHistory[room][i])
-      }
-    }
+    message.getMessages(room)
+    .then((result) => {
+      io.to(socket.id).emit('chat history', result);
+    })
   }
 
   function getRoom() {

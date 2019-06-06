@@ -1,9 +1,3 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`App should render correctly in "debug" mode 1`] = `
-<Landing
-  loadMessenger={[Function]}
-  name={null}
-  setUsername={[Function]}
-/>
-`;
+version https://git-lfs.github.com/spec/v1
+oid sha256:41e8db746d9e728f24963296105915de8a31ef5265fda75a0cf766aa9a728b53
+size 149

@@ -1,35 +1,3 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`DirectMessages should render correctly in "debug" mode 1`] = `
-<div
-  class="row"
-  id="direct-messages"
->
-  <p
-    class="col-12"
-    id="courses"
-  >
-    Private Messages
-  </p>
-  <input
-    id="textfield"
-    placeholder="Search Messages..."
-  />
-  <DirectMessage
-    name="Josh Campitelli"
-    src="/icons8-user-80.png"
-  />
-  <DirectMessage
-    name="Arsalan Sadiq"
-    src="/icons8-user-80.png"
-  />
-  <DirectMessage
-    name="Ahmed Sakr"
-    src="/icons8-user-80.png"
-  />
-  <DirectMessage
-    name="TheRealBoys"
-    src="/icons8-user-80.png"
-  />
-</div>
-`;
+version https://git-lfs.github.com/spec/v1
+oid sha256:f4217c2c91eae6643a673e32a827da454f27e410c80098dc5fe41d8cfdd161ef
+size 618

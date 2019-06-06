@@ -1,21 +1,24 @@
 {
   "name": "aware-app",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "private": true,
   "dependencies": {
     "ajv": "6.10.0",
     "bootstrap": "^4.3.1",
     "express": "^4.17.0",
     "font-awesome": "4.7.0",
+    "pg": "^7.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "^3.0.1",
     "socket.io": "^2.2.0",
-    "sprintf-js": "^1.1.2"
+    "sprintf-js": "^1.1.2",
+    "uuid": "^3.3.2",
+    "universal-cookie": "^4.0.0"
   },
   "scripts": {
     "client": "react-scripts start",
-    "server": "nodemon src/server.js",
+    "server": "PGUSER=aware PGHOST=localhost PGPASSWORD=aware PGDATABASE=aware PGPORT=5432 nodemon src/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

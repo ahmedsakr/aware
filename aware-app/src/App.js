@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client'
 
 import Messenger from './messaging-service/Messenger'
 import Landing from './landing/Landing'
@@ -9,28 +10,36 @@ class App extends Component {
     
         this.state = {
           component: Landing,
+          socket: io(),
           username: null
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.state.component !== nextState.component;
+    }
+
     render() {
-        var Component = this.state.component;
-        
-        return (
-            <Component setUsername = {this.setUsername} name = {this.state.username} loadMessenger = {this.loadMessenger}/>
-        );
+        if (this.state.component === Landing) {
+            return (
+                <Landing
+                    socket={this.state.socket}
+                    loadMessenger = {this.loadMessenger} />
+            );     
+        } else {
+            return (
+                <Messenger
+                    socket={this.state.socket}
+                    username={this.state.username} />
+            );
+        }
     }
 
-    loadMessenger = () => {
+    loadMessenger = (username) => {
         this.setState({
-            component: Messenger
-        })
-    }
-
-    setUsername = (value) => {
-        this.setState({
-            username: value
-        })
+            component: Messenger,
+            username: username
+        }); 
     }
 }
 
