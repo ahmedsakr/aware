@@ -10,8 +10,30 @@ class Landing extends Component {
     super()
 
     this.state = {
-      component: Login
+      component: Login,
+      username: null
     }
+
+    this.setUsername.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.socket.on('login-request', (result) => {
+      if (result) {
+          this.props.loadMessenger(this.state.username);
+      } else {
+          alert("Invalid username or password.");
+      }
+    })
+
+    this.props.socket.on('register-request', (result) => {
+      if (result) {
+          alert("Registration successful!");
+          this.switchView();
+      } else {
+          alert("Registration failure");
+      }
+  });
   }
 
   render() {
@@ -28,9 +50,8 @@ class Landing extends Component {
           <div className="col-3 offset-3">
             <Component
               socket={this.props.socket}
-              switch={this.switchView}
-              loadMessenger={this.props.loadMessenger}
-              setUsername = {this.props.setUsername} />
+              switch={this.switchView} 
+              setUsername={this.setUsername} />
           </div>
         </div>
       </div>
@@ -47,6 +68,12 @@ class Landing extends Component {
         component: Login
       })
     }
+  }
+
+  setUsername = (username) => {
+    this.setState({
+      username: username
+    });
   }
 }
 

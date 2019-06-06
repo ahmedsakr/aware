@@ -53,7 +53,7 @@ class Messenger extends Component {
               <div class="col-2 p-0">
                 <ChatSelector
                   socket={this.props.socket}
-                  username={this.props.name}
+                  username={this.props.username}
                   selectRoom={selectRoom} />
               </div>
 
@@ -62,11 +62,11 @@ class Messenger extends Component {
 
                 <ChatWindow
                   messages={this.state.messages}
-                  name={this.props.name} />
+                  name={this.props.username} />
 
                 <MessageInput
                   sendMessage={sendMessage}
-                  name={this.props.name} />
+                  name={this.props.username} />
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@ class Messenger extends Component {
   }
 
   sendMessage = (message) => {
-    this.props.socket.emit('chat message', message, this.state.groupId, this.props.name);
+    this.props.socket.emit('chat message', message, this.state.groupId, this.props.username);
   }
 }
 

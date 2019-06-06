@@ -18,19 +18,6 @@ class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
-        if (this.props.socket) {
-            this.props.socket.on('login-request', (result) => {
-                if (result) {
-                    this.props.setUsername(this.state.username);
-                    this.props.loadMessenger(this.state.rememberMe);
-                } else {
-                    alert("Invalid username or password.");
-                }
-            })
-        }
-    }
-
     login() {
         if (!verification.verifyUsername(this.state.username)) {
             alert("Please provide a username between 3 and 32 characters.");
@@ -42,6 +29,13 @@ class Login extends Component {
             return;
         }
 
+        if (this.state.rememberMe) {
+            cookies.set('aware-user', this.state.username, {path: '/'});
+        } else {
+            cookies.remove('aware-user', {path: '/'})
+        }
+
+        this.props.setUsername(this.state.username);
         this.props.socket.emit('login', this.state.username, this.state.password);
     }
 
