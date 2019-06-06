@@ -35,8 +35,8 @@ io.on('connection', function(socket) {
 
   socket.on('register', (username, password) => {
     registration.registerUser(username, password)
-    .then(() => {
-      io.to(socket.id).emit("register-request", true);
+    .then((result) => {
+      io.to(socket.id).emit("register-request", result);
     })
     .catch(() => {
       io.to(socket.id).emit("register-request", false);
