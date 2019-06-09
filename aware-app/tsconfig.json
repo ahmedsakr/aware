@@ -20,6 +20,9 @@
     "jsx": "preserve"
   },
   "include": [
-    "src"
+    "src/**/*"
+  ],
+  "files": [
+    "./src/server.tsx"
   ]
 }
