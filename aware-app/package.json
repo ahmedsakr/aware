@@ -1,8 +1,12 @@
 {
   "name": "aware-app",
-  "version": "0.1.7",
+  "version": "0.2.1",
   "private": true,
   "dependencies": {
+    "@types/jest": "^24.0.13",
+    "@types/node": "^12.0.7",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
     "ajv": "6.10.0",
     "bootstrap": "^4.3.1",
     "express": "^4.17.0",
@@ -13,8 +17,8 @@
     "react-scripts": "^3.0.1",
     "socket.io": "^2.2.0",
     "sprintf-js": "^1.1.2",
-    "uuid": "^3.3.2",
-    "universal-cookie": "^4.0.0"
+    "universal-cookie": "^4.0.0",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "client": "react-scripts start",
@@ -47,7 +51,7 @@
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
     "prettier": "^1.17.1",
-    "typescript": "^3.4.5"
+    "typescript": "^3.5.1"
   },
   "jest": {
     "snapshotSerializers": [
