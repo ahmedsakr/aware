@@ -88,7 +88,6 @@ git clone git@github.com:ahmedsakr/aware.git
 cd aware/aware-app
 npm install
 
-
 ################## Setup Terminal #############
 
 # Install terminator terminal
