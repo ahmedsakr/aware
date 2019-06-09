@@ -48,6 +48,14 @@ sudo $PACKAGE_MANAGER install -y code
 # Install version control
 sudo $PACKAGE_MANAGER install -y git
 
+# Install Curl
+sudo $PACKAGE_MANAGER install curl
+
+# Install Git LFS
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo $PACKAGE_MANAGER install git-lfs
+git lfs install
+
 # Install node package manager
 sudo $PACKAGE_MANAGER install -y npm
 
@@ -79,6 +87,7 @@ git clone git@github.com:ahmedsakr/aware.git
 # Install the npm modules
 cd aware/aware-app
 npm install
+
 
 ################## Setup Terminal #############
 
