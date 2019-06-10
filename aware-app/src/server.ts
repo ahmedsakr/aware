@@ -1,13 +1,15 @@
-import * as express from 'express';
-import {Server} from 'http';
-import * as SocketIO from 'socket.io'
-import * as verifier from './landing/db/verifier';
-import * as registration from './landing/db/register';
-import * as message from './messaging-service/db/message'
-import * as rooms from './messaging-service/db/rooms';
+import 'babel-polyfill'
+import express from 'express';
+import httpServer from 'http';
+import SocketIO from 'socket.io';
+
+import verifyLogin from './landing/db/verifier';
+import registerUser from './landing/db/register';
+import Messages from './messaging-service/db/message'
+import getRooms from './messaging-service/db/rooms';
 
 let app = express();
-let http: Server = new Server(app);
+let http: httpServer.Server = new httpServer.Server(app);
 let io: SocketIO.Server = SocketIO(http);
 
 // Grab port from Nodemon command & if not specified set to 5001
@@ -24,7 +26,7 @@ io.on('connection', (socket : SocketIO.Socket) => {
 
   // Listen for login requests from users
   socket.on('login', (username: string, password: string) => {
-    verifier.verifyLogin(username, password)
+    verifyLogin(username, password)
     .then((result: boolean) => {
       io.to(socket.id).emit("login-request", result);
     })
@@ -36,7 +38,7 @@ io.on('connection', (socket : SocketIO.Socket) => {
   });
 
   socket.on('register', (username: string, password: string) => {
-    registration.registerUser(username, password)
+    registerUser(username, password)
     .then((result: boolean) => {
       io.to(socket.id).emit("register-request", result);
     })
@@ -46,7 +48,7 @@ io.on('connection', (socket : SocketIO.Socket) => {
   });
 
   socket.on('get-rooms', (username: string) => {
-    rooms.getRooms(username).then((userRooms: string[]) => {
+    getRooms(username).then((userRooms: Object[]) => {
       io.to(socket.id).emit("user-rooms", userRooms);
     });
   });
@@ -70,7 +72,7 @@ io.on('connection', (socket : SocketIO.Socket) => {
     // get current room of socket to emit message in
     var currentRoom = getRoom();
     if (currentRoom != null) {
-      message.insertMessage(msg, groupId, username)
+      new Messages(groupId).insertMessage(msg, username)
       .then(() => {
         io.in(currentRoom).emit('chat message', msg)
       })
@@ -88,8 +90,8 @@ function loadHistory(socketId: string, room: string): void {
   room = room.replace(/\s/g, '').toLowerCase();
 
   // If room doesn't have chat history, create room in dictionary
-  message.getMessages(room)
-  .then((result: string[]) => {
+  new Messages(room).getMessages()
+  .then((result: Object[]) => {
     io.to(socketId).emit('chat history', result);
   })
 }

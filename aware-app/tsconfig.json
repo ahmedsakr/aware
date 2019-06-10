@@ -23,6 +23,6 @@
     "src/**/*"
   ],
   "files": [
-    "./src/server.tsx"
+    "./src/server.ts"
   ]
 }
