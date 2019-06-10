@@ -48,7 +48,7 @@ sudo $PACKAGE_MANAGER install -y code
 # Install version control
 sudo $PACKAGE_MANAGER install -y git
 
-# Get the Git LFS repo for ubuntu
+# The Git LFS repo must be added prior to attempting to install for Ubuntu
 if [ "$OS" = "ubuntu" ]; then
     # Install Curl
     sudo $PACKAGE_MANAGER install curl
