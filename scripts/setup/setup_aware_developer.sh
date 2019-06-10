@@ -48,6 +48,17 @@ sudo $PACKAGE_MANAGER install -y code
 # Install version control
 sudo $PACKAGE_MANAGER install -y git
 
+# The Git LFS repo must be added prior to attempting to install for Ubuntu
+if [ "$OS" = "ubuntu" ]; then
+    # Install Curl
+    sudo $PACKAGE_MANAGER install curl
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+fi
+
+# Install Git LFS
+sudo $PACKAGE_MANAGER install git-lfs
+git lfs install
+
 # Install node package manager
 sudo $PACKAGE_MANAGER install -y npm
 
