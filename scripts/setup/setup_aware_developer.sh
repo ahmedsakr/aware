@@ -48,11 +48,14 @@ sudo $PACKAGE_MANAGER install -y code
 # Install version control
 sudo $PACKAGE_MANAGER install -y git
 
-# Install Curl
-sudo $PACKAGE_MANAGER install curl
+# Get the Git LFS repo for ubuntu
+if [ "$OS" = "ubuntu" ]; then
+    # Install Curl
+    sudo $PACKAGE_MANAGER install curl
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+fi
 
 # Install Git LFS
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 sudo $PACKAGE_MANAGER install git-lfs
 git lfs install
 
