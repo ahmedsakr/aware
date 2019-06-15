@@ -1,3 +1,9 @@
+/*
+ * Messenger styling
+ *
+ * Defines layout fundamentals for the Messenger.
+ */
+
 .aware-container {
   height: 100vh;
   max-height: 100vh;
@@ -12,7 +18,7 @@
   height: 100%;
 }
 
-#navigation-header{
+#navigation-header {
   flex: 0 1 auto;
 }
 
