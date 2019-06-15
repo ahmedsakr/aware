@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './MessageInput.css';
-import {produceTimestamp} from '../../../aware-utils.js'
+import produceTimestamp from '../../../aware-utils'
 
 class MessageInput extends Component {
   constructor() {
