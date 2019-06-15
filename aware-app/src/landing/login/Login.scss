@@ -8,6 +8,10 @@
 $background_color: #232f3e;
 $font_color: #c1c7c9;
 
+@mixin top_margin($value) {
+    margin-top: $value
+}
+
 #login {
     background-color: $background_color;
     border-radius: 7px;
@@ -25,11 +29,11 @@ $font_color: #c1c7c9;
 
 #login-username,
 #login-password {
-    margin-top: 15px;
+    @include top_margin(15px);
 }
 
 #login-register {
-    margin-top: 10px;
+    @include top_margin(10px);
 }
 
 #forgot-password {
@@ -37,5 +41,5 @@ $font_color: #c1c7c9;
 }
 
 #checkbox-forgot {
-    margin-top: 10px;
+    @include top_margin(10px);
 }
