@@ -8,7 +8,7 @@ const db = new postgres.Pool();
  * 
  * @param {String} queryStr The string representation of the query. 
  */
-export default async function query(queryStr: string) : Promise<Object[]>{
+export default async function query(queryStr: string) : Promise<Object[]> {
     let result : Object[] = [];
 
     // Insert the query-terminating semicolon if it was not given.
@@ -16,7 +16,7 @@ export default async function query(queryStr: string) : Promise<Object[]>{
         queryStr = queryStr + ';';
     }
 
-    await db.query(queryStr).then((data) => {
+    await db.query(queryStr).then((data: postgres.QueryResult) => {
         if (data.rowCount > 0) {
             result = data.rows;
         }
