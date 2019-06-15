@@ -2,11 +2,12 @@ $landing_textfield_color: #18202c;
 $label_font_color: #a7afb2;
 $button_color: #ffc000;
 $forgot_password_font_color: #008080;
+$backround_image_url: '/shrek.jpg';
 
 #landing-canvas {
     flex-direction: column;
     justify-content: center;
-    background-image: url('/shrek.jpg');
+    background-image: url($backround_image_url);
   }
   
   label {
