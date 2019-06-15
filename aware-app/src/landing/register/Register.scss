@@ -1,11 +1,14 @@
+$background_color: #232f3e;
+$font_color: #c1c7c9;
+
 #register {
-    background-color: #232f3e;
+    background-color: $background_color;
     border-radius: 7px;
     padding: 20px;
 }
 
 #register > h2, #login > h4 {
-    color: #c1c7c9;
+    color: $font_color;
     text-align: center;    
 }
 
