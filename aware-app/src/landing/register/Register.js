@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import verification from '../../shared/verification/user';
-import './Register.css'
+import './Register.scss'
 
 class Register extends Component {
 

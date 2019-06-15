@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import NavBarLink, {NavBarLogo, NavBarTitle} from '../NavBarLink/NavBarLink'
-import './NavBar.css';
+import './NavBar.scss';
 
 class NavBar extends Component {
   render() {

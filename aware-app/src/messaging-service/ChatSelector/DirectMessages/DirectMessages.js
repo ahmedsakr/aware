@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './DirectMessages.css';
+import './DirectMessages.scss';
 import DirectMessage from '../DirectMessage/DirectMessage'
 
 class DirectMessages extends Component {

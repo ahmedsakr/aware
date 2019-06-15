@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Message.css'
+import './Message.scss'
 import ProfilePicture from '../../Profile/ProfilePicture'
 
 class Message extends Component {

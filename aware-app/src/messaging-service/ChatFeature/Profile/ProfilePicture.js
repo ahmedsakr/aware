@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './ProfilePicture.css'
+import './ProfilePicture.scss'
 
 class ProfilePicture extends Component {
     render() {

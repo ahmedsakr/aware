@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css'
-import './Landing.css'
+import './Landing.scss'
 
 import Login from './login/Login'
 import Register from './register/Register'

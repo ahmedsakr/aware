@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './CourseDiscussion.css'
+import './CourseDiscussion.scss'
 class CourseDiscussion extends Component {
   constructor() {
     super()

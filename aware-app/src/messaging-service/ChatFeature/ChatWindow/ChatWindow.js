@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Message from "./Message/Message"
-import './ChatWindow.css'
+import './ChatWindow.scss'
 
 class ChatWindow extends Component {
 

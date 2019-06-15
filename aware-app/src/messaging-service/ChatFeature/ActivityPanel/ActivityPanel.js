@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './ActivityPanel.css'
+import './ActivityPanel.scss'
 import ProfilePicture from '../Profile/ProfilePicture';
 
 class ActivityPanel extends Component {
