@@ -1,3 +1,5 @@
+$chat_messages_background_color: #ffffff;
+
 #chat {
   flex: 1 0 auto;
   display: block;
@@ -7,7 +9,7 @@
 #chat-messages {
   text-align: left;
   padding: 10px;
-  background: #ffffff;
+  background: $chat_messages_background_color;
   overflow: auto;
   max-height: 100%;
   word-wrap: break-word;
