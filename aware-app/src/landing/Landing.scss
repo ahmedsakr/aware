@@ -10,6 +10,19 @@ $button_color: #ffc000;
 $forgot_password_font_color: #008080;
 $backround_image_url: '/shrek.jpg';
 
+@mixin input_styles($background_color, $color, $border, $padding, $border_radius, $width: 100%) {
+    background-color: $background_color;
+    color: $color;
+    border-radius: $border_radius;
+    width: $width;
+    @each $value in $border {
+        border: #{$value};
+    }
+    @each $pad in $padding {
+        padding: #{$pad};
+    }
+}
+
 #landing-canvas {
     flex-direction: column;
     justify-content: center;
@@ -21,23 +34,13 @@ label {
 }
 
 .landing-textfield {
-    background-color: $landing_textfield_color;
-    width: 100%;
-    padding: 8px 10px;
+    @include input_styles($landing_textfield_color, $label_font_color, 1px solid #ccc, 8px 10px, 7px);
     display: inline-block;
-    border: 1px solid #ccc;
     border-color: $landing_textfield_color;
-    border-radius: 7px;
-    color: $label_font_color;
 }
 
 button {
-    background-color: $button_color;
-    color: black;
-    padding: 10px 10px;
-    border: none;
-    width: 100%;
-    border-radius: 7px;
+    @include input_styles($button_color, black, none, 10px 10px, 7px);
     margin-top: 15px;
 }
 
