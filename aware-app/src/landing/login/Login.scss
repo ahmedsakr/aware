@@ -12,26 +12,30 @@ $font_color: #c1c7c9;
     background-color: $background_color;
     border-radius: 7px;
     padding: 20px;
+
     > {
-      h2, h4 {
-        color: $font_color;
-        text-align: center;
-      }
+
+        h2,
+        h4 {
+            color: $font_color;
+            text-align: center;
+        }
     }
-  }
-  
-  #login-username, #login-password {
+}
+
+#login-username,
+#login-password {
     margin-top: 15px;
-  }
-  
-  #login-register {
+}
+
+#login-register {
     margin-top: 10px;
-  }
-  
-  #forgot-password {
+}
+
+#forgot-password {
     float: right;
-  }
-  
-  #checkbox-forgot {
+}
+
+#checkbox-forgot {
     margin-top: 10px;
-  }
+}

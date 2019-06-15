@@ -10,19 +10,20 @@ $direct_messages_background_color: #a2abab;
     background-color: $direct_messages_background_color;
     display: block;
     height: 100%;
-    > input {
-      margin-bottom: 0.5em;
-      height: 35px;
-      font-size: 20px;
-      width: 85%;
+
+    >input {
+        margin-bottom: 0.5em;
+        height: 35px;
+        font-size: 20px;
+        width: 85%;
     }
-  }
-  
-  #right-bar > a {
+}
+
+#right-bar>a {
     text-align: center;
-  }
-  
-  #courses {
+}
+
+#courses {
     text-align: left;
     padding-left: 8%;
     padding-top: 0.5em;
@@ -30,4 +31,4 @@ $direct_messages_background_color: #a2abab;
     color: white;
     font-size: 20px;
     margin: 0;
-  }
+}

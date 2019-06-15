@@ -14,13 +14,13 @@ $backround_image_url: '/shrek.jpg';
     flex-direction: column;
     justify-content: center;
     background-image: url($backround_image_url);
-  }
-  
-  label {
+}
+
+label {
     color: $label_font_color;
-  }
-  
-  .landing-textfield {
+}
+
+.landing-textfield {
     background-color: $landing_textfield_color;
     width: 100%;
     padding: 8px 10px;
@@ -29,9 +29,9 @@ $backround_image_url: '/shrek.jpg';
     border-color: $landing_textfield_color;
     border-radius: 7px;
     color: $label_font_color;
-  }
-  
-  button {
+}
+
+button {
     background-color: $button_color;
     color: black;
     padding: 10px 10px;
@@ -39,15 +39,17 @@ $backround_image_url: '/shrek.jpg';
     width: 100%;
     border-radius: 7px;
     margin-top: 15px;
-  }
-  
-  label > span, #forgot-password {
+}
+
+label>span,
+#forgot-password {
     cursor: pointer;
     color: $forgot_password_font_color;
     text-decoration: underline;
-  }
-  
-  label > span:hover, #forgot-password {
+}
+
+label>span:hover,
+#forgot-password {
     text-decoration: none;
     text-shadow: 1px 1px 1px #555;
-  }
+}

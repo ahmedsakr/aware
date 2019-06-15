@@ -11,21 +11,24 @@ $font_color: #c1c7c9;
     background-color: $background_color;
     border-radius: 7px;
     padding: 20px;
-    > h2 {
-      color: $font_color;
-      text-align: center;
+
+    >h2 {
+        color: $font_color;
+        text-align: center;
     }
-  }
-  
-  #login > h4 {
+}
+
+#login>h4 {
     color: $background_color;
     text-align: center;
-  }
-  
-  #register-username, #register-password, #register-confirm {
+}
+
+#register-username,
+#register-password,
+#register-confirm {
     margin-top: 15px;
-  }
-  
-  #register-login {
+}
+
+#register-login {
     margin-top: 10px;
-  }
+}

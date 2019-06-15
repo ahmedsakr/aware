@@ -3,109 +3,108 @@
  *
  * Defines layout fundamentals for every message.
  */
+$received_message_background_color: #a1c6ea;
+$sent_message_background_color: #507dbc;
 
- $received_message_background_color: #a1c6ea;
- $sent_message_background_color: #507dbc;
-
- .message {
+.message {
     margin-top: 10px;
     display: flex;
-  }
-  
-  .received-message {
+}
+
+.received-message {
     margin-left: 5px;
     padding-left: 15px;
-  }
-  
-  .sent-message {
+}
+
+.sent-message {
     margin-right: 5px;
     padding-right: 15px;
-  }
-  
-  /*
+}
+
+/*
    * Message text styling
    *
    * The messages bubbles are designed to be fluid in size relative to the size of the text.
    */
-  
-  .message-text {
+
+.message-text {
     display: flex;
     align-items: flex-start;
     text-align: left;
-  }
-  
-  .sent-message-text {
+}
+
+.sent-message-text {
     justify-content: right;
-  }
-  
-  .received-message-text {
+}
+
+.received-message-text {
     justify-content: left;
-  }
-  
-  .message-text > p {
+}
+
+.message-text>p {
     border-radius: 10px;
     margin-bottom: 0px;
     padding: 0px 10px 0px 10px;
-  }
-  
-  .received-message-text > p {
+}
+
+.received-message-text>p {
     background-color: $received_message_background_color;
     margin-right: 5px;
-  }
-  
-  .sent-message-text > p {
+}
+
+.sent-message-text>p {
     background-color: $sent_message_background_color;
     margin-left: 5px;
-  }
-  
-  /*
+}
+
+/*
    * Profile styling
    * 
    * Profile elements for every message include the profile picture and the first
    * name of the sender. The name is centered under the profile image.
    */
-  
-  .message-profile {
+
+.message-profile {
     padding: 0px;
     font-size: 0.8em;
     text-align: center;
-  }
-  
-  .message-profile-name {
+}
+
+.message-profile-name {
     margin: 0px;
-  }
-  
-  /*
+}
+
+/*
    * Timestamp styling
    * 
    * The timestamp is designed to be on the bottom level of the divider with a minor padding
    * aware from the message.
    */
-  
-  .message-timestamp {
+
+.message-timestamp {
     padding: 0px;
     font-size: 1em;
     display: flex;
     align-items: flex-end;
     opacity: 0.8;
-  }
-  
-  .received-message-timestamp {
+}
+
+.received-message-timestamp {
     text-align: left;
     justify-content: flex-start;
-  }
-  
-  .sent-message-timestamp {
+}
+
+.sent-message-timestamp {
     text-align: right;
     justify-content: flex-end;
-  }
-  
-  .received-message-timestamp > p {
+}
+
+.received-message-timestamp>p {
     margin: 0;
     padding-left: 5px;
-  }
-  
-  .sent-message-timestamp > p {
+}
+
+.sent-message-timestamp>p {
     margin: 0;
     padding-right: 5px;
-  }
+}

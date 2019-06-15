@@ -10,20 +10,20 @@ $message_input_background_color: #eaeff1;
     background-color: $message_input_background_color;
     border: none;
     height: 100%;
-  }
-  
-  #message-input-send-img {
+}
+
+#message-input-send-img {
     vertical-align: middle;
-  }
-  
-  #message-input {
+}
+
+#message-input {
     flex: 1 0 auto;
     background-color: $message_input_background_color;
     text-align: left;
-  }
-  
-  form {
+}
+
+form {
     flex: 0 1 auto;
     display: flex;
     flex-flow: column;
-  }
+}

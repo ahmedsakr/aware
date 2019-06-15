@@ -8,31 +8,32 @@ $direct_message_background_color: #babdc0;
 $direct_message_hover_color: #232f3e;
 
 .direct-message {
-  color: $direct_message_background_color;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  &:hover {
-    background-color: $direct_message_hover_color;
-    text-decoration: none;
-  }
+    color: $direct_message_background_color;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        background-color: $direct_message_hover_color;
+        text-decoration: none;
+    }
 }
 
-.direct-message-content > p {
-  padding: 0;
-  margin: 0;
+.direct-message-content>p {
+    padding: 0;
+    margin: 0;
 }
 
 #direct-message-preview {
-  padding-left: 10px;
+    padding-left: 10px;
 }
 
 .direct-message-content {
-  text-align: left;
-  display: inline-block;
+    text-align: left;
+    display: inline-block;
 }
 
 .direct-message-preview {
-  border-radius: 5px;
+    border-radius: 5px;
 }
