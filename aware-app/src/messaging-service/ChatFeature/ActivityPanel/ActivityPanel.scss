@@ -1,9 +1,11 @@
+$background_color: #ebebeb;
+
 #activity-panel {
     display: flex;
     flex: 0 0 auto;
     align-items: center;
     text-align: left;
-    background-color: #ebebeb;
+    background-color: $background_color;
     height: 5%;
     padding-left: 5px;
 }
