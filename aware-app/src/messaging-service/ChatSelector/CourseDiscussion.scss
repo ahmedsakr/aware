@@ -1,24 +1,28 @@
-#vertical-menu {
-    background-color: #18202c;
-    display: block;
-    text-align: left;
-    height: 100%;
-}
+$vertical_menu_background_color: #18202c;
+$chat_navigation_background_color: #232f3e;
+$chat_navigation_active_color: #4CAF50;
+$navbar_item_color: #babdc0;
 
-#vertical-menu > h3 {
-  color: white;
-  padding-left: 10px;
+#vertical-menu {
+  background-color: $vertical_menu_background_color;
+  display: block;
+  text-align: left;
+  height: 100%;
+  > h3 {
+    color: white;
+    padding-left: 10px;
+  }
 }
 
 .chat-navigation-item {
-    display: block;
-    margin: 0px;
+  display: block;
+  margin: 0px;
 }
 
 .chat-navigation-item-selected {
-    display: block;
-    margin: 0px;
-    background-color: #232f3e;
+  display: block;
+  margin: 0px;
+  background-color: $chat_messages_background_color;
 }
 
 .navbar-item-name, .navbar-item-avatar {
@@ -26,25 +30,25 @@
 }
 
 .navbar-item-name {
-  color: #babdc0;
+  color: $navbar_item_color;
+  > p {
+    margin: 0px;
+  }
 }
 
-.navbar-item-name > p {
-  margin: 0px;
-}
-
-.chat-navigation-item:hover {
-    background-color: #232f3e;
+.chat-navigation-item {
+  &:hover {
+    background-color: $chat_messages_background_color;
     text-decoration: none;
-}
-
-.chat-navigation-item.active {
-    background-color: #4CAF50;
+  }
+  &.active {
+    background-color: $chat_navigation_active_color;
     color: white;
+  }
 }
 
 #tag:hover {
-  background-color: #232f3e;
+  background-color: $chat_messages_background_color;
 }
 
 hr {
