@@ -9,7 +9,7 @@ parse_options() {
         case "$option" in
             # Modify how long the container runs before terminating
             r)
-            AWARE_CONTAINER_RUNTIME=$OPTARG
+            AWARE_APP_RUNTIME=$OPTARG
             ;;
             *)
             echo "Unrecognized option provided."
@@ -19,12 +19,13 @@ parse_options() {
 }
 
 BASE_DIR=$(dirname `realpath $0`)
+source $BASE_DIR/../aware-env.sh
+
 SCHEMA_DIR=$(realpath $BASE_DIR/../../aware-app/src/schemas)
 DOCKER_DIR=$(realpath $BASE_DIR/../../aware-app/src/docker)
 AWARE_DATABASE_PORT=$((RANDOM + 1024))
 CONTAINER_NAME="aware-db-$AWARE_DATABASE_PORT"
 IMAGE_NAME="aware-database-$AWARE_DATABASE_PORT"
-AWARE_CONTAINER_RUNTIME=20
 
 # Parse all available options
 parse_options $@
@@ -47,9 +48,9 @@ sleep 5s
 PGPASSWORD=aware psql -h localhost -p $AWARE_DATABASE_PORT -U aware -c "\\i $SCHEMA_DIR/accounts.sql;" >& /dev/null
 
 echo "PostgreSQL Container created: localhost:$AWARE_DATABASE_PORT"
-echo "Docker will kill Container: $CONTAINER_NAME in $AWARE_CONTAINER_RUNTIME minutes"
+echo "Docker will kill Container: $CONTAINER_NAME in $AWARE_APP_RUNTIME minutes"
 
-at now + $AWARE_CONTAINER_RUNTIME minutes >& /dev/null << CLEANUP
+at now + $AWARE_APP_RUNTIME minutes >& /dev/null << CLEANUP
 docker kill "$CONTAINER_NAME"
 sed -i -s -e "s/$AWARE_DATABASE_PORT/5432/g" "$BASE_DIR/../../aware-app/package.json"
 CLEANUP
