@@ -5,17 +5,21 @@ $font_color: #c1c7c9;
     background-color: $background_color;
     border-radius: 7px;
     padding: 20px;
-}
-
-#register > h2, #login > h4 {
-    color: $font_color;
-    text-align: center;    
-}
-
-#register-username, #register-password, #register-confirm {
+    > h2 {
+      color: $font_color;
+      text-align: center;
+    }
+  }
+  
+  #login > h4 {
+    color: $background_color;
+    text-align: center;
+  }
+  
+  #register-username, #register-password, #register-confirm {
     margin-top: 15px;
-}
-
-#register-login {
+  }
+  
+  #register-login {
     margin-top: 10px;
-}
+  }
