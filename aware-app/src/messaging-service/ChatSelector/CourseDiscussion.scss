@@ -22,7 +22,7 @@ $navbar_item_color: #babdc0;
 .chat-navigation-item-selected {
   display: block;
   margin: 0px;
-  background-color: $chat_messages_background_color;
+  background-color: $chat_navigation_background_color;
 }
 
 .navbar-item-name, .navbar-item-avatar {
@@ -38,7 +38,7 @@ $navbar_item_color: #babdc0;
 
 .chat-navigation-item {
   &:hover {
-    background-color: $chat_messages_background_color;
+    background-color: $chat_navigation_background_color;
     text-decoration: none;
   }
   &.active {
@@ -48,7 +48,7 @@ $navbar_item_color: #babdc0;
 }
 
 #tag:hover {
-  background-color: $chat_messages_background_color;
+  background-color: $chat_navigation_background_color;
 }
 
 hr {
