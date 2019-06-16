@@ -11,13 +11,14 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "^3.0.1",
+    "serve": "^11.0.1",
     "socket.io": "^2.2.0",
     "sprintf-js": "^1.1.2",
-    "uuid": "^3.3.2",
-    "universal-cookie": "^4.0.0"
+    "universal-cookie": "^4.0.0",
+    "uuid": "^3.3.2"
   },
   "scripts": {
-    "client": "react-scripts start",
+    "client": "HOST='0.0.0.0' react-scripts start",
     "server": "PGUSER=aware PGHOST=localhost PGPASSWORD=aware PGDATABASE=aware PGPORT=5432 nodemon src/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",

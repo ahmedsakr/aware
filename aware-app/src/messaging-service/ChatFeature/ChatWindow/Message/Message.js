@@ -26,7 +26,7 @@ class Message extends Component {
     produceMessageByMe(content) {
         return (
             <div class="col-sm-12 message sent-message">
-                <div class="offset-sm-5 col-sm-2 message-timestamp sent-message-timestamp">
+                <div class="offset-sm-5 col-sm-2 message-timestamp sent-message-timestamp" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                     <p>{content.timestamp}</p> 
                 </div>
                 <div class="col-sm-4 message-text sent-message-text">
