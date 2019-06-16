@@ -3,20 +3,21 @@ import 'bootstrap'
 import './AwareOverlay.css'
 
 type AwareOverlayProps = {
+    debug: boolean,
     name: string,
     title: string,
     content: JSX.Element,
     footer: JSX.Element
 };
 
-type AwareOverlayState = { };
+type AwareOverlayState = {};
 
 export default class AwareOverlay extends React.Component<AwareOverlayProps, AwareOverlayState> {
 
     render(): JSX.Element {
-        const {name, title, content, footer} = this.props;
-    
-        return(
+        const { name, title, content, footer } = this.props;
+
+        return (
             <div className="overlay-container">
                 <div className="modal fade" id={name} role="dialog" aria-labelledby={name + "Label"} aria-hidden="true">
                     <div className="modal-dialog" role="document">

@@ -5,20 +5,24 @@ import io from 'socket.io-client'
 import Messenger from './messaging-service/Messenger'
 import Landing from './landing/Landing'
 
+type AppProps = {
+    debug: boolean
+};
+
 type AppState = {
     socket: SocketIOClient.Socket,
     component: string,
     username: string | null
 };
 
-export default class App extends Component<{}, AppState> {
-    constructor(props: any) {
+export default class App extends Component<AppProps, AppState> {
+    constructor(props: AppProps) {
         super(props);
 
         this.state = {
-          socket: io(),
-          component: "landing",
-          username: null
+            socket: io(),
+            component: "landing",
+            username: null
         };
     }
 
@@ -30,7 +34,7 @@ export default class App extends Component<{}, AppState> {
         this.setState({
             component: "messenger",
             username
-        }); 
+        });
     }
 
     render(): JSX.Element {
@@ -38,8 +42,8 @@ export default class App extends Component<{}, AppState> {
             return (
                 <Landing
                     socket={this.state.socket}
-                    loadMessenger = {this.loadMessenger} />
-            );     
+                    loadMessenger={this.loadMessenger} />
+            );
         } else {
             return (
                 <Messenger
