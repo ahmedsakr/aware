@@ -3,7 +3,6 @@ import 'bootstrap'
 import './AwareOverlay.css'
 
 type AwareOverlayProps = {
-    debug: boolean,
     name: string,
     title: string,
     content: JSX.Element,

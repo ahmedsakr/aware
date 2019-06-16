@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import AwareOverlay from './AwareOverlay';
+import NewsletterOverlay from './NewsletterOverlay';
 
-describe('AwareOverlay', () => {
+describe('NewsletterOverlay', () => {
     it('should render correctly', () => {
 
         let content = () => {
@@ -23,9 +23,9 @@ describe('AwareOverlay', () => {
         }
 
         const component = shallow(
-            <AwareOverlay
-                name="Test overlay"
-                title="Testing the overlay"
+            <NewsletterOverlay
+                name="Aware Newsletter"
+                title="Subsribe to our Newsletter"
                 content={content()}
                 footer={footer()} />
         );

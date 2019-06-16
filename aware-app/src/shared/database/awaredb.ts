@@ -8,8 +8,8 @@ const db = new postgres.Pool();
  * 
  * @param {String} queryStr The string representation of the query. 
  */
-export default async function query(queryStr: string) : Promise<Object[]> {
-    let result : Object[] = [];
+export default async function query(queryStr: string): Promise<Object[]> {
+    let result: Object[] = [];
 
     // Insert the query-terminating semicolon if it was not given.
     if (queryStr[queryStr.length - 1] !== ';') {
@@ -30,6 +30,6 @@ export default async function query(queryStr: string) : Promise<Object[]> {
  * exit of the server because we would like the Pool connection to remain
  * open throughout the lifetime of the server.
  */
-async function destroy() {
+async function destroy(): Promise<void> {
     return await db.end()
 }
