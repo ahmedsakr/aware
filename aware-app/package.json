@@ -23,7 +23,8 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "transpile": "babel ./src --out-dir ./src --extensions \".ts,.tsx\""
+        "transpile": "babel ./src --out-dir ./src --extensions \".ts,.tsx\"",
+        "cleanup": "rm -f `find ./src -name \"*.js\"`"
     },
     "proxy": "http://localhost:5001/",
     "eslintConfig": {
