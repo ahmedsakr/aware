@@ -44,7 +44,7 @@ export default class App extends Component<{}, AppState> {
             return (
                 <Messenger
                     socket={this.state.socket}
-                    username={this.state.username} />
+                    username={this.state.username as string} />
             );
         }
     }
