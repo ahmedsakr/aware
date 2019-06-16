@@ -49,7 +49,7 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
     }
   }
 
-  render() {
+  render(): JSX.Element {
     const {selectRoom, sendMessage } = this;
 
     return (

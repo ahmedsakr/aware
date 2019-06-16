@@ -1,11 +1,9 @@
-let uuid = require('uuid/v1');
+import uuid from 'uuid/v1'
 
 /**
  * Generate a 36-character long UUID based on the current
  * timestamp.
  */
-function generateUuid() {
+export default function generateUuid() {
     return uuid();
 }
-
-module.exports.uuid = generateUuid;

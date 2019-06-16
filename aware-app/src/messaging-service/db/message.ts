@@ -1,5 +1,5 @@
 import awaredb from '../../shared/database/awaredb';
-const uuid = require ('../../shared/uuid/aware-uuid').uuid;
+import uuid from '../../shared/uuid/aware-uuid';
 const db_table = "messages"
 
 interface Message {

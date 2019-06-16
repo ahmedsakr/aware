@@ -1,5 +1,5 @@
 import React from 'react';
-import verification from '../../shared/verification/user';
+import * as verification from '../../shared/verification/user';
 import "./Login.css";
 
 import Cookies from 'universal-cookie';
