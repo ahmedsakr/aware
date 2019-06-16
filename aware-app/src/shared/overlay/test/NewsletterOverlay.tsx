@@ -3,12 +3,7 @@ import AwareOverlay from '../AwareOverlay'
 import 'bootstrap'
 import './NewsletterOverlay.css'
 
-type NewsletterOverlayProps = {
-    name: string,
-    title: string,
-    content: JSX.Element,
-    footer: JSX.Element
-};
+type NewsletterOverlayProps = {};
 
 type NewsletterOverlayState = {};
 
@@ -30,7 +25,7 @@ export default class NewsletterOverlay extends React.Component<NewsletterOverlay
                     on the latest development updates we are pushing to Aware. We are actively working
                     on enhancing the product that you love.
                 </div>
-                
+
                 <div id="developer-pictures">
                     <div className="developer">
                         <p>Ahmed Sakr</p>
@@ -45,7 +40,7 @@ export default class NewsletterOverlay extends React.Component<NewsletterOverlay
 
                 <div id="subscribe-data">
                     <p>You can unsubscribe at any time!</p>
-                    <input type="email" className="form-control" placeholder="john@example.com"/>
+                    <input type="email" className="form-control" placeholder="john@example.com" />
                 </div>
             </div>
         )
