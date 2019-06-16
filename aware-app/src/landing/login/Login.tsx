@@ -1,13 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import verification from '../../shared/verification/user';
 import "./Login.css";
 
 import Cookies from 'universal-cookie';
-const cookies = new Cookies();
+const cookies: Cookies = new Cookies();
 
-class Login extends Component {
-    constructor() {
-        super()
+type LoginProps = {
+    setUsername: (username: string) => void,
+    switch: () => void,
+    socket: SocketIOClient.Socket 
+};
+
+type LoginState = {
+    username: string | undefined,
+    password: string,
+    rememberMe: boolean
+};
+
+class Login extends React.Component<LoginProps, LoginState> {
+    constructor(props: LoginProps) {
+        super(props);
 
         this.state = {
             username: cookies.get('aware-user'),
@@ -18,7 +30,7 @@ class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    login() {
+    login(): void {
         if (!verification.verifyUsername(this.state.username)) {
             alert("Please provide a username between 3 and 32 characters.");
             return;
@@ -35,13 +47,17 @@ class Login extends Component {
             cookies.remove('aware-user', {path: '/'})
         }
 
-        this.props.setUsername(this.state.username);
+        this.props.setUsername(this.state.username as string);
         this.props.socket.emit('login', this.state.username, this.state.password);
     }
 
-    handleChange(event) {
-        let value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        this.setState({[event.target.name]: value});
+    handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+        let value: string | boolean =
+            event.type === 'checkbox' ? event.target.checked : event.target.value;
+
+        this.setState({
+            [event.target.name]: value
+        } as any); 
     }
 
     render() {
@@ -49,10 +65,10 @@ class Login extends Component {
             <div id="login">
                 <h2 id="welcome-message">Welcome back to Aware</h2>
                 <h4>Login now to gain access</h4>
-                <div class="container">
+                <div className="container">
                     <label id="login-username">Username</label>
                     <input
-                        class="landing-textfield"
+                        className="landing-textfield"
                         name="username"
                         type="text"
                         value={this.state.username}
@@ -60,7 +76,7 @@ class Login extends Component {
 
                     <label id="login-password">Password</label>
                     <input
-                        class="landing-textfield"
+                        className="landing-textfield"
                         name="password"
                         type="password"
                         value={this.state.password}
