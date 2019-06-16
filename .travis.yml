@@ -6,6 +6,6 @@ cache:
   - node_modules
 before_script: cd aware-app
 script:
-  - npm install
+  - ../scripts/aware-modules --extract
   - npm test
   - CI=false npm run build
