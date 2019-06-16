@@ -17,7 +17,7 @@ type LoginState = {
     rememberMe: boolean
 };
 
-class Login extends React.Component<LoginProps, LoginState> {
+export default class Login extends React.Component<LoginProps, LoginState> {
     constructor(props: LoginProps) {
         super(props);
 
@@ -51,7 +51,7 @@ class Login extends React.Component<LoginProps, LoginState> {
         this.props.socket.emit('login', this.state.username, this.state.password);
     }
 
-    handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
         let value: string | boolean =
             event.type === 'checkbox' ? event.target.checked : event.target.value;
 
@@ -102,5 +102,3 @@ class Login extends React.Component<LoginProps, LoginState> {
         );
     }
 }
-
-export default Login;

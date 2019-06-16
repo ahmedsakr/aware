@@ -1,11 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import verification from '../../shared/verification/user';
 import './Register.css'
 
-class Register extends Component {
+type RegisterProps = {
+    setUsername: (username: string) => void,
+    switch: () => void,
+    socket: SocketIOClient.Socket 
+};
 
-    constructor() {
-        super();
+type RegisterState = {
+    username: string,
+    password: string,
+    confirmPassword: string
+};
+
+export default class Register extends React.Component<RegisterProps, RegisterState> {
+
+    constructor(props: RegisterProps) {
+        super(props);
 
         this.state = {
             username: "",
@@ -16,13 +28,13 @@ class Register extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(event) {
+    handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
         this.setState({
             [event.target.name]: event.target.value
-        });
+        } as any);
     }
 
-    register() {
+    register(): void {
         if (!verification.verifyUsername(this.state.username)) {
             alert("Please provide a username between 3 and 32 characters.");
             return;
@@ -44,10 +56,10 @@ class Register extends Component {
         return(
             <div id="register">
                 <h2 id="welcome-message">Create an Aware Account</h2>
-                    <div class="container">
+                    <div className="container">
                         <label id="register-username">Username</label>
                         <input
-                            class="landing-textfield"
+                            className="landing-textfield"
                             name="username"
                             type="text"
                             value={this.state.username}
@@ -55,7 +67,7 @@ class Register extends Component {
 
                         <label id="register-password">Password</label>
                         <input
-                            class="landing-textfield"
+                            className="landing-textfield"
                             name="password"
                             type="password"
                             value={this.state.password}
@@ -63,7 +75,7 @@ class Register extends Component {
 
                         <label id="register-confirm">Confirm Password</label>
                         <input
-                            class="landing-textfield"
+                            className="landing-textfield"
                             name="confirmPassword"
                             type="password"
                             value={this.state.confirmPassword}
@@ -76,5 +88,3 @@ class Register extends Component {
         );
     }
 }
-
-export default Register;
