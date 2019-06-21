@@ -91,7 +91,8 @@ sed -i -s -e "s/localhost:5001/localhost:$3/g" package.json
 sed -i -s -e "s/localhost/$AWARE_SERVER_DEPLOY/g" .env
 
 printf "\nSetting up database docker container...\n"
-../scripts/setup/setup_aware_database.sh
+../scripts/setup/setup_aware_database.sh -r $4
+printf "\nDatabase container will run for $4 minutes\n"
 
 npm run server > /dev/null &
 sleep 5s
