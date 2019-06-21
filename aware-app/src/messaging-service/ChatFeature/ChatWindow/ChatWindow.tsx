@@ -1,53 +1,53 @@
 import React from 'react';
-import Message, {UserMessageContents} from "./Message/Message"
+import Message, { UserMessageContents } from "./Message/Message"
 import './ChatWindow.css'
 
 type ChatWindowProps = {
-  messages: UserMessageContents[],
-  name: string
+    messages: UserMessageContents[],
+    name: string
 };
 
-type ChatWindowState = { };
+type ChatWindowState = {};
 
 export default class ChatWindow extends React.Component<ChatWindowProps, ChatWindowState> {
-  
-  private scrollRef: React.RefObject<HTMLDivElement>;
 
-  constructor(props: ChatWindowProps) {
-    super(props);
+    private scrollRef: React.RefObject<HTMLDivElement>;
 
-    this.scrollRef = React.createRef();
-  }
+    constructor(props: ChatWindowProps) {
+        super(props);
 
-  scrollToBottom = () => {
-    if (this.scrollRef.current !== null) {
-      this.scrollRef.current.scrollIntoView({ behavior: "auto" });
+        this.scrollRef = React.createRef();
     }
-  }
 
-  componentDidMount(): void {
-    this.scrollToBottom();
-  }
+    scrollToBottom = () => {
+        if (this.scrollRef.current !== null) {
+            this.scrollRef.current.scrollIntoView({ behavior: "auto" });
+        }
+    }
 
-  componentDidUpdate(): void {
-    this.scrollToBottom();
-  }
+    componentDidMount(): void {
+        this.scrollToBottom();
+    }
 
-  render(): JSX.Element {
-    return(
-      <div id="chat">
-        <div id="chat-messages">
-          {
-            this.props.messages.map(message => {
-              message['avatar'] = "/" + message.username + "-pic.jpg";
-              return (
-                <Message name={this.props.name} content={message} />
-              )
-            })
-          }
-          <div id="scrollbar" ref={this.scrollRef}></div>
-        </div>
-      </div>
-    );
-  }
+    componentDidUpdate(): void {
+        this.scrollToBottom();
+    }
+
+    render(): JSX.Element {
+        return (
+            <div id="chat">
+                <div id="chat-messages">
+                    {
+                        this.props.messages.map(message => {
+                            message['avatar'] = "/" + message.username + "-pic.jpg";
+                            return (
+                                <Message name={this.props.name} content={message} />
+                            )
+                        })
+                    }
+                    <div id="scrollbar" ref={this.scrollRef}></div>
+                </div>
+            </div>
+        );
+    }
 }
