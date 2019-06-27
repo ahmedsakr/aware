@@ -2,10 +2,10 @@
  * Length constraints for usernames and passwords as per the
  * database schema.
  */
-let usernameMinimum = 3;
-let usernameMaximum = 32;
-let passwordMinimum = 8;
-let passwordMaximum = 128;
+const usernameMinimum = 3;
+const usernameMaximum = 32;
+const passwordMinimum = 8;
+const passwordMaximum = 128;
 
 export function verifyUsername(username: string | undefined | null) {
     return  username && username !== "" &&

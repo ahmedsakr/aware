@@ -1,5 +1,5 @@
 import awaredb from '../../shared/database/awaredb'
-let verification = require('../../shared/verification/user');
+import * as verification from '../../shared/verification/user';
 const db_table = "user_accounts"
 
 /**

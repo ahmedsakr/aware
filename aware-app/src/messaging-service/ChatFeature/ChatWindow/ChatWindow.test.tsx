@@ -18,12 +18,6 @@ describe('ChatWindow', () => {
                 content: "Same broda.",
                 timestamp: "December 1, 2018 - 12:22 pm",
                 avatar: "/icons8-user-80blue.png"
-            },
-            {
-                username: "Arsalan",
-                content: "guys, I am hungry.",
-                timestamp: "December 1, 2018 - 12:22 pm",
-                avatar: "/icons8-user-80blue.png"
             }
         ]
 
