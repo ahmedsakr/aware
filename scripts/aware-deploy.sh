@@ -85,7 +85,7 @@ inform_aligned "Git branch" "$AWARE_BRANCH"
 
 echo "Extracting node_modules.tar.gz..."
 ../scripts/aware-modules.sh --extract
-    
+
 sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start --disableHostCheck=true/g" package.json
 sed -i -s -e "s/server.js/server.js $3 --disableHostCheck=true/g" package.json
 sed -i -s -e "s/localhost:5001/localhost:$3/g" package.json
