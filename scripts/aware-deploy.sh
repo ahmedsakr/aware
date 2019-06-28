@@ -44,7 +44,6 @@ printf "aware-deploy\n=======\n\n"
 # than 1024.
 AWARE_APP_PORT_CLIENT=$((RANDOM + 1024))
 AWARE_APP_PORT_SERVER=$((RANDOM + 1024))
-AWARE_APP_RUNTIME=20
 
 # Parse all available options
 parse_options $@
@@ -85,14 +84,14 @@ inform_aligned "Git branch" "$AWARE_BRANCH"
 
 echo "Extracting node_modules.tar.gz..."
 ../scripts/aware-modules.sh --extract
-    
+
 sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start --disableHostCheck=true/g" package.json
 sed -i -s -e "s/server.js/server.js $3 --disableHostCheck=true/g" package.json
 sed -i -s -e "s/localhost:5001/localhost:$3/g" package.json
 sed -i -s -e "s/localhost/$AWARE_SERVER_DEPLOY/g" .env
 
 printf "\nSetting up database docker container...\n"
-../scripts/setup/setup_aware_database.sh
+../scripts/setup/setup_aware_database.sh -r $4
 
 npm run server > /dev/null &
 sleep 5s
