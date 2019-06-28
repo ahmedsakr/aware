@@ -3,6 +3,7 @@ import express, {Express} from 'express';
 import httpServer from 'http';
 import SocketIO from 'socket.io';
 
+import * as awaredb from './shared/database/awaredb'
 import verifyLogin from './landing/db/verifier';
 import registerUser from './landing/db/register';
 import Messages from './messaging-service/db/message'
@@ -100,3 +101,9 @@ function loadHistory(socketId: string, room: string): void {
 http.listen(port, () => {
     console.log('listening on *:' + port);
 });
+
+http.on("close", () => {
+
+    // Close the connection to the database on exit.
+    awaredb.destroy();
+})
