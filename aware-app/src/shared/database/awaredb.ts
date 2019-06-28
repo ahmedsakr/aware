@@ -1,4 +1,5 @@
 import postgres from 'pg';
+import { reject } from 'q';
 
 const db = new postgres.Pool();
 
@@ -16,10 +17,14 @@ export default async function query(queryStr: string): Promise<Object[]> {
         queryStr = queryStr + ';';
     }
 
-    await db.query(queryStr).then((data: postgres.QueryResult) => {
+    await db.query(queryStr)
+    .then((data: postgres.QueryResult) => {
         if (data.rowCount > 0) {
             result = data.rows;
         }
+    })
+    .catch(() => {
+        reject("invalid query");
     });
 
     return result;
@@ -30,6 +35,6 @@ export default async function query(queryStr: string): Promise<Object[]> {
  * exit of the server because we would like the Pool connection to remain
  * open throughout the lifetime of the server.
  */
-async function destroy(): Promise<void> {
+export async function destroy(): Promise<void> {
     return await db.end()
 }
