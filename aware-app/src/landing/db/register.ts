@@ -1,5 +1,5 @@
 import awaredb from '../../shared/database/awaredb'
-import * as verification from '../../shared/verification/user';
+import {verifyPassword, verifyUsername, AccountField, FieldValidationResult} from '../../shared/verification/user'
 const db_table = "user_accounts"
 
 /**
@@ -18,13 +18,14 @@ async function isExistingUser(username: string) : Promise<boolean> {
  * @param {String} username 
  * @param {String} password 
  */
-export default async function registerUser(username: string, password: string) : Promise<boolean> {
+async function registerUser(username: AccountField, password: AccountField) : Promise<boolean> {
 
-    if (!verification.verifyUsername(username) || !verification.verifyPassword(password)) {
+    if (verifyUsername(username) != FieldValidationResult.FIELD_VALIDATED ||
+        verifyPassword(password) != FieldValidationResult.FIELD_VALIDATED) {
         return false;
     }
 
-    if (await isExistingUser(username)) {
+    if (await isExistingUser(username as string)) {
         return false;
     }
 
@@ -33,3 +34,5 @@ export default async function registerUser(username: string, password: string) :
     await awaredb(`INSERT INTO ${db_table} (${db_columns}) VALUES (${user_values})`);
     return true;
 }
+
+export default registerUser;
