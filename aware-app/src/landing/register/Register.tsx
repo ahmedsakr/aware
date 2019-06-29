@@ -1,5 +1,5 @@
 import React from 'react';
-import * as verification from '../../shared/verification/user';
+import {verifyPassword, verifyUsername, AccountField, FieldValidationResult} from '../../shared/verification/user'
 import './Register.css'
 
 type RegisterProps = {
@@ -9,9 +9,9 @@ type RegisterProps = {
 };
 
 type RegisterState = {
-    username: string,
-    password: string,
-    confirmPassword: string
+    username: AccountField,
+    password: AccountField,
+    confirmPassword: AccountField
 };
 
 export default class Register extends React.Component<RegisterProps, RegisterState> {
@@ -35,12 +35,12 @@ export default class Register extends React.Component<RegisterProps, RegisterSta
     }
 
     register(): void {
-        if (!verification.verifyUsername(this.state.username)) {
+        if (verifyUsername(this.state.username) != FieldValidationResult.FIELD_VALIDATED) {
             alert("Please provide a username between 3 and 32 characters.");
             return;
         }
 
-        if (!verification.verifyPassword(this.state.password)) {
+        if (verifyPassword(this.state.password) != FieldValidationResult.FIELD_VALIDATED) {
             alert("Please provide a password between 8 and 128 characters.");
             return;
         }
@@ -62,7 +62,7 @@ export default class Register extends React.Component<RegisterProps, RegisterSta
                             className="landing-textfield"
                             name="username"
                             type="text"
-                            value={this.state.username}
+                            value={this.state.username as string}
                             onChange={this.handleChange} />
 
                         <label id="register-password">Password</label>
@@ -70,7 +70,7 @@ export default class Register extends React.Component<RegisterProps, RegisterSta
                             className="landing-textfield"
                             name="password"
                             type="password"
-                            value={this.state.password}
+                            value={this.state.password as string}
                             onChange={this.handleChange} />
 
                         <label id="register-confirm">Confirm Password</label>
@@ -78,7 +78,7 @@ export default class Register extends React.Component<RegisterProps, RegisterSta
                             className="landing-textfield"
                             name="confirmPassword"
                             type="password"
-                            value={this.state.confirmPassword}
+                            value={this.state.confirmPassword as string}
                             onChange={this.handleChange} />
 
                         <button type="submit" onClick={() => {this.register()}}>Register</button>

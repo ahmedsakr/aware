@@ -1,5 +1,5 @@
 import React from 'react';
-import * as verification from '../../shared/verification/user';
+import {verifyPassword, verifyUsername, AccountField, FieldValidationResult} from '../../shared/verification/user'
 import "./Login.css";
 
 import Cookies from 'universal-cookie';
@@ -12,8 +12,8 @@ type LoginProps = {
 };
 
 type LoginState = {
-    username: string | undefined,
-    password: string,
+    username: AccountField,
+    password: AccountField,
     rememberMe: boolean
 };
 
@@ -31,12 +31,12 @@ export default class Login extends React.Component<LoginProps, LoginState> {
     }
 
     login(): void {
-        if (!verification.verifyUsername(this.state.username)) {
+        if (verifyUsername(this.state.username) != FieldValidationResult.FIELD_VALIDATED) {
             alert("Please provide a username between 3 and 32 characters.");
             return;
         }
 
-        if (!verification.verifyPassword(this.state.password)) {
+        if (verifyPassword(this.state.password) != FieldValidationResult.FIELD_VALIDATED) {
             alert("Please provide a password between 8 and 128 characters.");
             return;
         }
@@ -71,7 +71,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
                         className="landing-textfield"
                         name="username"
                         type="text"
-                        value={this.state.username}
+                        value={this.state.username as string}
                         onChange={this.handleChange} />
 
                     <label id="login-password">Password</label>
@@ -79,7 +79,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
                         className="landing-textfield"
                         name="password"
                         type="password"
-                        value={this.state.password}
+                        value={this.state.password as string}
                         onChange={this.handleChange} />
 
                     <div id="checkbox-forgot">
