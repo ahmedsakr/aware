@@ -20,8 +20,8 @@ async function isExistingUser(username: string) : Promise<boolean> {
  */
 async function registerUser(username: AccountField, password: AccountField) : Promise<boolean> {
 
-    if (verifyUsername(username) != FieldValidationResult.FIELD_VALIDATED ||
-        verifyPassword(password) != FieldValidationResult.FIELD_VALIDATED) {
+    if (verifyUsername(username) !== FieldValidationResult.FIELD_VALIDATED ||
+        verifyPassword(password) !== FieldValidationResult.FIELD_VALIDATED) {
         return false;
     }
 
