@@ -1,5 +1,5 @@
 import React from 'react';
-import {verifyPassword, verifyUsername, AccountField, FieldValidationResult} from '../../shared/verification/user'
+import * as user from '../../shared/verification/user'
 import "./Login.css";
 
 import Cookies from 'universal-cookie';
@@ -12,8 +12,8 @@ type LoginProps = {
 };
 
 type LoginState = {
-    username: AccountField,
-    password: AccountField,
+    username: user.AccountField,
+    password: user.AccountField,
     rememberMe: boolean
 };
 
@@ -31,13 +31,15 @@ export default class Login extends React.Component<LoginProps, LoginState> {
     }
 
     login(): void {
-        if (verifyUsername(this.state.username) != FieldValidationResult.FIELD_VALIDATED) {
-            alert("Please provide a username between 3 and 32 characters.");
+        let validation: user.FieldValidationResult = user.verifyUsername(this.state.username);
+        if (validation != user.FieldValidationResult.FIELD_VALIDATED) {
+            alert(user.getValidationError(user.AccountFields.USERNAME, validation));
             return;
         }
-
-        if (verifyPassword(this.state.password) != FieldValidationResult.FIELD_VALIDATED) {
-            alert("Please provide a password between 8 and 128 characters.");
+        
+        validation = user.verifyPassword(this.state.password);
+        if (validation != user.FieldValidationResult.FIELD_VALIDATED) {
+            alert(user.getValidationError(user.AccountFields.PASSWORD, validation));
             return;
         }
 

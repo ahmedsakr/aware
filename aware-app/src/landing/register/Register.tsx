@@ -1,5 +1,5 @@
 import React from 'react';
-import {verifyPassword, verifyUsername, AccountField, FieldValidationResult} from '../../shared/verification/user'
+import * as user from '../../shared/verification/user'
 import './Register.css'
 
 type RegisterProps = {
@@ -9,9 +9,9 @@ type RegisterProps = {
 };
 
 type RegisterState = {
-    username: AccountField,
-    password: AccountField,
-    confirmPassword: AccountField
+    username: user.AccountField,
+    password: user.AccountField,
+    confirmPassword: user.AccountField
 };
 
 export default class Register extends React.Component<RegisterProps, RegisterState> {
@@ -35,13 +35,15 @@ export default class Register extends React.Component<RegisterProps, RegisterSta
     }
 
     register(): void {
-        if (verifyUsername(this.state.username) != FieldValidationResult.FIELD_VALIDATED) {
-            alert("Please provide a username between 3 and 32 characters.");
+        let validation: user.FieldValidationResult = user.verifyUsername(this.state.username);
+        if (validation != user.FieldValidationResult.FIELD_VALIDATED) {
+            alert(user.getValidationError(user.AccountFields.USERNAME, validation));
             return;
         }
-
-        if (verifyPassword(this.state.password) != FieldValidationResult.FIELD_VALIDATED) {
-            alert("Please provide a password between 8 and 128 characters.");
+        
+        validation = user.verifyPassword(this.state.password);
+        if (validation != user.FieldValidationResult.FIELD_VALIDATED) {
+            alert(user.getValidationError(user.AccountFields.PASSWORD, validation));
             return;
         }
 

@@ -1,3 +1,12 @@
+export enum AccountFields {
+    USERNAME,
+    PASSWORD
+}
+
+// The test subjects are user-provided, so it is important to
+// categorize them as possibly null or undefined.
+export type AccountField = string | undefined | null;
+
 export enum FieldValidationResult {
     FIELD_VALUE_UNDEFINED_OR_NULL,
     FIELD_VALUE_OUT_OF_BOUNDS,
@@ -28,9 +37,7 @@ const passwordConstraints : FieldConstraints = {
     maximumSize: 128
 }
 
-// The test subjects are user-provided, so it is important to
-// categorize them as possibly null or undefined.
-export type AccountField = string | undefined | null;
+
 type FieldValidation = (field: AccountField, bounds: FieldConstraints) => FieldValidationResult;
 
 /**
@@ -56,7 +63,6 @@ let validateField: FieldValidation = (field: AccountField, constraints: FieldCon
     return FieldValidationResult.FIELD_VALIDATED;
 }
 
-
 /**
  * Validate the username field filled by the user.
  *
@@ -73,4 +79,40 @@ export function verifyUsername(username: AccountField): FieldValidationResult {
  */
 export function verifyPassword(password: AccountField): FieldValidationResult {
     return validateField(password, passwordConstraints);
+}
+
+/**
+ * Provides a mapping for validation results to user-readable error messages.
+ *
+ * @param field The field that was validated
+ * @param error The associated validation error code
+ */
+export function getValidationError(field: AccountFields, error: FieldValidationResult) {
+
+    let fieldName : string | null = null;
+    let fieldConstraints : FieldConstraints | null = null;
+
+    if (field == AccountFields.USERNAME) {
+        fieldName = "Username";
+        fieldConstraints = usernameConstraints;
+    } else if (field == AccountFields.PASSWORD){
+        fieldName = "Password";
+        fieldConstraints = passwordConstraints;
+    } else {
+
+        // Unrecognized account field.
+        return null;
+    }
+
+    switch (error) {
+        case FieldValidationResult.FIELD_VALUE_ILLEGAL:
+            return `${fieldName} value contains illegal characters.`;
+        case FieldValidationResult.FIELD_VALUE_OUT_OF_BOUNDS:
+            return `${fieldName} value must be between ${fieldConstraints.minimumSize} and
+                    ${fieldConstraints.maximumSize} characters, inclusively.`;
+        case FieldValidationResult.FIELD_VALUE_UNDEFINED_OR_NULL:
+            return `${fieldName} value not available.`;
+        default:
+            return `${fieldName} is valid.`;
+    }
 }
