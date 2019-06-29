@@ -108,7 +108,7 @@ export function getValidationError(field: AccountFields, error: FieldValidationR
         case FieldValidationResult.FIELD_VALUE_ILLEGAL:
             return `${fieldName} value contains illegal characters.`;
         case FieldValidationResult.FIELD_VALUE_OUT_OF_BOUNDS:
-            return `${fieldName} value must be between ${fieldConstraints.minimumSize} and
+            return `${fieldName} value must be between ${fieldConstraints.minimumSize} and\
                     ${fieldConstraints.maximumSize} characters, inclusively.`;
         case FieldValidationResult.FIELD_VALUE_UNDEFINED_OR_NULL:
             return `${fieldName} value not available.`;
