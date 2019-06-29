@@ -15,7 +15,7 @@ interface FieldConstraints {
  * Length constraints for usernames and passwords as per the
  * database schema.
  */
-const usernameBounds : FieldConstraints = {
+const usernameConstraints : FieldConstraints = {
     minimumSize: 3,
     maximumSize: 32,
 
@@ -23,7 +23,7 @@ const usernameBounds : FieldConstraints = {
     illegalCharacters: /[\'\"\`]/g
 }
 
-const passwordBounds : FieldConstraints = {
+const passwordConstraints : FieldConstraints = {
     minimumSize: 8,
     maximumSize: 128
 }
@@ -63,7 +63,7 @@ let validateField: FieldValidation = (field: AccountField, constraints: FieldCon
  * @param username User-provided value of a username
  */
 export function verifyUsername(username: AccountField): FieldValidationResult {
-    return validateField(username, usernameBounds);
+    return validateField(username, usernameConstraints);
 }
 
 /**
@@ -72,5 +72,5 @@ export function verifyUsername(username: AccountField): FieldValidationResult {
  * @param password User-provided value of a password
  */
 export function verifyPassword(password: AccountField): FieldValidationResult {
-    return validateField(password, passwordBounds);
+    return validateField(password, passwordConstraints);
 }
