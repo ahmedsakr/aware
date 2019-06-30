@@ -4,7 +4,7 @@ import uuid from '../../../shared/uuid/aware-uuid';
 const uuid_format: RegExp = /^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/;
 
 describe("uuid generation", () => {
-    it("generated uuid must be match the expected form", () => {
+    it("generated uuid must match the expected form", () => {
 
         let result: string = uuid();
         expect(result.match(uuid_format) !== null).toBe(true);
