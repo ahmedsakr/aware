@@ -9,7 +9,16 @@ const db = new postgres.Pool();
  * 
  * @param {String} queryStr The string representation of the query. 
  */
-export default async function query(queryStr: string): Promise<Object[]> {
+export default async function query(queryStr: string | null): Promise<Object[]> {
+
+    if (queryStr === null || queryStr === "") {
+        return Promise.reject("null query string");
+    }
+
+    if (queryStr.length === 0) {
+        return [];
+    }
+
     let result: Object[] = [];
 
     // Insert the query-terminating semicolon if it was not given.
@@ -24,7 +33,7 @@ export default async function query(queryStr: string): Promise<Object[]> {
         }
     })
     .catch(() => {
-        reject("invalid query");
+        return Promise.reject("invalid query");
     });
 
     return result;
@@ -36,5 +45,5 @@ export default async function query(queryStr: string): Promise<Object[]> {
  * open throughout the lifetime of the server.
  */
 export async function destroy(): Promise<void> {
-    return await db.end()
+    return await db.end();
 }
