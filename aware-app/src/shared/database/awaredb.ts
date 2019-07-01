@@ -11,7 +11,7 @@ const db = new postgres.Pool();
 export default async function query(queryStr: string | null): Promise<Object[]> {
 
     if (queryStr === null || queryStr === "") {
-        return Promise.reject("null query string");
+        return Promise.reject("invalid query string");
     }
 
     if (queryStr.length === 0) {
