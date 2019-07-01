@@ -1,5 +1,4 @@
 import postgres from 'pg';
-import { reject } from 'q';
 
 const db = new postgres.Pool();
 
