@@ -14,10 +14,6 @@ export default async function query(queryStr: string | null): Promise<Object[]> 
         return Promise.reject("invalid query string");
     }
 
-    if (queryStr.length === 0) {
-        return [];
-    }
-
     let result: Object[] = [];
 
     // Insert the query-terminating semicolon if it was not given.
