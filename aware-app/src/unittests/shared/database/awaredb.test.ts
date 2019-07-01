@@ -34,7 +34,7 @@ describe('database queries', () => {
             fail("I was expecting a rejection");
         })
         .catch((msg) => {
-            expect(msg).toBe('null query string');
+            expect(msg).toBe('invalid query string');
         });
 
         await awaredb(null)
@@ -42,7 +42,7 @@ describe('database queries', () => {
             fail("I was expecting a rejection");
         })
         .catch((msg) => {
-            expect(msg).toBe('null query string');
+            expect(msg).toBe('invalid query string');
         });
     });
 
