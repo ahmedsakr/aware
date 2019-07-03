@@ -1,6 +1,6 @@
 import React from 'react'
 import 'bootstrap'
-import './AwareOverlay.css'
+import './AwareOverlay.scss'
 
 type AwareOverlayProps = {
     name: string,
