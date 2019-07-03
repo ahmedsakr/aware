@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBarLink, { NavBarLogo, NavBarTitle } from '../NavBarLink/NavBarLink'
-import './NavBar.css';
+import './NavBar.scss';
 
 type NavBarProps = {
     activeRoom: string

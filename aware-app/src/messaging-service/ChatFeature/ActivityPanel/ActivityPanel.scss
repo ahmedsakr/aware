@@ -1,0 +1,17 @@
+/*
+ * Activity Panel styling
+ *
+ * Defines layout fundamentals for the Activity Panel.
+ */
+
+$background_color: #ebebeb;
+
+#activity-panel {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    text-align: left;
+    background-color: $background_color;
+    height: 5%;
+    padding-left: 5px;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import './ProfilePicture.css'
+import './ProfilePicture.scss'
 
 type ProfilePictureProps = {
     picture: string,
