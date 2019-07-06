@@ -1,6 +1,6 @@
 import React from 'react';
 import CourseDiscussion from './CourseDiscussion'
-import './CourseDiscussion.css';
+import './CourseDiscussion.scss';
 import DirectMessage from './DirectMessage/DirectMessage'
 
 interface Room {

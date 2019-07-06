@@ -1,5 +1,5 @@
 import React from 'react';
-import './CourseDiscussion.css'
+import './CourseDiscussion.scss'
 
 type CourseDiscussionProps = {
     updateRoom: (course: CourseDiscussion) => void,

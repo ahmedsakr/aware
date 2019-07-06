@@ -1,7 +1,7 @@
 import React from 'react'
 import AwareOverlay from '../AwareOverlay'
 import 'bootstrap'
-import './NewsletterOverlay.css'
+import './NewsletterOverlay.scss'
 
 type NewsletterOverlayProps = {};
 

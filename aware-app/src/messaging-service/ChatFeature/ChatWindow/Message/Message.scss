@@ -3,6 +3,9 @@
  *
  * Defines layout fundamentals for every message.
  */
+$received_message_background_color: #a1c6ea;
+$sent_message_background_color: #507dbc;
+
 .message {
     margin-top: 10px;
     display: flex;
@@ -19,10 +22,11 @@
 }
 
 /*
- * Message text styling
- *
- * The messages bubbles are designed to be fluid in size relative to the size of the text.
- */
+   * Message text styling
+   *
+   * The messages bubbles are designed to be fluid in size relative to the size of the text.
+   */
+
 .message-text {
     display: flex;
     align-items: flex-start;
@@ -37,28 +41,29 @@
     justify-content: left;
 }
 
-.message-text > p {
+.message-text>p {
     border-radius: 10px;
     margin-bottom: 0px;
     padding: 0px 10px 0px 10px;
 }
 
-.received-message-text > p {
-    background-color: #a1c6ea;
+.received-message-text>p {
+    background-color: $received_message_background_color;
     margin-right: 5px;
 }
 
-.sent-message-text > p {
-    background-color: #507dbc;
+.sent-message-text>p {
+    background-color: $sent_message_background_color;
     margin-left: 5px;
 }
 
 /*
- * Profile styling
- * 
- * Profile elements for every message include the profile picture and the first
- * name of the sender. The name is centered under the profile image.
- */
+   * Profile styling
+   * 
+   * Profile elements for every message include the profile picture and the first
+   * name of the sender. The name is centered under the profile image.
+   */
+
 .message-profile {
     padding: 0px;
     font-size: 0.8em;
@@ -69,13 +74,13 @@
     margin: 0px;
 }
 
-
 /*
- * Timestamp styling
- * 
- * The timestamp is designed to be on the bottom level of the divider with a minor padding
- * aware from the message.
- */
+   * Timestamp styling
+   * 
+   * The timestamp is designed to be on the bottom level of the divider with a minor padding
+   * aware from the message.
+   */
+
 .message-timestamp {
     padding: 0px;
     font-size: 1em;
@@ -94,12 +99,12 @@
     justify-content: flex-end;
 }
 
-.received-message-timestamp > p {
+.received-message-timestamp>p {
     margin: 0;
     padding-left: 5px;
 }
 
-.sent-message-timestamp > p {
+.sent-message-timestamp>p {
     margin: 0;
     padding-right: 5px;
 }

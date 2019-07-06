@@ -1,5 +1,5 @@
 import React from 'react';
-import './DirectMessages.css';
+import './DirectMessages.scss';
 import DirectMessage from '../DirectMessage/DirectMessage'
 
 type DirectMessagesProps = {};
