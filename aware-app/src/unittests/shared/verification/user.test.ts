@@ -51,16 +51,16 @@ describe("username validation", () => {
         expect(result).toBe(user.FieldValidationResult.FIELD_VALUE_ILLEGAL);
     });
 
+    it("username cannot have symbols", () => {
+
+        let username: user.AccountField = 'bob!the_builder9000';
+        const result: user.FieldValidationResult = user.verifyUsername(username);
+        expect(result).toBe(user.FieldValidationResult.FIELD_VALUE_ILLEGAL);
+    });
+
     it("username can be anywhere between 3 and 32 characters", () => {
 
         let username: user.AccountField = 'bobthebuilder9000';
-        const result: user.FieldValidationResult = user.verifyUsername(username);
-        expect(result).toBe(user.FieldValidationResult.FIELD_VALIDATED);
-    });
-
-    it("username can have symbols", () => {
-
-        let username: user.AccountField = 'bob!the_builder9000';
         const result: user.FieldValidationResult = user.verifyUsername(username);
         expect(result).toBe(user.FieldValidationResult.FIELD_VALIDATED);
     });
