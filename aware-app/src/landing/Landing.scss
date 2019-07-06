@@ -1,0 +1,58 @@
+/*
+ * Landing styling
+ *
+ * Defines layout fundamentals for the landing page.
+ */
+
+$landing_textfield_color: #18202c;
+$label_font_color: #a7afb2;
+$button_color: #ffc000;
+$forgot_password_font_color: #008080;
+$backround_image_url: '/shrek.jpg';
+
+@mixin input_styles($background_color, $color, $border, $padding, $border_radius, $width: 100%) {
+    background-color: $background_color;
+    color: $color;
+    border-radius: $border_radius;
+    width: $width;
+    @each $value in $border {
+        border: #{$value};
+    }
+    @each $pad in $padding {
+        padding: #{$pad};
+    }
+}
+
+#landing-canvas {
+    flex-direction: column;
+    justify-content: center;
+    background-image: url($backround_image_url);
+}
+
+label {
+    color: $label_font_color;
+}
+
+.landing-textfield {
+    @include input_styles($landing_textfield_color, $label_font_color, 1px solid #ccc, 8px 10px, 7px);
+    display: inline-block;
+    border-color: $landing_textfield_color;
+}
+
+button {
+    @include input_styles($button_color, black, none, 10px 10px, 7px);
+    margin-top: 15px;
+}
+
+label>span,
+#forgot-password {
+    cursor: pointer;
+    color: $forgot_password_font_color;
+    text-decoration: underline;
+}
+
+label>span:hover,
+#forgot-password {
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #555;
+}

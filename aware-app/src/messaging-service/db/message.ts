@@ -19,13 +19,13 @@ export default class Messages {
      * 
      * @param {array} message 
      * @param {String} groupId 
-     * @param {String} username 
+     * @param {String} username
      */
     async insertMessage(message: Message, username: string): Promise<void> {
         let { content, timestamp } = message;
         let db_columns = 'message_id, message_content, time_stamp, group_id, username';
-        let user_values = `'${uuid()}', '${content}', '${timestamp}', '${this.groupId}', '${username}'`;
-        await awaredb(`INSERT INTO ${db_table} (${db_columns}) VALUES (${user_values})`);
+        let user_values = [`${uuid()}`, `${content}`, `${timestamp}`, `${this.groupId}`, `${username}`];
+        await awaredb(`INSERT INTO ${db_table} (${db_columns}) VALUES ($1, $2, $3, $4, $5)`, user_values);
     }
 
     /**
@@ -38,8 +38,8 @@ export default class Messages {
                 AND messages.username = user_chats.username JOIN user_accounts 
                 ON user_chats.username = user_accounts.username JOIN messenger_group 
                 ON user_chats.group_id = messenger_group.group_id 
-                WHERE messages.group_id = '${this.groupId}'`;
+                WHERE messages.group_id = $1`;
 
-        return await awaredb(sql);
+        return await awaredb(sql, [`${this.groupId}`]);
     }
 }

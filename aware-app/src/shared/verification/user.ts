@@ -28,8 +28,8 @@ const usernameConstraints : FieldConstraints = {
     minimumSize: 3,
     maximumSize: 32,
 
-    // All forms of quotes are banned from being part of a username
-    illegalCharacters: /[\'\"\`]/g
+    // This excludes any characters other than letters, digits, or underscores.
+    illegalCharacters: /[\W]/g
 }
 
 const passwordConstraints : FieldConstraints = {

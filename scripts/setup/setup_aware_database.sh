@@ -4,17 +4,30 @@ inform_aligned() {
     printf "%-40s: %s\n" "$1" "$2"
 }
 
-parse_options() {
-    while getopts ":r:p:" option; do
-        case "$option" in
+parse_runtime_options() {
+    OPTIONS=$(getopt --quiet --options ":r:" --longoptions "runtime:" -- "$@")
+    eval set --$OPTIONS
+
+    while true; do
+        case "$1" in
+
             # Modify how long the container runs before terminating
-            r)
-            AWARE_APP_RUNTIME=$OPTARG
+            -r|--runtime)
+            shift
+            AWARE_APP_RUNTIME="$1"
             ;;
-            *)
-            echo "Unrecognized option provided."
-            exit 1
+
+            --)
+            shift
+            break
+
+            # If in the future you wanted to add mandatory arguments, parsing
+            # should go here.
+            ;;
+
         esac
+
+        shift
     done
 }
 
@@ -24,12 +37,12 @@ source $BASE_DIR/../aware-env.sh
 SCHEMA_DIR=$(realpath $BASE_DIR/../../aware-app/src/schemas)
 DOCKER_DIR=$(realpath $BASE_DIR/../../aware-app/src/docker)
 AWARE_DATABASE_PORT=$((RANDOM + 1024))
+AWARE_APP_RUNTIME=20
 CONTAINER_NAME="aware-db-$AWARE_DATABASE_PORT"
 IMAGE_NAME="aware-database-$AWARE_DATABASE_PORT"
 
 # Parse all available options
-parse_options $@
-shift $((OPTIND - 1))
+parse_runtime_options $@
 
 inform_aligned "Aware Database Port" "$AWARE_DATABASE_PORT"
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import './NavBarLink.css';
+import './NavBarLink.scss';
 
 type NavBarLinkProps = {
     className: string,
