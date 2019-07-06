@@ -1,6 +1,6 @@
 import React from 'react';
 import Message, { UserMessageContents } from "./Message/Message"
-import './ChatWindow.css'
+import './ChatWindow.scss'
 
 type ChatWindowProps = {
     messages: UserMessageContents[],

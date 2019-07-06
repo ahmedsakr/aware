@@ -1,9 +1,0 @@
-#activity-panel {
-    display: flex;
-    flex: 0 0 auto;
-    align-items: center;
-    text-align: left;
-    background-color: #ebebeb;
-    height: 5%;
-    padding-left: 5px;
-}

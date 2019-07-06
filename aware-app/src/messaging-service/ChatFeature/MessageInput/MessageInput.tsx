@@ -1,5 +1,5 @@
 import React from 'react';
-import './MessageInput.css';
+import './MessageInput.scss';
 import { UserMessageContents } from '../ChatWindow/Message/Message'
 import produceTimestamp from '../../../aware-utils'
 
