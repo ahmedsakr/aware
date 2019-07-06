@@ -21,16 +21,15 @@ GIT_DIFF_PACKAGE_LOCK_MASTER="$PATH_INDEPENDENT_GIT diff origin/master $PACKAGE_
 SUPPORTED_LONG_OPTIONS="update,extract"
 
 parse_options() {
-    OPTIONS=$(getopt --quiet --options "" --longoptions $SUPPORTED_LONG_OPTIONS -- "$@")
+    OPTIONS=$(getopt --quiet --options "ue" --longoptions $SUPPORTED_LONG_OPTIONS -- "$@")
     eval set --$OPTIONS
     case "$1" in
-        --update)
+        -u|--update)
             
         update
         ;;
             
-        --extract)
-
+        -e|--extract)
         extract
         ;;
 
