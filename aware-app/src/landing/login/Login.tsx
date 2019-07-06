@@ -1,5 +1,5 @@
 import React from 'react';
-import * as verification from '../../shared/verification/user';
+import * as user from '../../shared/verification/user'
 import "./Login.scss";
 
 import Cookies from 'universal-cookie';
@@ -12,8 +12,8 @@ type LoginProps = {
 };
 
 type LoginState = {
-    username: string | undefined,
-    password: string,
+    username: user.AccountField,
+    password: user.AccountField,
     rememberMe: boolean
 };
 
@@ -31,13 +31,15 @@ export default class Login extends React.Component<LoginProps, LoginState> {
     }
 
     login(): void {
-        if (!verification.verifyUsername(this.state.username)) {
-            alert("Please provide a username between 3 and 32 characters.");
+        let validation: user.FieldValidationResult = user.verifyUsername(this.state.username);
+        if (validation != user.FieldValidationResult.FIELD_VALIDATED) {
+            alert(user.getValidationError(user.AccountFields.USERNAME, validation));
             return;
         }
-
-        if (!verification.verifyPassword(this.state.password)) {
-            alert("Please provide a password between 8 and 128 characters.");
+        
+        validation = user.verifyPassword(this.state.password);
+        if (validation != user.FieldValidationResult.FIELD_VALIDATED) {
+            alert(user.getValidationError(user.AccountFields.PASSWORD, validation));
             return;
         }
 
@@ -71,7 +73,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
                         className="landing-textfield"
                         name="username"
                         type="text"
-                        value={this.state.username}
+                        value={this.state.username as string}
                         onChange={this.handleChange} />
 
                     <label id="login-password">Password</label>
@@ -79,7 +81,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
                         className="landing-textfield"
                         name="password"
                         type="password"
-                        value={this.state.password}
+                        value={this.state.password as string}
                         onChange={this.handleChange} />
 
                     <div id="checkbox-forgot">

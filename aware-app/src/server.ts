@@ -3,10 +3,12 @@ import express, {Express} from 'express';
 import httpServer from 'http';
 import SocketIO from 'socket.io';
 
+import * as awaredb from './shared/database/awaredb'
 import verifyLogin from './landing/db/verifier';
 import registerUser from './landing/db/register';
 import Messages from './messaging-service/db/message'
 import getRooms from './messaging-service/db/rooms';
+import { AccountField } from './shared/verification/user';
 
 let app: Express = express();
 let http: httpServer.Server = new httpServer.Server(app);
@@ -25,7 +27,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
     console.log('Client Has Connected, id: ' + socket.id)
 
     // Listen for login requests from users
-    socket.on('login', (username: string, password: string) => {
+    socket.on('login', (username: AccountField, password: AccountField) => {
         verifyLogin(username, password)
             .then((result: boolean) => {
                 io.to(socket.id).emit("login-request", result);
@@ -37,7 +39,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
             });
     });
 
-    socket.on('register', (username: string, password: string) => {
+    socket.on('register', (username: AccountField, password: AccountField) => {
         registerUser(username, password)
             .then((result: boolean) => {
                 io.to(socket.id).emit("register-request", result);
@@ -100,3 +102,9 @@ function loadHistory(socketId: string, room: string): void {
 http.listen(port, () => {
     console.log('listening on *:' + port);
 });
+
+http.on("close", () => {
+
+    // Close the connection to the database on exit.
+    awaredb.destroy();
+})
