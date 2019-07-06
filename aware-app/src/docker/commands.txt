@@ -1,0 +1,7 @@
+docker build -t client --file src/docker/client.Dockerfile .
+docker build -t server --file src/docker/server.Dockerfile .
+
+docker run -v ${PWD}:/app -v /app/node_modules -p 5001:5001 --rm server
+docker run -v ${PWD}:/app -v /app/node_modules -p 3000:3000 --rm client
+
+Connecting Containers: https://www.linode.com/docs/applications/containers/docker-container-communication/
