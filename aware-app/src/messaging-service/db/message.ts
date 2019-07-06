@@ -38,8 +38,8 @@ export default class Messages {
                 AND messages.username = user_chats.username JOIN user_accounts 
                 ON user_chats.username = user_accounts.username JOIN messenger_group 
                 ON user_chats.group_id = messenger_group.group_id 
-                WHERE messages.group_id = '${this.groupId}'`;
+                WHERE messages.group_id = $1`;
 
-        return await awaredb(sql);
+        return await awaredb(sql, [`${this.groupId}`]);
     }
 }
