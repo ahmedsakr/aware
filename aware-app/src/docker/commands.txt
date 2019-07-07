@@ -2,7 +2,7 @@ docker build -t client --file src/docker/client.Dockerfile .
 docker build -t server --file src/docker/server.Dockerfile .
 
 docker run -v ${PWD}:/app -v /app/node_modules --name client --link=server:server -p 3000:3000 --rm client
-docker run -v ${PWD}:/app -v /app/node_modules --name server -p 5001:5001 --rm server
+docker run -v ${PWD}:/app -v /app/node_modules --name server --link=aware-db-5432:database -p 5001:5001 --rm server
 
 docker-compose up -d --build
 
