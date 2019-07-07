@@ -73,38 +73,3 @@ $sent_message_background_color: #507dbc;
 .message-profile-name {
     margin: 0px;
 }
-
-/*
-   * Timestamp styling
-   * 
-   * The timestamp is designed to be on the bottom level of the divider with a minor padding
-   * aware from the message.
-   */
-
-.message-timestamp {
-    padding: 0px;
-    font-size: 1em;
-    display: flex;
-    align-items: flex-end;
-    opacity: 0.8;
-}
-
-.received-message-timestamp {
-    text-align: left;
-    justify-content: flex-start;
-}
-
-.sent-message-timestamp {
-    text-align: right;
-    justify-content: flex-end;
-}
-
-.received-message-timestamp>p {
-    margin: 0;
-    padding-left: 5px;
-}
-
-.sent-message-timestamp>p {
-    margin: 0;
-    padding-right: 5px;
-}
