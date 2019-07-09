@@ -5,7 +5,7 @@ inform_aligned() {
 }
 
 parse_runtime_options() {
-    OPTIONS=$(getopt --quiet --options ":r:" --longoptions "runtime:" -- "$@")
+    OPTIONS=$(getopt --quiet --options "rp" --longoptions "runtime,port" -- "$@")
     eval set --$OPTIONS
 
     while true; do
@@ -16,8 +16,13 @@ parse_runtime_options() {
             shift
             AWARE_APP_RUNTIME="$1"
             ;;
+            #specify the port the database will run on
+            -p|--port)
+            shift
+            AWARE_DATABASE_PORT="$2"
+            ;;
 
-            --)
+            *)
             shift
             break
 
@@ -38,12 +43,12 @@ SCHEMA_DIR=$(realpath $BASE_DIR/../../aware-app/src/schemas)
 DOCKER_DIR=$(realpath $BASE_DIR/../../aware-app/src/docker/database.Dockerfile)
 AWARE_DATABASE_PORT=$((RANDOM + 1024))
 AWARE_APP_RUNTIME=20
-CONTAINER_NAME="aware-db-$AWARE_DATABASE_PORT"
-IMAGE_NAME="aware-database-$AWARE_DATABASE_PORT"
 
 # Parse all available options
-parse_runtime_options $@
+parse_runtime_options "$@"
 
+CONTAINER_NAME="aware-db-$AWARE_DATABASE_PORT"
+IMAGE_NAME="aware-database-$AWARE_DATABASE_PORT"
 inform_aligned "Aware Database Port" "$AWARE_DATABASE_PORT"
 
 printf "Building Image for PostgreSQL...\n"

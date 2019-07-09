@@ -63,6 +63,7 @@ printf "aware-deploy\n=======\n\n"
 # than 1024.
 AWARE_APP_PORT_CLIENT=$((RANDOM + 1024))
 AWARE_APP_PORT_SERVER=$((RANDOM + 1024))
+AWARE_APP_DATABASE=$((RANDOM + 1024))
 
 # Parse all arguments, mandatory and optional.
 parse_runtime_arguments $@

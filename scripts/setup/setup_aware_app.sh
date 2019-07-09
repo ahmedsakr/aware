@@ -4,33 +4,22 @@ inform_aligned() {
     printf "%-40s: %s\n" "$1" "$2"
 }
 
-parse_options() {
-    while getopts ":d:s:c:" option; do
-        case "$option" in
-            
-            # Specify a port to run the app on.
-            p)
-            AWARE_APP_PORT_CLIENT=$OPTARG
-            ;;
-            *)
-            echo "Unrecognized option provided."
-            exit 1
-        esac
-    done
-}
-
 BASE_DIR=$(dirname `realpath $0`)
 
-# Parse all available options
-parse_options $@
-shift $((OPTIND - 1))
-
-# Check if the script has been passed a port
-if [ $# -ne 1 ]; then
+# if no arguments passed randomize ports, supports local testing
+if [ $# -ne 3 ]; then
     AWARE_DATABASE_PORT=$((RANDOM + 1024))
-else 
+    AWARE_APP_PORT_CLIENT=$((RANDOM + 1024))
+    AWARE_APP_PORT_SERVER=$((RANDOM + 1024))
+else
     AWARE_DATABASE_PORT=$1
+    AWARE_APP_PORT_CLIENT=$2
+    AWARE_APP_PORT_SERVER=$3
+    runtime=$4
 fi
+
+#sed -i -s -e "s/PGHOST=localhost/PGHOST=aware-db-$AWARE_DATABASE_PORT/g" "$BASE_DIR/../../aware-app/src"
+$BASE_DIR/setup_aware_database.sh -p $AWARE_DATABASE_PORT
 
 printf "Building Image for Server...\n"
 sudo docker build -t server --file $BASE_DIR/../../aware-app/src/docker/server.Dockerfile $BASE_DIR/../../aware-app/ >& /dev/null
