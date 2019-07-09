@@ -4,6 +4,7 @@ import httpServer from 'http';
 import SocketIO from 'socket.io';
 
 import * as awaredb from './shared/database/awaredb'
+import {UserMessage} from './shared/messaging/messenger'
 import verifyLogin from './landing/db/verifier';
 import registerUser from './landing/db/register';
 import Messages from './messaging-service/db/message'
@@ -70,14 +71,14 @@ io.on('connection', (socket: SocketIO.Socket) => {
         }
     });
 
-    socket.on('chat message', (msg, groupId, username) => {
+    socket.on('chat message', (message: UserMessage, roomId: string) => {
         // get current room of socket to emit message in
         var currentRoom = getRoom();
 
         if (currentRoom != null) {
-            new Messages(groupId).insertMessage(msg, username)
+            new Messages(roomId).insertMessage(message)
                 .then(() => {
-                    io.in(currentRoom).emit('chat message', msg)
+                    io.in(currentRoom).emit('chat message', message)
                 })
         }
     });

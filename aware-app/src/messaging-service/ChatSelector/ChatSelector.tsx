@@ -1,23 +1,20 @@
 import React from 'react';
 import CourseDiscussion from './CourseDiscussion'
+import Courses from './Courses/Courses'
 import './CourseDiscussion.scss';
 import DirectMessage from './DirectMessage/DirectMessage'
+import DirectMessages from './DirectMessages/DirectMessages'
 
-interface Room {
-    group_id: string,
-    icon: string,
-    name: string
-};
-
+export type Room = React.Component<CourseDiscussion['props'] | DirectMessage['props']> | null
 type ChatSelectorProps = {
-    selectRoom: (roomName: string, username: string) => void,
+    requestRoom: (roomName: string, username: string) => void,
     socket: SocketIOClient.Socket,
     username: string
 };
 
 type ChatSelectorState = {
     rooms: Room[],
-    selectedRoom: CourseDiscussion | null
+    selectedRoom: Room
 };
 
 export default class ChatSelector extends React.Component<ChatSelectorProps, ChatSelectorState> {
@@ -28,6 +25,8 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
             rooms: [],
             selectedRoom: null
         };
+
+        this.selectChat.bind(this);
     }
 
     componentWillMount(): void {
@@ -45,20 +44,16 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
         }
     }
 
-    updateSelectedRoom(room: CourseDiscussion): void {
+    selectChat(room: Room): void {
         this.setState({
             selectedRoom: room
         });
     }
 
-    shouldComponentUpdate(nextProps: ChatSelectorProps, nextState: ChatSelectorState): boolean {
-        return (this.state.rooms !== nextState.rooms) || (this.state.selectedRoom !== nextState.selectedRoom);
-    }
-
     componentDidUpdate(prevProps: ChatSelectorProps, prevState: ChatSelectorState): void {
 
         if (this.state.selectedRoom) {
-            this.props.selectRoom(this.state.selectedRoom.props.room, this.state.selectedRoom.props.name);
+            this.props.requestRoom(this.state.selectedRoom.props.name, this.state.selectedRoom.props.name);
             this.state.selectedRoom.setState({ selected: true });
         }
 
@@ -73,23 +68,13 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
             <div id="vertical-menu">
                 <h3>Course Discussion</h3>
 
-                {
-                    this.state.rooms.map((room: Room) => {
-                        return (
-                            <CourseDiscussion
-                                updateRoom={this.updateSelectedRoom.bind(this)}
-                                room={room.group_id}
-                                src={"/messenger-icons/" + room.icon}
-                                name={room.name} />
-                        )
-                    })
-                }
+                <Courses
+                    selectCourse={this.selectChat} />
 
                 <hr></hr>
 
-                <h3>Direct Messages</h3>
-                <DirectMessage src="/messenger-icons/account.png" name="Josh Campitelli" />
-                <DirectMessage src="/messenger-icons/account.png" name="Ahmed Sakr" />
+                <DirectMessages
+                    selectDirectMessage={this.selectChat} />
 
             </div>
         );

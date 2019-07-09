@@ -1,8 +1,9 @@
 import React from 'react';
 import './CourseDiscussion.scss'
+import {Room} from './ChatSelector'
 
 type CourseDiscussionProps = {
-    updateRoom: (course: CourseDiscussion) => void,
+    selectCourse: (course: Room) => void,
     room: string,
     src: string,
     name: string,
@@ -26,16 +27,21 @@ export default class CourseDiscussion extends React.Component<CourseDiscussionPr
     }
 
     render(): JSX.Element {
-        const { src, name, room, updateRoom } = this.props;
-
+        const { src, name, selectCourse } = this.props;
+        const currentSelectionState =   this.state.selected ?
+                                        "chat-navigation-item-selected":
+                                        "chat-navigation-item"
         return (
-            <div onClick={() => { updateRoom(this); }} className={this.state.selected ? "chat-navigation-item-selected" : "chat-navigation-item"}>
+            <div onClick={() => { selectCourse(this); }} className={currentSelectionState}>
+
                 <div className="navbar-item-avatar col-2">
                     <img src={process.env.PUBLIC_URL + src} alt={name} />
                 </div>
+
                 <div className="navbar-item-name col-9">
                     <p>{name}</p>
                 </div>
+
             </div>
         );
     }

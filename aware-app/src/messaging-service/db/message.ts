@@ -1,11 +1,7 @@
 import awaredb from '../../shared/database/awaredb';
+import {UserMessage} from '../../shared/messaging/messenger'
 import uuid from '../../shared/uuid/aware-uuid';
 const db_table = "messages"
-
-interface Message {
-    content: string,
-    timestamp: string
-}
 
 export default class Messages {
     groupId : string | null = null;
@@ -21,8 +17,8 @@ export default class Messages {
      * @param {String} groupId 
      * @param {String} username
      */
-    async insertMessage(message: Message, username: string): Promise<void> {
-        let { content, timestamp } = message;
+    async insertMessage(message: UserMessage): Promise<void> {
+        let { username, content, timestamp } = message;
         let db_columns = 'message_id, message_content, time_stamp, group_id, username';
         let user_values = [`${uuid()}`, `${content}`, `${timestamp}`, `${this.groupId}`, `${username}`];
         await awaredb(`INSERT INTO ${db_table} (${db_columns}) VALUES ($1, $2, $3, $4, $5)`, user_values);
