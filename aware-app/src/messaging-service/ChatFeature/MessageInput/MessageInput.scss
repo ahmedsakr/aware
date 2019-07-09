@@ -1,0 +1,29 @@
+/*
+ * Message Input styling
+ *
+ * Defines layout fundamentals for the Message Input Field.
+ */
+
+$message_input_background_color: #eaeff1;
+
+#message-input-textfield {
+    background-color: $message_input_background_color;
+    border: none;
+    height: 100%;
+}
+
+#message-input-send-img {
+    vertical-align: middle;
+}
+
+#message-input {
+    flex: 1 0 auto;
+    background-color: $message_input_background_color;
+    text-align: left;
+}
+
+form {
+    flex: 0 1 auto;
+    display: flex;
+    flex-flow: column;
+}

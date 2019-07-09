@@ -5,27 +5,46 @@ help() {
     echo "Deploy and run a build of aware onto one of the aware deployment servers."
     echo "You must specify which branch you would like to deploy."
     printf "\n\nOPTIONS:\n\n"
-    printf "\t-r <minutes>: The runtime (minutes) of the aware app before it is killed and removed from the server.\n"
-    printf "\t-p <port>: Run the app on a specific (rather than random) port.\n"
+    printf "\t-r, --runtime=<minutes>\n\t\tThe runtime (minutes) of the aware app before it is killed and removed from the server.\n"
+    printf "\t-p, --port=<port>\n\t\tRun the app on a specific (rather than random) port.\n"
     exit 1
 }
 
-parse_options() {
-    while getopts ":r:p:" option; do
-        case "$option" in
-            
+parse_runtime_arguments() {
+    OPTIONS=$(getopt --quiet --options ":r:p:" --longoptions "runtime:,port:" -- "$@")
+    eval set --$OPTIONS
+
+    while true; do
+        case "$1" in
+
             # Specify a port to run the app on.
-            p)
-            AWARE_APP_PORT_CLIENT=$OPTARG
+            -p|--port)
+            shift
+            AWARE_APP_PORT_CLIENT="$1"
             ;;
-            # Modify how long the app runs before terminating
-            r)
-            AWARE_APP_RUNTIME=$OPTARG
+
+            # Modify how long the app runs before terminating.
+            -r|--runtime)
+            shift
+            AWARE_APP_RUNTIME="$1"
             ;;
-            *)
-            echo "Unrecognized option provided."
-            exit 1
+
+            # Mandatory argument parsing happens here.
+            --)
+            shift
+
+            # Check that the user provided the branch to deploy.
+            if [ $# -ne 1 ]; then
+                help
+            fi
+
+            AWARE_BRANCH="$1"
+
+            break
+            ;;
         esac
+
+        shift
     done
 }
 
@@ -44,25 +63,18 @@ printf "aware-deploy\n=======\n\n"
 # than 1024.
 AWARE_APP_PORT_CLIENT=$((RANDOM + 1024))
 AWARE_APP_PORT_SERVER=$((RANDOM + 1024))
-AWARE_APP_RUNTIME=20
 
-# Parse all available options
-parse_options $@
-shift $((OPTIND - 1))
-
-# Check that the user provided the branch to deploy.
-if [ $# -ne 1 ]; then
-    help
-fi
+# Parse all arguments, mandatory and optional.
+parse_runtime_arguments $@
 
 inform_aligned "Aware Client Port" "$AWARE_APP_PORT_CLIENT"
 inform_aligned "Aware Server Port" "$AWARE_APP_PORT_SERVER"
-inform_aligned "Branch to deploy" "$1"
+inform_aligned "Branch to deploy" "$AWARE_BRANCH"
 inform_aligned "Server" "$AWARE_SERVER_DEPLOY"
 
 printf "\nConnecting to $AWARE_SERVER_DEPLOY...\n"
 
-ssh root@"$AWARE_SERVER_DEPLOY" "/bin/bash -s $1 $AWARE_APP_PORT_CLIENT $AWARE_APP_PORT_SERVER $AWARE_APP_RUNTIME" << 'DEPLOY'
+ssh root@"$AWARE_SERVER_DEPLOY" "/bin/bash -s $AWARE_BRANCH $AWARE_APP_PORT_CLIENT $AWARE_APP_PORT_SERVER $AWARE_APP_RUNTIME" << 'DEPLOY'
     
 inform_aligned() {
     printf "%-40s: %s\n" "$1" "$2"
@@ -85,14 +97,14 @@ inform_aligned "Git branch" "$AWARE_BRANCH"
 
 echo "Extracting node_modules.tar.gz..."
 ../scripts/aware-modules.sh --extract
-    
+
 sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start --disableHostCheck=true/g" package.json
 sed -i -s -e "s/server.js/server.js $3 --disableHostCheck=true/g" package.json
 sed -i -s -e "s/localhost:5001/localhost:$3/g" package.json
 sed -i -s -e "s/localhost/$AWARE_SERVER_DEPLOY/g" .env
 
 printf "\nSetting up database docker container...\n"
-../scripts/setup/setup_aware_database.sh
+../scripts/setup/setup_aware_database.sh -r $4
 
 npm run server > /dev/null &
 sleep 5s
