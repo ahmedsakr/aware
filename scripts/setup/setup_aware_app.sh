@@ -17,7 +17,8 @@ fi
 $BASE_DIR/setup_aware_database.sh -p $AWARE_DATABASE_PORT
 
 # Modify package json to listen to contianer IP
-sed -i -s -e "s/PGHOST=/PGHOST=aware-db-$AWARE_DATABASE_PORT/g" "$BASE_DIR/../../aware-app/package.json"
+sed -i -s -e "s/PGHOST=localhost/PGHOST=aware-db-$AWARE_DATABASE_PORT/g" "$BASE_DIR/../../aware-app/package.json"
+sed -i -s -e "s/localhost:5001/server-$AWARE_APP_PORT_SERVER:5001/g" "$BASE_DIR/../../aware-app/package.json"
 
 printf "Building Image for Server...\n"
 sudo docker build -t server-$AWARE_APP_PORT_SERVER --file $BASE_DIR/../../aware-app/src/docker/server.Dockerfile $BASE_DIR/../../aware-app/ >& /dev/null
@@ -26,7 +27,7 @@ sudo docker run -v $BASE_DIR/../../aware-app:/app -v /app/node_modules --name se
 printf "Building Image for Client...\n"
 sudo docker build -t client-$AWARE_APP_PORT_CLIENT --file $BASE_DIR/../../aware-app/src/docker/client.Dockerfile $BASE_DIR/../../aware-app/ >& /dev/null
 printf "Starting Client Container...\n"
-sudo docker run -v $BASE_DIR/../../aware-app:/app -v /app/node_modules --name client-$AWARE_APP_PORT_CLIENT --link=server-$AWARE_APP_PORT_SERVER:server -p $AWARE_APP_PORT_CLIENT:3000 --rm client-$AWARE_APP_PORT_CLIENT #>& /dev/null &
+sudo docker run -v $BASE_DIR/../../aware-app:/app -v /app/node_modules --name client-$AWARE_APP_PORT_CLIENT --link=server-$AWARE_APP_PORT_SERVER:server -p $AWARE_APP_PORT_CLIENT:3000 --rm client-$AWARE_APP_PORT_CLIENT >& /dev/null &
 
 sleep 5s
 printf "Successfully created docker containers\n"
