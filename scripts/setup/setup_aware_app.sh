@@ -4,9 +4,9 @@ BASE_DIR=$(dirname `realpath $0`)
 
 # if no arguments passed randomize ports, supports local testing
 if [ $# -ne 3 ]; then
-    AWARE_DATABASE_PORT=5432 #$((RANDOM + 1024))
-    AWARE_APP_PORT_CLIENT=3000 #$((RANDOM + 1024))
-    AWARE_APP_PORT_SERVER=5001 #$((RANDOM + 1024))
+    AWARE_DATABASE_PORT=$((RANDOM + 1024))
+    AWARE_APP_PORT_CLIENT=$((RANDOM + 1024))
+    AWARE_APP_PORT_SERVER=$((RANDOM + 1024))
 else
     AWARE_DATABASE_PORT=$1
     AWARE_APP_PORT_CLIENT=$2
@@ -22,7 +22,7 @@ sed -i -s -e "s/PGHOST=/PGHOST=aware-db-$AWARE_DATABASE_PORT/g" "$BASE_DIR/../..
 printf "Building Image for Server...\n"
 sudo docker build -t server-$AWARE_APP_PORT_SERVER --file $BASE_DIR/../../aware-app/src/docker/server.Dockerfile $BASE_DIR/../../aware-app/ >& /dev/null
 printf "Starting Server Container...\n"
-sudo docker run -v $BASE_DIR/../../aware-app:/app -v /app/node_modules --name server-$AWARE_APP_PORT_SERVER --link=aware-db-$AWARE_DATABASE_PORT:database -p $AWARE_APP_PORT_CLIENT:5001 --rm server-$AWARE_APP_PORT_SERVER >& /dev/null &
+sudo docker run -v $BASE_DIR/../../aware-app:/app -v /app/node_modules --name server-$AWARE_APP_PORT_SERVER --link=aware-db-$AWARE_DATABASE_PORT:database -p $AWARE_APP_PORT_SERVER:5001 --rm server-$AWARE_APP_PORT_SERVER >& /dev/null &
 printf "Building Image for Client...\n"
 sudo docker build -t client-$AWARE_APP_PORT_CLIENT --file $BASE_DIR/../../aware-app/src/docker/client.Dockerfile $BASE_DIR/../../aware-app/ >& /dev/null
 printf "Starting Client Container...\n"
