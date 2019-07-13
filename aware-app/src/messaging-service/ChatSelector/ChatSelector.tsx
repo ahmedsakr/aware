@@ -13,53 +13,51 @@ type ChatSelectorProps = {
 };
 
 type ChatSelectorState = {
-    rooms: Room[],
     selectedRoom: Room
 };
 
 export default class ChatSelector extends React.Component<ChatSelectorProps, ChatSelectorState> {
+
     constructor(props: ChatSelectorProps) {
         super(props)
 
         this.state = {
-            rooms: [],
             selectedRoom: null
         };
-
-        this.selectChat.bind(this);
     }
 
-    componentWillMount(): void {
-        if (this.props.socket) {
+    /**
+     * Requests a room change from the server and updates the highlighted
+     * room to reflect the new room.
+     *
+     * @param room A new course or direct message chosen by the user
+     */
+    selectChat(room: Room): void {
+        if (this.state.selectedRoom !== room) {
 
-            // Retrieve all rooms that the user is subscribed to.
-            this.props.socket.emit('get-rooms', this.props.username);
+            // De-select the joined room in preparation for joining the new room.
+            if (this.state.selectedRoom) {
+                this.state.selectedRoom.setState({ selected: false });
+            }
 
-            // Listen for any updates in subscribed rooms for this user.
-            this.props.socket.on('user-rooms', (rooms: Room[]) => {
-                this.setState({
-                    rooms: rooms
-                });
+            this.setState({
+                selectedRoom: room
+            }, () => {
+                if (this.state.selectedRoom) {
+                    const name = this.state.selectedRoom.props.room;
+                    this.props.requestRoom(name, name);
+                    this.state.selectedRoom.setState({ selected: true });
+                }
             });
         }
     }
 
-    selectChat(room: Room): void {
-        this.setState({
-            selectedRoom: room
-        });
-    }
-
-    componentDidUpdate(prevProps: ChatSelectorProps, prevState: ChatSelectorState): void {
-
-        if (this.state.selectedRoom) {
-            this.props.requestRoom(this.state.selectedRoom.props.name, this.state.selectedRoom.props.name);
-            this.state.selectedRoom.setState({ selected: true });
-        }
-
-        if (prevState.selectedRoom) {
-            prevState.selectedRoom.setState({ selected: false });
-        }
+    /**
+     * The ChatSelector should never have to update; instead, it just maintains the
+     * current selected room state without a need for updating.
+     */
+    shouldComponentUpdate(nextProps: ChatSelectorProps, nextState: ChatSelectorState): boolean {
+        return false;
     }
 
     render(): JSX.Element {
@@ -69,12 +67,12 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
                 <h3>Course Discussion</h3>
 
                 <Courses
-                    selectCourse={this.selectChat} />
+                    socket={this.props.socket}
+                    username={this.props.username}
+                    selectCourse={this.selectChat.bind(this)} />
 
                 <hr></hr>
 
-                <DirectMessages
-                    selectDirectMessage={this.selectChat} />
 
             </div>
         );

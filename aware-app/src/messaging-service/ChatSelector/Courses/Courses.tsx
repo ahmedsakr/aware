@@ -3,14 +3,16 @@ import './Courses.scss'
 import CourseDiscussion from '../CourseDiscussion';
 import {Room} from '../ChatSelector'
 
-type CoursesProps = {
-    selectCourse: (course: Room) => void;
-};
-
 interface Course {
-    group_id: string,
+    id: string,
     icon: string,
     name: string
+};
+
+type CoursesProps = {
+    socket: SocketIOClient.Socket,
+    username: string,
+    selectCourse: (course: Room) => void
 };
 
 type CoursesState = {
@@ -29,6 +31,21 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
         }
     }
 
+    componentWillMount(): void {
+        if (this.props.socket) {
+
+            // Retrieve all rooms that the user is subscribed to.
+            this.props.socket.emit('get-courses', this.props.username);
+
+            // Listen for any updates in subscribed rooms for this user.
+            this.props.socket.on('user-courses', (courses: Course[]) => {
+                this.setState({
+                    courses: courses
+                });
+            });
+        }
+    }
+
     shouldComponentUpdate(nextProps: CoursesProps, nextState: CoursesState): boolean {
         return  (this.state.courses !== nextState.courses) ||
                 (this.state.selected !== nextState.selected);
@@ -42,7 +59,7 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
                     return (
                         <CourseDiscussion
                             selectCourse={this.props.selectCourse}
-                            room={course.group_id}
+                            room={course.id}
                             src={"/messenger-icons/" + course.icon}
                             name={course.name} />
                     )

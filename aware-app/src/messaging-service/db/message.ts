@@ -1,41 +1,44 @@
 import awaredb from '../../shared/database/awaredb';
 import {UserMessage} from '../../shared/messaging/messenger'
 import uuid from '../../shared/uuid/aware-uuid';
-const db_table = "messages"
 
 export default class Messages {
-    groupId : string | null = null;
+    courseId : string | null = null;
 
-    constructor(groupId: string) {
-        this.groupId = groupId;
+    constructor(courseId: string) {
+        this.courseId = courseId;
     }
 
     /**
      * insert message into database.
      * 
      * @param {array} message 
-     * @param {String} groupId 
+     * @param {String} courseId 
      * @param {String} username
      */
     async insertMessage(message: UserMessage): Promise<void> {
         let { username, content, timestamp } = message;
-        let db_columns = 'message_id, message_content, time_stamp, group_id, username';
-        let user_values = [`${uuid()}`, `${content}`, `${timestamp}`, `${this.groupId}`, `${username}`];
-        await awaredb(`INSERT INTO ${db_table} (${db_columns}) VALUES ($1, $2, $3, $4, $5)`, user_values);
+        let user_values = [`${uuid()}`, `${content}`, `${timestamp}`, `${this.courseId}`, `${username}`];
+        let sql = ` INSERT INTO course_messages
+                        (message_id, message_content, time_stamp, course_id, username)
+                    VALUES
+                        ($1, $2, $3, $4, $5)
+                    `;
+        
+        await awaredb(sql, user_values);
     }
 
     /**
      * get all messages from the database for the given group.
      */
     async getMessages(): Promise<Object[]> {
-        let sql = `SELECT user_accounts.username, messages.message_content 
-                AS content, messages.time_stamp AS timestamp FROM messages 
-                JOIN user_chats ON messages.group_id = user_chats.group_id 
-                AND messages.username = user_chats.username JOIN user_accounts 
-                ON user_chats.username = user_accounts.username JOIN messenger_group 
-                ON user_chats.group_id = messenger_group.group_id 
-                WHERE messages.group_id = $1`;
+        let sql = ` SELECT
+                        username,
+                        message_content AS content,
+                        time_stamp AS timestamp
+                    FROM course_messages
+                    WHERE course_id = $1`;
 
-        return await awaredb(sql, [`${this.groupId}`]);
+        return await awaredb(sql, [`${this.courseId}`]);
     }
 }

@@ -8,7 +8,7 @@ import {UserMessage} from './shared/messaging/messenger'
 import verifyLogin from './landing/db/verifier';
 import registerUser from './landing/db/register';
 import Messages from './messaging-service/db/message'
-import getRooms from './messaging-service/db/rooms';
+import getCourses from './messaging-service/db/rooms';
 import { AccountField } from './shared/verification/user';
 
 let app: Express = express();
@@ -50,9 +50,9 @@ io.on('connection', (socket: SocketIO.Socket) => {
             });
     });
 
-    socket.on('get-rooms', (username: string) => {
-        getRooms(username).then((userRooms: Object[]) => {
-            io.to(socket.id).emit("user-rooms", userRooms);
+    socket.on('get-courses', (username: string) => {
+        getCourses(username).then((userRooms: Object[]) => {
+            io.to(socket.id).emit("user-courses", userRooms);
         });
     });
 
