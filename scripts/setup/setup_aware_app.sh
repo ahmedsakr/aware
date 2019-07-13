@@ -51,7 +51,7 @@ AWARE_APP_RUNTIME=20
 
 parse_runtime_arguments $@
 
-$BASE_DIR/setup_aware_database.sh -p $AWARE_DATABASE_PORT
+$BASE_DIR/setup_aware_database.sh -r $AWARE_APP_RUNTIME -p $AWARE_DATABASE_PORT
 
 # Modify package json to listen to contianer IP
 sed -i -s -e "s/PGHOST=localhost/PGHOST=aware-db-$AWARE_DATABASE_PORT/g" "$BASE_DIR/../../aware-app/package.json"
@@ -69,3 +69,12 @@ sudo docker run -v $BASE_DIR/../../aware-app:/app -v /app/node_modules --name cl
 sleep 5s
 printf "Successfully created docker containers\n"
 printf "Available at: http://localhost:$AWARE_APP_PORT_CLIENT/ \n"
+
+at now + $AWARE_APP_RUNTIME minutes >& /dev/null << CLEANUP
+docker kill "client-$AWARE_APP_PORT_CLIENT"
+docker kill "server-$AWARE_APP_PORT_SERVER"
+
+sed -i -s -e "s/PGHOST=aware-db-$AWARE_DATABASE_PORT/PGHOST=localhost/g" "$BASE_DIR/../../aware-app/package.json"
+sed -i -s -e "s/server-$AWARE_APP_PORT_SERVER:5001/localhost:5001/g" "$BASE_DIR/../../aware-app/package.json"
+
+CLEANUP

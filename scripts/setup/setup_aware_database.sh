@@ -5,7 +5,7 @@ inform_aligned() {
 }
 
 parse_runtime_options() {
-    OPTIONS=$(getopt --quiet --options "rp" --longoptions "runtime,port" -- "$@")
+    OPTIONS=$(getopt --quiet --options "r:p:" --longoptions "runtime:,port:" -- "$@")
     eval set --$OPTIONS
 
     while true; do
@@ -19,7 +19,7 @@ parse_runtime_options() {
             #specify the port the database will run on
             -p|--port)
             shift
-            AWARE_DATABASE_PORT="$2"
+            AWARE_DATABASE_PORT="$1"
             ;;
 
             *)
