@@ -75,7 +75,7 @@ inform_aligned "Server" "$AWARE_SERVER_DEPLOY"
 
 printf "\nConnecting to $AWARE_SERVER_DEPLOY...\n"
 
-ssh root@"$AWARE_SERVER_DEPLOY" "/bin/bash -s $AWARE_BRANCH $AWARE_APP_PORT_CLIENT $AWARE_APP_PORT_SERVER $AWARE_APP_RUNTIME" << 'DEPLOY'
+ssh root@"$AWARE_SERVER_DEPLOY" "/bin/bash -s $AWARE_BRANCH $AWARE_APP_PORT_CLIENT $AWARE_APP_PORT_SERVER $AWARE_APP_RUNTIME $AWARE_APP_DATABASE" << 'DEPLOY'
     
 inform_aligned() {
     printf "%-40s: %s\n" "$1" "$2"
@@ -96,24 +96,10 @@ cd aware/aware-app
 git checkout $AWARE_BRANCH >& /dev/null
 inform_aligned "Git branch" "$AWARE_BRANCH"
 
-echo "Extracting node_modules.tar.gz..."
-../scripts/aware-modules.sh --extract
+sed -i -s -e "s/react-scripts start/react-scripts start --disableHostCheck=true/g" package.json
+sed -i -s -e "s/server.js/server.js --disableHostCheck=true/g" package.json
 
-sed -i -s -e "s/react-scripts start/PORT=$2 react-scripts start --disableHostCheck=true/g" package.json
-sed -i -s -e "s/server.js/server.js $3 --disableHostCheck=true/g" package.json
-sed -i -s -e "s/localhost:5001/localhost:$3/g" package.json
-sed -i -s -e "s/localhost/$AWARE_SERVER_DEPLOY/g" .env
-
-printf "\nSetting up database docker container...\n"
-../scripts/setup/setup_aware_database.sh -r $4
-
-npm run server > /dev/null &
-sleep 5s
-
-inform_aligned "npm run server" "complete"
-
-npm run client > /dev/null &
-inform_aligned "npm run client" "complete"
+../scripts/setup/setup_aware_app.sh -r $4 -c $2 -s $3 -d $5
 
 inform_aligned "Deployment available at" "http://$AWARE_SERVER_DEPLOY:$2"
 
