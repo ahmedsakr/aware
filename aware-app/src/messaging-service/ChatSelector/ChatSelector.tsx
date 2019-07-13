@@ -44,9 +44,10 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
                 selectedRoom: room
             }, () => {
                 if (this.state.selectedRoom) {
-                    const name = this.state.selectedRoom.props.room;
-                    this.props.requestRoom(name, name);
                     this.state.selectedRoom.setState({ selected: true });
+
+                    const { room, name } = this.state.selectedRoom.props;
+                    this.props.requestRoom(room, name);                    
                 }
             });
         }
@@ -73,7 +74,10 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
 
                 <hr></hr>
 
+                <h3>Direct Messages</h3>
 
+                <DirectMessages 
+                    selectDirectMessage={this.selectChat.bind(this)}/>
             </div>
         );
     }

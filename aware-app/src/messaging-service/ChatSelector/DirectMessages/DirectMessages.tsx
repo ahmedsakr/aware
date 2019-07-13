@@ -12,8 +12,7 @@ type DirectMessagesState = {};
 export default class DirectMessages extends React.Component<DirectMessagesProps, DirectMessagesState> {
     render() {
         return (
-            <div id="direct-messages" className="row">
-                <p id="courses" className="col-12">Private Messages</p>
+            <div id="direct-messages">
                 <input id="textfield" placeholder="Search Messages..." />
                 <DirectMessage
                     selectDirectMessage={this.props.selectDirectMessage}
