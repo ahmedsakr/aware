@@ -72,7 +72,7 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
                     username={this.props.username}
                     selectCourse={this.selectChat.bind(this)} />
 
-                <hr></hr>
+                <hr />
 
                 <h3>Direct Messages</h3>
 
