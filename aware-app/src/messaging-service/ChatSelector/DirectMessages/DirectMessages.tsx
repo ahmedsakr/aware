@@ -19,11 +19,6 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
                     room=""
                     src="/icons8-user-80.png"
                     name="Josh Campitelli" />
-                <DirectMessage
-                    selectDirectMessage={this.props.selectDirectMessage}
-                    room=""
-                    src="/icons8-user-80.png"
-                    name="Ahmed Sakr" />
             </div>
         );
     }

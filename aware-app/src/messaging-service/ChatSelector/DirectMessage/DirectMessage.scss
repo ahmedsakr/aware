@@ -20,9 +20,24 @@ $direct_message_hover_color: #232f3e;
     }
 }
 
+.direct-message-selected {
+    color: $direct_message_background_color;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    background-color: $direct_message_hover_color;    
+    text-decoration: none;
+}
+
 .direct-message-content>p {
     padding: 0;
     margin: 0;
+}
+
+.direct-message-avatar > img {
+    width: 32px;
+    height: auto;
 }
 
 #direct-message-preview {

@@ -5,13 +5,14 @@
  */
 
 #direct-messages {
-    display: block;
+    display: flex;
+    flex-direction: column;
 
     >input {
         margin-bottom: 0.5em;
         height: 35px;
-        font-size: 20px;
-        width: 85%;
+        align-self: center;
+        flex: 0;
     }
 }
 

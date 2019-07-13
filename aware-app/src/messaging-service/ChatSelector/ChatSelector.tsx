@@ -1,6 +1,7 @@
 import React from 'react';
 import CourseDiscussion from './CourseDiscussion'
 import Courses from './Courses/Courses'
+import './ChatSelector.scss'
 import './CourseDiscussion.scss';
 import DirectMessage from './DirectMessage/DirectMessage'
 import DirectMessages from './DirectMessages/DirectMessages'
