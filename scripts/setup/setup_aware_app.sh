@@ -1,18 +1,55 @@
 #!/bin/bash
 
+parse_runtime_arguments() {
+    OPTIONS=$(getopt --quiet --options "r:c:s:d:" --longoptions "runtime:,client:,server:,database:" -- "$@")
+    eval set --$OPTIONS
+
+    while true; do
+        case "$1" in
+
+            # Specify a port to run the app on.
+            -c|--client)
+            shift
+            AWARE_APP_PORT_CLIENT="$1"
+            ;;
+
+            # Specify a port to run the app on.
+            -s|--server)
+            shift
+            AWARE_APP_PORT_SERVER="$1"
+            ;;
+
+            # Specify a port to run the app on.
+            -d|--database)
+            shift
+            AWARE_DATABASE_PORT="$1"
+            ;;
+
+            # Modify how long the app runs before terminating.
+            -r|--runtime)
+            shift
+            AWARE_APP_RUNTIME="$1"
+            ;;
+
+            *)
+            shift
+            break
+            ;;
+        esac
+
+        shift
+    done
+}
+
 BASE_DIR=$(dirname `realpath $0`)
 
-# if no arguments passed randomize ports, supports local testing
-if [ $# -ne 3 ]; then
-    AWARE_DATABASE_PORT=$((RANDOM + 1024))
-    AWARE_APP_PORT_CLIENT=$((RANDOM + 1024))
-    AWARE_APP_PORT_SERVER=$((RANDOM + 1024))
-else
-    AWARE_DATABASE_PORT=$1
-    AWARE_APP_PORT_CLIENT=$2
-    AWARE_APP_PORT_SERVER=$3
-    runtime=$4
-fi
+
+AWARE_DATABASE_PORT=$((RANDOM + 1024))
+AWARE_APP_PORT_CLIENT=$((RANDOM + 1024))
+AWARE_APP_PORT_SERVER=$((RANDOM + 1024))
+AWARE_APP_RUNTIME=20
+
+parse_runtime_arguments $@
 
 $BASE_DIR/setup_aware_database.sh -p $AWARE_DATABASE_PORT
 
