@@ -2,6 +2,7 @@ import React from 'react';
 import './DirectMessages.scss';
 import DirectMessage from '../DirectMessage/DirectMessage'
 import {Room} from '../ChatSelector'
+import UserFinderOverlay from './UserFinder/UserFinderOverlay';
 
 type DirectMessagesProps = {
     selectDirectMessage: (directMessage: Room) => void
@@ -13,9 +14,15 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
     render() {
         return (
             <div id="direct-messages">
+                <UserFinderOverlay />
+
                 <input id="textfield" placeholder="Search Messages..." />
 
-                <div id="direct-messages-new">
+                <div
+                    data-toggle="modal"
+                    data-target={"#user-finder-overlay"}
+                    id="direct-messages-new" >
+
                     <span className="fa fa-plus" aria-hidden="true"></span>
                     <p>Start a direct message</p>
                 </div>
