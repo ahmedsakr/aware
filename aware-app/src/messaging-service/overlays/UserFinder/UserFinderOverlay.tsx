@@ -5,9 +5,19 @@ import './UserFinderOverlay.scss'
 
 type UserFinderOverlayProps = {};
 
-type UserFinderOverlayState = {};
+type UserFinderOverlayState = {
+    selected: boolean
+};
 
 export default class UserFinderOverlay extends React.Component<UserFinderOverlayProps, UserFinderOverlayState> {
+
+    constructor(props: UserFinderOverlayProps) {
+        super(props);
+
+        this.state = {
+            selected: false
+        };
+    }
 
     name(): string {
         return "user-finder-overlay"
@@ -18,6 +28,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
     }
 
     content(): JSX.Element {
+
         return (
             <div id="user-finder-content">
                 <div>
@@ -26,7 +37,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
 
                 <hr className="user-finder-line-break" />
 
-                <div className="user-finder-record">
+                <div onClick={() => {this.setState({ selected: !this.state.selected})}}className="user-finder-record">
                     <div className="user-finder-record-select">
                         <span className="fa fa-plus" aria-hidden="true"></span>
                     </div>
@@ -37,17 +48,11 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
                             Ahmed Sakr
                         </div>
                     </div>
-                </div>
-                <div className="user-finder-record">
-                    <div className="user-finder-record-select">
-                        <span className="fa fa-plus" aria-hidden="true"></span>
-                    </div>
 
-                    <div className="user-finder-record-info">
-                        <img alt="josh" src={process.env.PUBLIC_URL + "/josh-pic.jpg"} />
-                        <div className="user-finder-record-name">
-                            Josh Campitelli
-                        </div>
+                    <div className={this.state.selected ?
+                                    "user-finder-record-status-selected" :
+                                    "user-finder-record-status-deselected"}>
+                        <span className="fa fa-check" aria-hidden="true"></span>
                     </div>
                 </div>
             </div>

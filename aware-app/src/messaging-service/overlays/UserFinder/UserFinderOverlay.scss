@@ -23,6 +23,10 @@
 .user-finder-record {
     border: solid 1px gray;
     border-radius: 5px;
+
+    &:hover {
+        border-color: lightblue;
+    }
 }
 
 .user-finder-record-select {
@@ -37,7 +41,7 @@
 
 .user-finder-record-info {
     display: flex;
-    width: 90%;
+    width: 80%;
 
     * {
         margin: 0;
@@ -52,4 +56,20 @@
 .user-finder-record-name {
     margin-left: 5%;
     align-self: center;
+}
+
+.user-finder-record-status-deselected {
+    display: none;
+}
+
+.user-finder-record-status-selected {
+    display: flex;
+    justify-content: center;
+    width: 10%;
+    background-color: lightgreen;
+    border-radius: inherit;
+
+    > span {
+        align-self: center;
+    }
 }
