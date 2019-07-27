@@ -31,29 +31,33 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
 
         return (
             <div id="user-finder-content">
-                <div>
-                    <input id="user-finder-filter" type="textfield" placeholder="John Doe" />
+                <div id="user-finder-filter">
+                    <input type="textfield" placeholder="John Doe" />
                 </div>
 
                 <hr className="user-finder-line-break" />
 
-                <div onClick={() => {this.setState({ selected: !this.state.selected})}}className="user-finder-record">
-                    <div className="user-finder-record-select">
-                        <span className="fa fa-plus" aria-hidden="true"></span>
-                    </div>
-
-                    <div className="user-finder-record-info">
-                        <img alt="ahmed" src={process.env.PUBLIC_URL + "/ahmed-pic.jpg"} />
-                        <div className="user-finder-record-name">
-                            Ahmed Sakr
-                        </div>
-                    </div>
-
-                    <div className={this.state.selected ?
-                                    "user-finder-record-status-selected" :
-                                    "user-finder-record-status-deselected"}>
-                        <span className="fa fa-check" aria-hidden="true"></span>
-                    </div>
+                <div id="user-finder-records">
+                    <UserFinderRecord
+                        name="Ahmed Sakr"
+                        avatar="ahmed-pic.jpg"
+                        selected={true}/>
+                    <UserFinderRecord
+                        name="Josh Campitelli"
+                        avatar="josh-pic.jpg"
+                        selected={false}/>
+                    <UserFinderRecord
+                        name="Ahmed Sakr"
+                        avatar="ahmed-pic.jpg"
+                        selected={false}/>
+                    <UserFinderRecord
+                        name="Josh Campitelli"
+                        avatar="josh-pic.jpg"
+                        selected={false}/>
+                    <UserFinderRecord
+                        name="Ahmed Sakr"
+                        avatar="ahmed-pic.jpg"
+                        selected={false}/>
                 </div>
             </div>
         )
@@ -76,6 +80,39 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
                 content={this.content()}
                 footer={this.footer()}
             />
+        )
+    }
+}
+
+type UserFinderRecordProps = {
+    name: string,
+    avatar: string,
+    selected: boolean
+};
+
+type UserFinderRecordState = {};
+class UserFinderRecord extends React.Component<UserFinderRecordProps, UserFinderRecordState> {
+
+    render(): JSX.Element {
+        return (
+            <div className="user-finder-record">
+                <div className="user-finder-record-select">
+                    <span className="fa fa-plus" aria-hidden="true"></span>
+                </div>
+
+                <div className="user-finder-record-info">
+                    <img alt="ahmed" src={process.env.PUBLIC_URL + this.props.avatar} />
+                    <div className="user-finder-record-name">
+                        {this.props.name}
+                    </div>
+                </div>
+
+                <div className={this.props.selected ?
+                    "user-finder-record-status-selected" :
+                    "user-finder-record-status-deselected"}>
+                    <span className="fa fa-check" aria-hidden="true"></span>
+                </div>
+            </div>
         )
     }
 }

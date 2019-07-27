@@ -8,6 +8,12 @@
     display: flex;
     flex-direction: column;
     justify-content: left;
+}
+
+#user-finder-records {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
 
     > div {
         display: flex;
@@ -16,7 +22,7 @@
     }
 }
 
-#user-finder-filter {
+#user-finder-filter > input {
     width: 100%;
 }
 
