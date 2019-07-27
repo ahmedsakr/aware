@@ -24,7 +24,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
                     <input id="user-finder-filter" type="textfield" placeholder="John Doe" />
                 </div>
 
-                <hr />
+                <hr className="user-finder-line-break" />
 
                 <div className="user-finder-record">
                     <div className="user-finder-record-select">
@@ -44,7 +44,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
                     </div>
 
                     <div className="user-finder-record-info">
-                        <img alt="ahmed" src={process.env.PUBLIC_URL + "/josh-pic.jpg"} />
+                        <img alt="josh" src={process.env.PUBLIC_URL + "/josh-pic.jpg"} />
                         <div className="user-finder-record-name">
                             Josh Campitelli
                         </div>

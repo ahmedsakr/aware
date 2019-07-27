@@ -2,7 +2,7 @@ import React from 'react';
 import CourseDiscussion from './CourseDiscussion'
 import Courses from './Courses/Courses'
 import './ChatSelector.scss'
-import './CourseDiscussion.scss';
+import './CourseDiscussion.scss'
 import DirectMessage from './DirectMessage/DirectMessage'
 import DirectMessages from './DirectMessages/DirectMessages'
 
@@ -73,7 +73,7 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
                     username={this.props.username}
                     selectCourse={this.selectChat.bind(this)} />
 
-                <hr />
+                <hr className="chat-selector-line-break" />
 
                 <h3>Direct Messages</h3>
 

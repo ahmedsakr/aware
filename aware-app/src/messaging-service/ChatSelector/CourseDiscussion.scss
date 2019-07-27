@@ -48,7 +48,8 @@ $navbar_item_color: #babdc0;
     background-color: $chat_navigation_background_color;
 }
 
-hr {
+.chat-selector-line-break {
     background-color: white;
     height: 3;
+    width: 100%;
 }
