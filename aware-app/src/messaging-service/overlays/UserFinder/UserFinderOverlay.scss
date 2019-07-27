@@ -1,0 +1,49 @@
+#user-finder-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+
+    > div {
+        display: flex;
+        flex: 1 0;
+        margin: 5px 0px 5px 0px;
+    }
+}
+
+#user-finder-filter {
+    width: 100%;
+}
+
+.user-finder-record {
+    border: solid 1px gray;
+    border-radius: 5px;
+}
+
+.user-finder-record-select {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+
+    > span {
+        align-self: center;
+    }
+}
+
+.user-finder-record-info {
+    display: flex;
+    width: 90%;
+
+    * {
+        margin: 0;
+    }
+
+    > img {
+        height: 30px;
+        width: auto !important;
+    }
+}
+
+.user-finder-record-name {
+    margin-left: 5%;
+    align-self: center;
+}

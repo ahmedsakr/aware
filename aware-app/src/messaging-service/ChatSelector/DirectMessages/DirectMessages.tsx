@@ -2,7 +2,7 @@ import React from 'react';
 import './DirectMessages.scss';
 import DirectMessage from '../DirectMessage/DirectMessage'
 import {Room} from '../ChatSelector'
-import UserFinderOverlay from './UserFinder/UserFinderOverlay';
+import UserFinderOverlay from '../../overlays/UserFinder/UserFinderOverlay';
 
 type DirectMessagesProps = {
     selectDirectMessage: (directMessage: Room) => void
