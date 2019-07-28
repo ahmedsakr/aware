@@ -20,7 +20,7 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
                     socket={this.props.socket}
                     username={this.props.username} />
 
-                <input id="textfield" placeholder="Search Messages..." />
+                <input className="direct-messages-filter" id="textfield" placeholder="Search Messages..." />
 
                 <div
                     data-toggle="modal"
