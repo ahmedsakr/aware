@@ -13,7 +13,8 @@ type RelatedUser = {
 }
 
 type UserFinderOverlayState = {
-    relatedUsers: RelatedUser[] | null
+    relatedUsers: RelatedUser[] | null,
+    messagesFilter: string
 };
 
 export default class UserFinderOverlay extends React.Component<UserFinderOverlayProps, UserFinderOverlayState> {
@@ -22,8 +23,25 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
         super(props);
 
         this.state = {
-            relatedUsers: null
+            relatedUsers: null,
+            messagesFilter: ''
         };
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
+        this.setState({
+            [event.target.name]: event.target.value
+        } as any); 
+    }
+    
+    getFilteredRelatedUsers(): RelatedUser[] {
+        if (this.state.relatedUsers == null) {
+            return [];
+        }
+
+        return this.state.relatedUsers.filter(user => user.username.startsWith(this.state.messagesFilter))
     }
 
     componentWillMount(): void {
@@ -47,27 +65,28 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
     content(): JSX.Element {
         let records : JSX.Element[] | JSX.Element | null = null;
 
-        if (this.state.relatedUsers == null) {
+        if (this.state.relatedUsers == null || this.getFilteredRelatedUsers().length == 0) {
             records = (
                 <div>
-                    No related users.
+                    No students were found in your courses.
                 </div>
             );
         } else {
-            records = this.state.relatedUsers.map(user => {
-                return (
-                    <UserFinderRecord
-                        name={user.username}
-                        avatar={user.username + "-pic.jpg"}
-                        selected={true}/>
-                );
-            })
+            records = this.getFilteredRelatedUsers()
+                .map(user => {
+                    return (
+                        <UserFinderRecord
+                            name={user.username}
+                            avatar={user.username + "-pic.jpg"}
+                            selected={true} />
+                    );
+                })
         }
 
         return (
             <div id="user-finder-content">
                 <div id="user-finder-filter">
-                    <input type="textfield" placeholder="John Doe" />
+                    <input onChange={this.handleChange} name="messagesFilter" type="textfield" placeholder="John Doe" />
                 </div>
 
                 <hr className="user-finder-line-break" />
