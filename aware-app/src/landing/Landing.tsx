@@ -4,6 +4,7 @@ import './Landing.scss'
 
 import Login from './login/Login'
 import Register from './register/Register'
+import LandingSlider from './LandingSlider';
 
 type LandingProps = {
     loadMessenger: (username: string) => void;
@@ -84,8 +85,9 @@ export default class Landing extends React.Component<LandingProps, LandingState>
     render() {
         return (
             <div className="container-fluid aware-container">
-                <div id="landing-canvas" className="aware-column row">
-                    <div className="col-3 offset-3">
+                <div id="landing-canvas">
+                    <LandingSlider/>
+                    <div id='landing-form' className="col-3 offset-3">
                         {this.displayCurrentForm()}
                     </div>
                 </div>
