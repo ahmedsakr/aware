@@ -3,10 +3,17 @@ import AwareOverlay from '../../../shared/overlay/AwareOverlay'
 import 'bootstrap'
 import './UserFinderOverlay.scss'
 
-type UserFinderOverlayProps = {};
+type UserFinderOverlayProps = {
+    socket: SocketIOClient.Socket,
+    username: string
+};
+
+type RelatedUser = {
+    username: string
+}
 
 type UserFinderOverlayState = {
-    selected: boolean
+    relatedUsers: RelatedUser[] | null
 };
 
 export default class UserFinderOverlay extends React.Component<UserFinderOverlayProps, UserFinderOverlayState> {
@@ -15,8 +22,18 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
         super(props);
 
         this.state = {
-            selected: false
+            relatedUsers: null
         };
+    }
+
+    componentWillMount(): void {
+        if (this.props.socket) {
+            this.props.socket.emit('get-related-users', this.props.username);
+
+            this.props.socket.on('get-related-users', (relatedUsers: RelatedUser[]) => {
+                this.setState({ relatedUsers: relatedUsers });
+            });
+        }
     }
 
     name(): string {
@@ -28,6 +45,25 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
     }
 
     content(): JSX.Element {
+        let records : JSX.Element[] | JSX.Element | null = null;
+
+        if (this.state.relatedUsers == null) {
+            records = (
+                <div>
+                    No related users.
+                </div>
+            );
+        } else {
+            records = this.state.relatedUsers.map(user => {
+                console.log(user);
+                return (
+                    <UserFinderRecord
+                        name={user.username}
+                        avatar={user.username + "-pic.jpg"}
+                        selected={true}/>
+                );
+            })
+        }
 
         return (
             <div id="user-finder-content">
@@ -38,26 +74,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
                 <hr className="user-finder-line-break" />
 
                 <div id="user-finder-records">
-                    <UserFinderRecord
-                        name="Ahmed Sakr"
-                        avatar="ahmed-pic.jpg"
-                        selected={true}/>
-                    <UserFinderRecord
-                        name="Josh Campitelli"
-                        avatar="josh-pic.jpg"
-                        selected={false}/>
-                    <UserFinderRecord
-                        name="Ahmed Sakr"
-                        avatar="ahmed-pic.jpg"
-                        selected={false}/>
-                    <UserFinderRecord
-                        name="Josh Campitelli"
-                        avatar="josh-pic.jpg"
-                        selected={false}/>
-                    <UserFinderRecord
-                        name="Ahmed Sakr"
-                        avatar="ahmed-pic.jpg"
-                        selected={false}/>
+                    {records}
                 </div>
             </div>
         )

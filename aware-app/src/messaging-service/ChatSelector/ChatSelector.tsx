@@ -77,7 +77,9 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
 
                 <h3>Direct Messages</h3>
 
-                <DirectMessages 
+                <DirectMessages
+                    socket={this.props.socket}
+                    username={this.props.username}
                     selectDirectMessage={this.selectChat.bind(this)}/>
             </div>
         );

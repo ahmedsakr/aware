@@ -5,6 +5,8 @@ import {Room} from '../ChatSelector'
 import UserFinderOverlay from '../../overlays/UserFinder/UserFinderOverlay';
 
 type DirectMessagesProps = {
+    socket: SocketIOClient.Socket,
+    username: string,
     selectDirectMessage: (directMessage: Room) => void
 };
 
@@ -14,7 +16,9 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
     render() {
         return (
             <div id="direct-messages">
-                <UserFinderOverlay />
+                <UserFinderOverlay
+                    socket={this.props.socket}
+                    username={this.props.username} />
 
                 <input id="textfield" placeholder="Search Messages..." />
 

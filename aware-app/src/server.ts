@@ -9,6 +9,7 @@ import verifyLogin from './landing/db/verifier';
 import registerUser from './landing/db/register';
 import Messages from './messaging-service/db/message'
 import getCourses from './messaging-service/db/rooms';
+import {getRelatedUsers} from './messaging-service/db/userRelations'
 import { AccountField } from './shared/verification/user';
 
 let app: Express = express();
@@ -54,6 +55,13 @@ io.on('connection', (socket: SocketIO.Socket) => {
         getCourses(username).then((userRooms: Object[]) => {
             io.to(socket.id).emit("user-courses", userRooms);
         });
+    });
+
+    socket.on('get-related-users', (username: string) => {
+        getRelatedUsers(username)
+        .then((users: Object[]) => {
+            io.to(socket.id).emit('get-related-users', users);
+        })
     });
 
     socket.on('room', (room: string) => {
