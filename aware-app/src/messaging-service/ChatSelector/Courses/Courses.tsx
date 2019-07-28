@@ -16,8 +16,7 @@ type CoursesProps = {
 };
 
 type CoursesState = {
-    courses: Course[],
-    selected: boolean
+    courses: Course[]
 }
 
 export default class Courses extends React.Component<CoursesProps, CoursesState> {
@@ -26,8 +25,7 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
         super(props);
 
         this.state = {
-            courses: [],
-            selected: false
+            courses: []
         }
     }
 
@@ -47,8 +45,7 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
     }
 
     shouldComponentUpdate(nextProps: CoursesProps, nextState: CoursesState): boolean {
-        return  (this.state.courses !== nextState.courses) ||
-                (this.state.selected !== nextState.selected);
+        return  this.state.courses !== nextState.courses;
     }
 
     render(): JSX.Element {
