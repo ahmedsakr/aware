@@ -14,7 +14,8 @@ type RelatedUser = {
 
 type UserFinderOverlayState = {
     relatedUsers: RelatedUser[] | null,
-    messagesFilter: string
+    messagesFilter: string,
+    selectedUser: UserFinderRecord | null,
 };
 
 export default class UserFinderOverlay extends React.Component<UserFinderOverlayProps, UserFinderOverlayState> {
@@ -24,7 +25,8 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
 
         this.state = {
             relatedUsers: null,
-            messagesFilter: ''
+            messagesFilter: '',
+            selectedUser: null
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -102,7 +104,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
         return (
             <div id="footer-layer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Nevermind</button>
-                <button type="button" className="btn btn-primary">Go</button>
+                <button id="user-finder-start" type="button" className="btn btn-primary" disabled={this.state.selectedUser == null ? true: false}>Go</button>
             </div>
         )
     }
