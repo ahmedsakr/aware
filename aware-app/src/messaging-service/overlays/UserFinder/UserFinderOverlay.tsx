@@ -55,7 +55,6 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
             );
         } else {
             records = this.state.relatedUsers.map(user => {
-                console.log(user);
                 return (
                     <UserFinderRecord
                         name={user.username}
