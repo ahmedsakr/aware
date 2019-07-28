@@ -32,18 +32,33 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
-        this.setState({
-            [event.target.name]: event.target.value
-        } as any); 
+    selectUser(user: UserFinderRecord): void {
+        if (user.state.selected) {
+            user.setState({selected: false});
+            this.setState({selectedUser: null});
+        } else {
+
+            if (this.state.selectedUser !== null) {
+                this.state.selectedUser.setState({selected: false});
+            }
+
+            user.setState({selected: true});
+            this.setState({selectedUser: user});
+        }
     }
-    
+
     getFilteredRelatedUsers(): RelatedUser[] {
         if (this.state.relatedUsers == null) {
             return [];
         }
 
         return this.state.relatedUsers.filter(user => user.username.startsWith(this.state.messagesFilter))
+    }
+
+    handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
+        this.setState({
+            [event.target.name]: event.target.value
+        } as any); 
     }
 
     componentWillMount(): void {
@@ -78,9 +93,9 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
                 .map(user => {
                     return (
                         <UserFinderRecord
+                            selectUser={this.selectUser.bind(this)}
                             name={user.username}
-                            avatar={user.username + "-pic.jpg"}
-                            selected={true} />
+                            avatar={user.username + "-pic.jpg"} />
                     );
                 })
         }
@@ -101,10 +116,16 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
     }
 
     footer(): JSX.Element {
+        let selected : boolean = this.state.selectedUser !== null ? true : false;
         return (
             <div id="footer-layer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Nevermind</button>
-                <button id="user-finder-start" type="button" className="btn btn-primary" disabled={this.state.selectedUser == null ? true: false}>Go</button>
+                <button
+                    id={selected ? "user-finder-go-enabled" : "user-finder-go-disabled"}
+                    disabled={!selected}
+                    type="button" className="btn btn-primary">
+                        Go
+                </button>
             </div>
         )
     }
@@ -122,17 +143,32 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
 }
 
 type UserFinderRecordProps = {
+    selectUser: (user: UserFinderRecord) => void,
     name: string,
-    avatar: string,
+    avatar: string
+};
+
+type UserFinderRecordState = {
     selected: boolean
 };
 
-type UserFinderRecordState = {};
 class UserFinderRecord extends React.Component<UserFinderRecordProps, UserFinderRecordState> {
+
+    constructor(props: UserFinderRecordProps) {
+        super(props);
+
+        this.state = {
+            selected: false
+        };
+    }
+
+    select(): void {
+        this.setState({selected: true});
+    }
 
     render(): JSX.Element {
         return (
-            <div className="user-finder-record">
+            <div onClick={() => this.props.selectUser(this)} className="user-finder-record">
                 <div className="user-finder-record-select">
                     <span className="fa fa-plus" aria-hidden="true"></span>
                 </div>
@@ -144,7 +180,7 @@ class UserFinderRecord extends React.Component<UserFinderRecordProps, UserFinder
                     </div>
                 </div>
 
-                <div className={this.props.selected ?
+                <div className={this.state.selected ?
                     "user-finder-record-status-selected" :
                     "user-finder-record-status-deselected"}>
                     <span className="fa fa-check" aria-hidden="true"></span>
