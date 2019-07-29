@@ -14,17 +14,18 @@ type DirectMessagesState = {};
 
 export default class DirectMessages extends React.Component<DirectMessagesProps, DirectMessagesState> {
     render() {
+
+        let overlay = <UserFinderOverlay
+                        socket={this.props.socket}
+                        username={this.props.username} />;
         return (
             <div id="direct-messages">
-                <UserFinderOverlay
-                    socket={this.props.socket}
-                    username={this.props.username} />
+                {overlay}
 
                 <input className="direct-messages-filter" id="textfield" placeholder="Search Messages..." />
 
                 <div
-                    data-toggle="modal"
-                    data-target={"#user-finder-overlay"}
+                    onClick={overlay.}
                     id="direct-messages-new" >
 
                     <span className="fa fa-plus" aria-hidden="true"></span>
