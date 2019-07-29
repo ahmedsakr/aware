@@ -25,7 +25,6 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
                 <input className="direct-messages-filter" id="textfield" placeholder="Search Messages..." />
 
                 <div
-                    onClick={overlay.}
                     id="direct-messages-new" >
 
                     <span className="fa fa-plus" aria-hidden="true"></span>
