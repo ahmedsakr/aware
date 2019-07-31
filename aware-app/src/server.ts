@@ -93,19 +93,16 @@ io.on('connection', (socket: SocketIO.Socket) => {
                     io.in(currentRoom).emit('chat message', msg)
                 })
         }
-        console.log('Users: ', activeUsers)
     });
 
     socket.on('active users', () => {
         let currentRoom = getRoom();
         if (currentRoom != null) {
-            let users = Object.keys(io.sockets.adapter.rooms[currentRoom].sockets);
-            io.to(socket.id).emit('active users', users);
+            io.to(socket.id).emit('active users', activeUsers);
         }
     });
 
     socket.on('disconnect', function () {
-        console.log('Got disconnect: ', socket.id);
         for (var i = 0; i < activeUsers.length; i++) {
             if (activeUsers[i].socketId === socket.id) {
                 activeUsers.splice(i, 1);

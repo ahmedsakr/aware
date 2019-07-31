@@ -8,17 +8,28 @@ type ActivityPanelProps = {
 };
 
 type ActivityPanelState = { 
-    activeUsers: String
+    activeUsers: []
 };
 
 export default class ActivityPanel extends React.Component<ActivityPanelProps, ActivityPanelState> {
+    constructor(props: ActivityPanelProps) {
+        super(props);
+
+        this.state = {
+            activeUsers: []
+        }
+    }
 
     componentDidUpdate(prevProps: ActivityPanelProps, prevState: ActivityPanelState): void {
         console.log('socket', this.props.socket)
         if (this.props.socket) {
             this.props.socket.emit('active users');
-            this.props.socket.on('active users', (users: String) => {
-                console.log('Active Users: ', users)
+            this.props.socket.on('active users', (users: []) => {
+                if (this.state.activeUsers !== users) {
+                    this.setState({
+                        activeUsers: users
+                    })
+                }
             })
         }
     }
@@ -27,12 +38,13 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
     render(): JSX.Element {
         return(
             <div className="col-sm-12" id="activity-panel">
-                <ProfilePicture instance="activity" activity="online"  picture="ahmed-pic.jpg"/>
-                <ProfilePicture instance="activity" activity="online" picture="josh-pic.jpg"/>
-                <ProfilePicture instance="activity" activity="online" picture="louis-ck-pic.JPG"/>
-                <ProfilePicture instance="activity" activity="online" picture="mia-khalifa-pic.jpg"/>
-                <ProfilePicture instance="activity" activity="offline" picture="bill-gates-pic.jpg"/>
-                <ProfilePicture instance="activity" activity="offline" picture="megan-fox-pic.jpg"/>
+                {
+                        this.state.activeUsers.map((user:any) => {
+                            return (
+                                <ProfilePicture instance="activity" activity="online"  picture={user.username + "-pic.jpg"}/>
+                            )
+                        })
+                }
             </div>
         );
     }
