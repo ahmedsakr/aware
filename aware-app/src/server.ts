@@ -82,6 +82,13 @@ io.on('connection', (socket: SocketIO.Socket) => {
         }
     });
 
+    socket.on('active users', () => {
+        let currentRoom = getRoom();
+        if (currentRoom != null) {
+            let users = Object.keys(io.sockets.adapter.rooms[currentRoom].sockets);
+            io.to(socket.id).emit('active users', users);
+        }
+    });
 
     const getRoom: () => string = () => {
         return Object.keys(io.sockets.adapter.sids[socket.id]).filter(item => item != socket.id)[0];

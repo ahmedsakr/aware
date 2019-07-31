@@ -2,10 +2,27 @@ import React from 'react';
 import './ActivityPanel.scss'
 import ProfilePicture from '../Profile/ProfilePicture';
 
-type ActivityPanelProps = { };
-type ActivityPanelState = { };
+type ActivityPanelProps = { 
+    socket: SocketIOClient.Socket,
+    activeRoom: string
+};
+
+type ActivityPanelState = { 
+    activeUsers: String
+};
 
 export default class ActivityPanel extends React.Component<ActivityPanelProps, ActivityPanelState> {
+
+    componentDidUpdate(prevProps: ActivityPanelProps, prevState: ActivityPanelState): void {
+        console.log('socket', this.props.socket)
+        if (this.props.socket) {
+            this.props.socket.emit('active users');
+            this.props.socket.on('active users', (users: String) => {
+                console.log('Active Users: ', users)
+            })
+        }
+    }
+
 
     render(): JSX.Element {
         return(
