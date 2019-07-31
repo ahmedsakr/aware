@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import express, {Express} from 'express';
+import express, { Express } from 'express';
 import httpServer from 'http';
 import SocketIO from 'socket.io';
 
@@ -18,6 +18,13 @@ let io: SocketIO.Server = SocketIO(http);
 let port: string = process.argv[2];
 if (port == undefined) port = "5001";
 
+// Store list of usernames & their socket id's
+type ActiveUser = {
+    username: AccountField,
+    socketId: String
+}
+let activeUsers: ActiveUser[] = [];
+
 // create a GET route
 app.get('/server', (_req, res) => {
     res.send({ express: 'The Express Server is Connected to React' });
@@ -31,6 +38,12 @@ io.on('connection', (socket: SocketIO.Socket) => {
         verifyLogin(username, password)
             .then((result: boolean) => {
                 io.to(socket.id).emit("login-request", result);
+                if (result) {
+                    activeUsers.push({
+                        username: username,
+                        socketId: socket.id
+                    });
+                }
             })
             .catch(() => {
 
@@ -80,6 +93,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
                     io.in(currentRoom).emit('chat message', msg)
                 })
         }
+        console.log('Users: ', activeUsers)
     });
 
     socket.on('active users', () => {
@@ -87,6 +101,15 @@ io.on('connection', (socket: SocketIO.Socket) => {
         if (currentRoom != null) {
             let users = Object.keys(io.sockets.adapter.rooms[currentRoom].sockets);
             io.to(socket.id).emit('active users', users);
+        }
+    });
+
+    socket.on('disconnect', function () {
+        console.log('Got disconnect: ', socket.id);
+        for (var i = 0; i < activeUsers.length; i++) {
+            if (activeUsers[i].socketId === socket.id) {
+                activeUsers.splice(i, 1);
+            }
         }
     });
 
