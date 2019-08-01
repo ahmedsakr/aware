@@ -29,12 +29,12 @@ export default class AwareOverlay extends React.Component<AwareOverlayProps, Awa
     }
 
     hide(): void {
-        this.setState({ show: false});
+        this.setState({show: false});
     }
 
     render(): JSX.Element {
         const { name, title, content, footer } = this.props;
-
+        
         return (
             <div className="overlay-container">
                 <Modal show={this.state.show}>

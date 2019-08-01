@@ -2,6 +2,7 @@ import React from 'react'
 import AwareOverlay from '../../../shared/overlay/AwareOverlay'
 import 'bootstrap'
 import './UserFinderOverlay.scss'
+import Modal from 'react-bootstrap/Modal'
 
 type UserFinderOverlayProps = {
     socket: SocketIOClient.Socket,
@@ -16,6 +17,7 @@ type UserFinderOverlayState = {
     relatedUsers: RelatedUser[] | null,
     messagesFilter: string,
     selectedUser: UserFinderRecord | null,
+    overlay: AwareOverlay
 };
 
 export default class UserFinderOverlay extends React.Component<UserFinderOverlayProps, UserFinderOverlayState> {
@@ -26,10 +28,19 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
         this.state = {
             relatedUsers: null,
             messagesFilter: '',
-            selectedUser: null
+            selectedUser: null,
+            overlay: <AwareOverlay
+            name={this.name()}
+            title={this.title()}
+            content={this.content()}
+            footer={this.footer()} />
         };
 
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    show(): void {
+        this.state.overlay.show();
     }
 
     selectUser(user: UserFinderRecord): void {
@@ -131,13 +142,24 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
     }
 
     render(): JSX.Element {
+        const {show, useState} = useState(false);
+
         return (
-            <AwareOverlay
-                name={this.name()}
-                title={this.title()}
-                content={this.content()}
-                footer={this.footer()}
-            />
+        <div className="overlay-container">
+            <Modal show={this.state.show}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{title}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {content}
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="overlay-footer">
+                        {footer}
+                    </div>
+                </Modal.Footer>
+            </Modal>
+        </div>
         )
     }
 }
@@ -152,40 +174,27 @@ type UserFinderRecordState = {
     selected: boolean
 };
 
-class UserFinderRecord extends React.Component<UserFinderRecordProps, UserFinderRecordState> {
+const UserFinderRecord: React.FC<UserFinderRecordProps>= (props) => {
+    const [selected, setSelected] = React.useState(false);
 
-    constructor(props: UserFinderRecordProps) {
-        super(props);
+    return (
+        <div onClick={() => props.selectUser(this)} className="user-finder-record">
+            <div className="user-finder-record-select">
+                <span className="fa fa-plus" aria-hidden="true"></span>
+            </div>
 
-        this.state = {
-            selected: false
-        };
-    }
-
-    select(): void {
-        this.setState({selected: true});
-    }
-
-    render(): JSX.Element {
-        return (
-            <div onClick={() => this.props.selectUser(this)} className="user-finder-record">
-                <div className="user-finder-record-select">
-                    <span className="fa fa-plus" aria-hidden="true"></span>
-                </div>
-
-                <div className="user-finder-record-info">
-                    <img alt="ahmed" src={process.env.PUBLIC_URL + this.props.avatar} />
-                    <div className="user-finder-record-name">
-                        {this.props.name}
-                    </div>
-                </div>
-
-                <div className={this.state.selected ?
-                    "user-finder-record-status-selected" :
-                    "user-finder-record-status-deselected"}>
-                    <span className="fa fa-check" aria-hidden="true"></span>
+            <div className="user-finder-record-info">
+                <img alt="ahmed" src={process.env.PUBLIC_URL + props.avatar} />
+                <div className="user-finder-record-name">
+                    {props.name}
                 </div>
             </div>
-        )
-    }
-}
+
+            <div className={selected ?
+                "user-finder-record-status-selected" :
+                "user-finder-record-status-deselected"}>
+                <span className="fa fa-check" aria-hidden="true"></span>
+            </div>
+        </div>
+    );
+};
