@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AwareOverlay from '../../../shared/overlay/AwareOverlay'
 import 'bootstrap'
 import './UserFinderOverlay.scss'
@@ -16,8 +16,8 @@ type RelatedUser = {
 type UserFinderOverlayState = {
     relatedUsers: RelatedUser[] | null,
     messagesFilter: string,
-    selectedUser: UserFinderRecord | null,
-    overlay: AwareOverlay
+    selectedUser: string | null,
+    show: boolean
 };
 
 export default class UserFinderOverlay extends React.Component<UserFinderOverlayProps, UserFinderOverlayState> {
@@ -29,32 +29,31 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
             relatedUsers: null,
             messagesFilter: '',
             selectedUser: null,
-            overlay: <AwareOverlay
-            name={this.name()}
-            title={this.title()}
-            content={this.content()}
-            footer={this.footer()} />
+            show: false
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.show = this.show.bind(this);
+        this.hide = this.hide.bind(this);
     }
 
     show(): void {
-        this.state.overlay.show();
+        this.setState({show: true});
     }
 
-    selectUser(user: UserFinderRecord): void {
-        if (user.state.selected) {
-            user.setState({selected: false});
-            this.setState({selectedUser: null});
+    hide(): void {
+        this.setState({show: false});
+    }
+
+    selectRecord(username: string): void {
+        if (this.state.selectedUser === username) {
+            this.setState({
+                selectedUser: null
+            });
         } else {
-
-            if (this.state.selectedUser !== null) {
-                this.state.selectedUser.setState({selected: false});
-            }
-
-            user.setState({selected: true});
-            this.setState({selectedUser: user});
+            this.setState({
+                selectedUser: username
+            });
         }
     }
 
@@ -104,7 +103,8 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
                 .map(user => {
                     return (
                         <UserFinderRecord
-                            selectUser={this.selectUser.bind(this)}
+                            selectRecord={this.selectRecord.bind(this)}
+                            selected={this.state.selectedUser === user.username}
                             name={user.username}
                             avatar={user.username + "-pic.jpg"} />
                     );
@@ -141,44 +141,43 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
         )
     }
 
-    render(): JSX.Element {
-        const {show, useState} = useState(false);
+    shouldComponentUpdate(nextProps: UserFinderOverlayProps, nextState: UserFinderOverlayState): boolean{
+        return true;
+    }
 
+    render(): JSX.Element {
+        alert(1);
         return (
-        <div className="overlay-container">
-            <Modal show={this.state.show}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{title}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {content}
-                </Modal.Body>
-                <Modal.Footer>
-                    <div className="overlay-footer">
-                        {footer}
-                    </div>
-                </Modal.Footer>
-            </Modal>
-        </div>
+            <div className="overlay-container">
+                <Modal show={this.state.show}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{this.title()}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {this.content()}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <div className="overlay-footer">
+                            {this.footer()}
+                        </div>
+                    </Modal.Footer>
+                </Modal>
+            </div>
         )
     }
 }
 
 type UserFinderRecordProps = {
-    selectUser: (user: UserFinderRecord) => void,
+    selectRecord: (username: string) => void,
+    selected: boolean,
     name: string,
     avatar: string
 };
 
-type UserFinderRecordState = {
-    selected: boolean
-};
-
-const UserFinderRecord: React.FC<UserFinderRecordProps>= (props) => {
-    const [selected, setSelected] = React.useState(false);
+const UserFinderRecord: React.FC<UserFinderRecordProps> = (props) => {
 
     return (
-        <div onClick={() => props.selectUser(this)} className="user-finder-record">
+        <div onClick={() => props.selectRecord(props.name) } className="user-finder-record">
             <div className="user-finder-record-select">
                 <span className="fa fa-plus" aria-hidden="true"></span>
             </div>
@@ -190,7 +189,7 @@ const UserFinderRecord: React.FC<UserFinderRecordProps>= (props) => {
                 </div>
             </div>
 
-            <div className={selected ?
+            <div className={props.selected ?
                 "user-finder-record-status-selected" :
                 "user-finder-record-status-deselected"}>
                 <span className="fa fa-check" aria-hidden="true"></span>
