@@ -32,6 +32,10 @@ CREATE TABLE messages (
 
 INSERT INTO user_accounts (username, user_password) VALUES ('josh', 'password');
 INSERT INTO user_accounts (username, user_password) VALUES ('ahmed', 'password');
+INSERT INTO user_accounts (username, user_password) VALUES ('louis', 'password');
+INSERT INTO user_accounts (username, user_password) VALUES ('bill', 'password');
+INSERT INTO user_accounts (username, user_password) VALUES ('mia', 'password');
+INSERT INTO user_accounts (username, user_password) VALUES ('megan', 'password');
 
 INSERT INTO messenger_group (group_id, group_name, group_icon) VALUES ('sysc2100', 'SYSC 2100', 'sysc.png');
 INSERT INTO messenger_group (group_id, group_name, group_icon) VALUES ('sysc2004', 'SYSC 2004', 'sysc.png');
@@ -40,13 +44,27 @@ INSERT INTO messenger_group (group_id, group_name, group_icon) VALUES ('math2004
 INSERT INTO messenger_group (group_id, group_name, group_icon) VALUES ('elec2501', 'ELEC 2501', 'elec.png');
 
 INSERT INTO user_chats (group_id, username) VALUES ('sysc2100', 'ahmed');
-INSERT INTO user_chats (group_id, username) VALUES ('sysc2004', 'ahmed');
-INSERT INTO user_chats (group_id, username) VALUES ('sysc3110', 'ahmed');
-INSERT INTO user_chats (group_id, username) VALUES ('math2004', 'ahmed');
-INSERT INTO user_chats (group_id, username) VALUES ('elec2501', 'ahmed');
-
 INSERT INTO user_chats (group_id, username) VALUES ('sysc2100', 'josh');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc2100', 'louis');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc2100', 'bill');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc2100', 'mia');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc2100', 'megan');
+
+INSERT INTO user_chats (group_id, username) VALUES ('sysc2004', 'ahmed');
 INSERT INTO user_chats (group_id, username) VALUES ('sysc2004', 'josh');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc2004', 'bill');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc2004', 'mia');
+
+INSERT INTO user_chats (group_id, username) VALUES ('sysc3110', 'ahmed');
 INSERT INTO user_chats (group_id, username) VALUES ('sysc3110', 'josh');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc3110', 'louis');
+INSERT INTO user_chats (group_id, username) VALUES ('sysc3110', 'megan');
+
+INSERT INTO user_chats (group_id, username) VALUES ('math2004', 'ahmed');
 INSERT INTO user_chats (group_id, username) VALUES ('math2004', 'josh');
+INSERT INTO user_chats (group_id, username) VALUES ('math2004', 'mia');
+INSERT INTO user_chats (group_id, username) VALUES ('math2004', 'megan');
+
+INSERT INTO user_chats (group_id, username) VALUES ('elec2501', 'ahmed');
 INSERT INTO user_chats (group_id, username) VALUES ('elec2501', 'josh');
+INSERT INTO user_chats (group_id, username) VALUES ('elec2501', 'bill');

@@ -9,6 +9,7 @@ import registerUser from './landing/db/register';
 import Messages from './messaging-service/db/message'
 import getRooms from './messaging-service/db/rooms';
 import { AccountField } from './shared/verification/user';
+import {getAllUsersInAllRooms, GroupChat} from './shared/messenger/messengerQueries'
 
 let app: Express = express();
 let http: httpServer.Server = new httpServer.Server(app);
@@ -25,14 +26,45 @@ type ActiveUser = {
 }
 let activeUsers: ActiveUser[] = [];
 
+enum Status  {
+    'online',
+    'offline'
+}
+
+type UserStatus = {
+    username: string,
+    status: Status
+}
+
+/**
+ * GroupChatMasterList is a dictionary where the key is the room, and the 
+ * values are a list of each user and their status.
+ */
+type GroupChatMasterList = {
+    [room: string] : UserStatus[]
+}
+
+/** 
+ * Dictionary where key is the room and value is:
+ *      - username
+ *      - Status
+*/  
+let groupChatMasterList: GroupChatMasterList = {};
+
 // create a GET route
 app.get('/server', (_req, res) => {
     res.send({ express: 'The Express Server is Connected to React' });
 });
 
+
 io.on('connection', (socket: SocketIO.Socket) => {
     console.log('Client Has Connected, id: ' + socket.id)
-
+    getAllUsersInAllRooms().then((result: Object[]) => {
+        //console.log(result)
+    })
+    parseChatData().then(() => {
+        console.log(groupChatMasterList)
+    });
     // Listen for login requests from users
     socket.on('login', (username: AccountField, password: AccountField) => {
         verifyLogin(username, password)
@@ -124,6 +156,38 @@ function loadHistory(socketId: string, room: string): void {
         .then((result: Object[]) => {
             io.to(socketId).emit('chat history', result);
         })
+}
+
+/** Fetch all user chat data from data base and convert into the dictionary defined above,
+ *  by default a user is offline until they have connected to the server.
+ */
+async function parseChatData() {
+    getAllUsersInAllRooms().then((result: GroupChat[]) => {
+        console.log(result)
+        result.forEach((entry: GroupChat) => {
+            if (entry.groupId in groupChatMasterList) {
+                let userStatus = {} as UserStatus;
+                userStatus.username = entry.username;
+                userStatus.status = Status.offline;
+                groupChatMasterList[entry.groupId].push(userStatus);
+            } else {
+                let groupChat: UserStatus[] = [];
+                let userStatus = {} as UserStatus;
+                let room = entry.groupId;
+                userStatus.username = entry.username;
+                userStatus.status = Status.offline;
+                groupChat.push({
+                    username: entry.username,
+                    status: Status.offline
+                });
+                groupChatMasterList.room = groupChat;
+            }
+        })
+    }, function(err) {
+        console.log(err)
+    }).catch(() => {
+        console.log('error')
+    });
 }
 
 http.listen(port, () => {

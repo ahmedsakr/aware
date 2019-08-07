@@ -2,13 +2,14 @@ import React from 'react';
 import './ActivityPanel.scss'
 import ProfilePicture from '../Profile/ProfilePicture';
 
-type ActivityPanelProps = { 
+type ActivityPanelProps = {
     socket: SocketIOClient.Socket,
     activeRoom: string
 };
 
-type ActivityPanelState = { 
-    activeUsers: []
+type ActivityPanelState = {
+    activeUsers: [],
+    inactiveUsers: []
 };
 
 export default class ActivityPanel extends React.Component<ActivityPanelProps, ActivityPanelState> {
@@ -16,7 +17,8 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
         super(props);
 
         this.state = {
-            activeUsers: []
+            activeUsers: [],
+            inactiveUsers: []
         }
     }
 
@@ -36,14 +38,21 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
 
 
     render(): JSX.Element {
-        return(
+        return (
             <div className="col-sm-12" id="activity-panel">
                 {
-                        this.state.activeUsers.map((user:any) => {
-                            return (
-                                <ProfilePicture instance="activity" activity="online"  picture={user.username + "-pic.jpg"}/>
-                            )
-                        })
+                    this.state.activeUsers.map((user: any) => {
+                        return (
+                            <ProfilePicture instance="activity" activity="online" picture={user.username + "-pic.jpg"} />
+                        )
+                    })
+                }
+                {
+                    this.state.inactiveUsers.map((user: any) => {
+                        return (
+                            <ProfilePicture instance="activity" activity="offline" picture={user.username + "-pic.jpg"} />
+                        )
+                    })
                 }
             </div>
         );

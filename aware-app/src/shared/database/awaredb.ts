@@ -8,13 +8,13 @@ const db = new postgres.Pool();
  * 
  * @param {String} queryStr The string representation of the query. 
  */
-export default async function query(queryStr: string | null, userInput?: string[]): Promise<Object[]> {
+export default async function query<T>(queryStr: string | null, userInput?: string[]): Promise<T[]> {
 
     if (queryStr === null || queryStr === "") {
         return Promise.reject("invalid query string");
     }
 
-    let result: Object[] = [];  
+    let result: T[] = [];  
 
     // Insert the query-terminating semicolon if it was not given.
     if (queryStr[queryStr.length - 1] !== ';') {
