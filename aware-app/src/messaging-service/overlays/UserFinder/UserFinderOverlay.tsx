@@ -7,7 +7,8 @@ import Modal from 'react-bootstrap/Modal'
 type UserFinderOverlayProps = {
     socket: SocketIOClient.Socket,
     username: string,
-    show: boolean
+    show: boolean,
+    close: () => void
 };
 
 type RelatedUser = {
@@ -62,11 +63,23 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
 
     componentWillMount(): void {
         if (this.props.socket) {
-            this.props.socket.emit('get-related-users', this.props.username);
-
             this.props.socket.on('get-related-users', (relatedUsers: RelatedUser[]) => {
-                this.setState({ relatedUsers: relatedUsers });
+                this.setState({
+                    selectedUser: null,
+                    relatedUsers: relatedUsers,
+                    messagesFilter: ''
+                });
             });
+        }
+    }
+
+    /**
+     * Refresh the data (from the server) when the overlay is not
+     * shown or it has been closed.
+     */
+    componentWillUpdate(): void {
+        if (!this.props.show && this.props.socket) {
+            this.props.socket.emit('get-related-users', this.props.username);
         }
     }
 
@@ -116,13 +129,12 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
     }
 
     footer(): JSX.Element {
-        let selected : boolean = this.state.selectedUser !== null ? true : false;
         return (
             <div id="footer-layer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Nevermind</button>
+                <button type="button" className="btn btn-secondary" onClick={this.props.close}>Nevermind</button>
                 <button
-                    id={selected ? "user-finder-go-enabled" : "user-finder-go-disabled"}
-                    disabled={!selected}
+                    id={"user-finder-go-" + (this.state.selectedUser === null ? "enabled" : "disabled")}
+                    disabled={this.state.selectedUser === null}
                     type="button" className="btn btn-primary">
                         Go
                 </button>
@@ -133,7 +145,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
     render(): JSX.Element {
         return (
             <div className="overlay-container">
-                <Modal show={this.props.show}>
+                <Modal show={this.props.show} onHide={this.props.close}>
                     <Modal.Header closeButton>
                         <Modal.Title>{this.title()}</Modal.Title>
                     </Modal.Header>
@@ -159,7 +171,6 @@ type UserFinderRecordProps = {
 };
 
 const UserFinderRecord: React.FC<UserFinderRecordProps> = (props) => {
-
     return (
         <div onClick={() => props.selectRecord(props.name) } className="user-finder-record">
             <div className="user-finder-record-select">

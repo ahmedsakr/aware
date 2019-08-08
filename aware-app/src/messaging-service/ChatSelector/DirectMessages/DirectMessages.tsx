@@ -24,13 +24,18 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
         }
     }
 
+    onOverlayClose() {
+        this.setState({ showOverlay: false })
+    }
+
     render() {
         return (
             <div id="direct-messages">
                 <UserFinderOverlay
                         socket={this.props.socket}
                         username={this.props.username}
-                        show={this.state.showOverlay} />
+                        show={this.state.showOverlay}
+                        close={this.onOverlayClose.bind(this)}/>
 
                 <input className="direct-messages-filter" id="textfield" placeholder="Search Messages..." />
 
