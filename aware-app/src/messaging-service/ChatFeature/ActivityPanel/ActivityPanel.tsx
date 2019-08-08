@@ -17,15 +17,14 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
         super(props);
 
         this.state = {
-            activeUsers: [],
-            inactiveUsers: []
+            activeUsers: []
         }
     }
 
     componentDidUpdate(prevProps: ActivityPanelProps, prevState: ActivityPanelState): void {
         console.log('socket', this.props.socket)
         if (this.props.socket) {
-            this.props.socket.emit('active users');
+            this.props.socket.emit('active users', this.props.activeRoom);
             this.props.socket.on('active users', (users: []) => {
                 if (this.state.activeUsers !== users) {
                     this.setState({
@@ -44,13 +43,6 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
                     this.state.activeUsers.map((user: any) => {
                         return (
                             <ProfilePicture instance="activity" activity="online" picture={user.username + "-pic.jpg"} />
-                        )
-                    })
-                }
-                {
-                    this.state.inactiveUsers.map((user: any) => {
-                        return (
-                            <ProfilePicture instance="activity" activity="offline" picture={user.username + "-pic.jpg"} />
                         )
                     })
                 }

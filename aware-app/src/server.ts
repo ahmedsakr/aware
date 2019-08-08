@@ -122,11 +122,8 @@ io.on('connection', (socket: SocketIO.Socket) => {
         }
     });
 
-    socket.on('active users', () => {
-        let currentRoom = getRoom();
-        if (currentRoom != null) {
-            io.to(socket.id).emit('active users', activeUsers);
-        }
+    socket.on('active users', (activeRoom) => {
+        io.to(socket.id).emit('active users', groupChatMasterList[activeRoom]);
     });
 
     socket.on('disconnect', function () {
