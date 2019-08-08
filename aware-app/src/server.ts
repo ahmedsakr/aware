@@ -50,21 +50,16 @@ type GroupChatMasterList = {
  *      - Status
 */  
 let groupChatMasterList: GroupChatMasterList = {};
+parseChatData();
 
 // create a GET route
 app.get('/server', (_req, res) => {
     res.send({ express: 'The Express Server is Connected to React' });
 });
 
-
 io.on('connection', (socket: SocketIO.Socket) => {
     console.log('Client Has Connected, id: ' + socket.id)
-    getAllUsersInAllRooms().then((result: Object[]) => {
-        //console.log(result)
-    })
-    parseChatData().then(() => {
-        console.log(groupChatMasterList)
-    });
+
     // Listen for login requests from users
     socket.on('login', (username: AccountField, password: AccountField) => {
         verifyLogin(username, password)
@@ -163,30 +158,27 @@ function loadHistory(socketId: string, room: string): void {
  */
 async function parseChatData() {
     getAllUsersInAllRooms().then((result: GroupChat[]) => {
-        console.log(result)
         result.forEach((entry: GroupChat) => {
-            if (entry.groupId in groupChatMasterList) {
+            if (entry.group_id in groupChatMasterList) {
                 let userStatus = {} as UserStatus;
                 userStatus.username = entry.username;
                 userStatus.status = Status.offline;
-                groupChatMasterList[entry.groupId].push(userStatus);
+                groupChatMasterList[entry.group_id].push(userStatus);
             } else {
                 let groupChat: UserStatus[] = [];
                 let userStatus = {} as UserStatus;
-                let room = entry.groupId;
+                let room = entry.group_id;
                 userStatus.username = entry.username;
                 userStatus.status = Status.offline;
                 groupChat.push({
                     username: entry.username,
                     status: Status.offline
                 });
-                groupChatMasterList.room = groupChat;
+                groupChatMasterList[room] = groupChat;
             }
         })
-    }, function(err) {
-        console.log(err)
     }).catch(() => {
-        console.log('error')
+        console.log('error fetching data')
     });
 }
 

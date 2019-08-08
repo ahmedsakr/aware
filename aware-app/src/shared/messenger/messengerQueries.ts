@@ -1,7 +1,7 @@
 import awaredb from '../../shared/database/awaredb'
 
 export type GroupChat = {
-    groupId: string, 
+    group_id: string, 
     username: string
 }
 
