@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import AwareOverlay from '../../../shared/overlay/AwareOverlay'
 import 'bootstrap'
 import './UserFinderOverlay.scss'
@@ -6,7 +6,8 @@ import Modal from 'react-bootstrap/Modal'
 
 type UserFinderOverlayProps = {
     socket: SocketIOClient.Socket,
-    username: string
+    username: string,
+    show: boolean
 };
 
 type RelatedUser = {
@@ -16,8 +17,7 @@ type RelatedUser = {
 type UserFinderOverlayState = {
     relatedUsers: RelatedUser[] | null,
     messagesFilter: string,
-    selectedUser: string | null,
-    show: boolean
+    selectedUser: string | null
 };
 
 export default class UserFinderOverlay extends React.Component<UserFinderOverlayProps, UserFinderOverlayState> {
@@ -28,21 +28,10 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
         this.state = {
             relatedUsers: null,
             messagesFilter: '',
-            selectedUser: null,
-            show: false
+            selectedUser: null
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.show = this.show.bind(this);
-        this.hide = this.hide.bind(this);
-    }
-
-    show(): void {
-        this.setState({show: true});
-    }
-
-    hide(): void {
-        this.setState({show: false});
     }
 
     selectRecord(username: string): void {
@@ -141,15 +130,10 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
         )
     }
 
-    shouldComponentUpdate(nextProps: UserFinderOverlayProps, nextState: UserFinderOverlayState): boolean{
-        return true;
-    }
-
     render(): JSX.Element {
-        alert(1);
         return (
             <div className="overlay-container">
-                <Modal show={this.state.show}>
+                <Modal show={this.props.show}>
                     <Modal.Header closeButton>
                         <Modal.Title>{this.title()}</Modal.Title>
                     </Modal.Header>

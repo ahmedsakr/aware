@@ -11,46 +11,31 @@ type DirectMessagesProps = {
 };
 
 type DirectMessagesState = {
-    overlay: JSX.Element;
+    showOverlay: boolean
 };
 
 export default class DirectMessages extends React.Component<DirectMessagesProps, DirectMessagesState> {
-    
-    private showModal: (() => void) | null = null;
-    private hideModal: (() => void) | null = null;
 
     constructor(props: DirectMessagesProps) {
         super(props);
 
         this.state = {
-            overlay: <UserFinderOverlay
-                        socket={this.props.socket}
-                        username={this.props.username}
-                        ref={this.modal} />
+            showOverlay: false 
         }
     }
 
-    modal = ({show, hide}: UserFinderOverlay) => {
-        this.showModal = show;
-        this.hideModal = hide;
-    }
-    
     render() {
-
-        
         return (
             <div id="direct-messages">
-                {this.state.overlay}
+                <UserFinderOverlay
+                        socket={this.props.socket}
+                        username={this.props.username}
+                        show={this.state.showOverlay} />
 
                 <input className="direct-messages-filter" id="textfield" placeholder="Search Messages..." />
 
                 <div
-                    onClick={() => {
-                        if (this.showModal !== null) {
-                            this.showModal();
-                        }
-                    }
-                    }
+                    onClick={() => this.setState({showOverlay: true})}
                     id="direct-messages-new" >
 
                     <span className="fa fa-plus" aria-hidden="true"></span>
