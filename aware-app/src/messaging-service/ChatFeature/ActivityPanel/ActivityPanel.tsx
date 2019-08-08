@@ -8,8 +8,7 @@ type ActivityPanelProps = {
 };
 
 type ActivityPanelState = {
-    activeUsers: [],
-    inactiveUsers: []
+    activityPanelUsers: []
 };
 
 export default class ActivityPanel extends React.Component<ActivityPanelProps, ActivityPanelState> {
@@ -17,7 +16,7 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
         super(props);
 
         this.state = {
-            activeUsers: []
+            activityPanelUsers: []
         }
     }
 
@@ -26,9 +25,9 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
         if (this.props.socket) {
             this.props.socket.emit('active users', this.props.activeRoom);
             this.props.socket.on('active users', (users: []) => {
-                if (this.state.activeUsers !== users) {
+                if (this.state.activityPanelUsers !== users) {
                     this.setState({
-                        activeUsers: users
+                        activityPanelUsers: users
                     })
                 }
             })
@@ -40,7 +39,7 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
         return (
             <div className="col-sm-12" id="activity-panel">
                 {
-                    this.state.activeUsers.map((user: any) => {
+                    this.state.activityPanelUsers.map((user: any) => {
                         return (
                             <ProfilePicture instance="activity" activity="online" picture={user.username + "-pic.jpg"} />
                         )
