@@ -123,7 +123,11 @@ io.on('connection', (socket: SocketIO.Socket) => {
     });
 
     socket.on('active users', (activeRoom) => {
-        io.to(socket.id).emit('active users', groupChatMasterList[activeRoom]);
+        if (activeRoom === '') {
+            io.to(socket.id).emit('active users', []);
+        } else {
+            io.to(socket.id).emit('active users', groupChatMasterList[activeRoom]);
+        }
     });
 
     socket.on('disconnect', function () {

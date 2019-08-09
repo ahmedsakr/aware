@@ -20,20 +20,25 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
         }
     }
 
-    componentDidUpdate(prevProps: ActivityPanelProps, prevState: ActivityPanelState): void {
-        console.log('socket', this.props.socket)
+    componentWillMount() {
         if (this.props.socket) {
-            this.props.socket.emit('active users', this.props.activeRoom);
             this.props.socket.on('active users', (users: []) => {
-                if (this.state.activityPanelUsers !== users) {
-                    this.setState({
-                        activityPanelUsers: users
-                    })
-                }
+                this.setState({
+                    activityPanelUsers: users
+                })
             })
         }
     }
 
+    componentDidUpdate() {
+        if (this.props.socket) {
+            this.props.socket.emit('active users', this.props.activeRoom);
+        }
+    }
+
+    shouldComponentUpdate(nextProps: ActivityPanelProps, nextState: ActivityPanelState): boolean {
+        return this.props.activeRoom !== nextProps.activeRoom;
+    }
 
     render(): JSX.Element {
         return (
