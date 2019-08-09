@@ -144,21 +144,19 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
 
     render(): JSX.Element {
         return (
-            <div className="overlay-container">
-                <Modal show={this.props.show} onHide={this.props.close}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{this.title()}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {this.content()}
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <div className="overlay-footer">
-                            {this.footer()}
-                        </div>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+            <Modal show={this.props.show} onHide={this.props.close}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{this.title()}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {this.content()}
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="overlay-footer">
+                        {this.footer()}
+                    </div>
+                </Modal.Footer>
+            </Modal>
         )
     }
 }
