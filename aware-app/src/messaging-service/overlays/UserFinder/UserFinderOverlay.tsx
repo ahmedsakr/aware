@@ -3,12 +3,14 @@ import AwareOverlay from '../../../shared/overlay/AwareOverlay'
 import 'bootstrap'
 import './UserFinderOverlay.scss'
 import Modal from 'react-bootstrap/Modal'
+import { startDirectMessage } from '../../db/directMessaging';
 
 type UserFinderOverlayProps = {
     socket: SocketIOClient.Socket,
     username: string,
     show: boolean,
-    close: () => void
+    close: () => void,
+    startDirectMessage: (username: string) => void
 };
 
 type RelatedUser = {
@@ -18,7 +20,7 @@ type RelatedUser = {
 type UserFinderOverlayState = {
     relatedUsers: RelatedUser[] | null,
     messagesFilter: string,
-    selectedUser: string | null
+    selectedUser: string
 };
 
 export default class UserFinderOverlay extends React.Component<UserFinderOverlayProps, UserFinderOverlayState> {
@@ -29,7 +31,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
         this.state = {
             relatedUsers: null,
             messagesFilter: '',
-            selectedUser: null
+            selectedUser: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -38,7 +40,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
     selectRecord(username: string): void {
         if (this.state.selectedUser === username) {
             this.setState({
-                selectedUser: null
+                selectedUser: ''
             });
         } else {
             this.setState({
@@ -65,7 +67,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
         if (this.props.socket) {
             this.props.socket.on('get-related-users', (relatedUsers: RelatedUser[]) => {
                 this.setState({
-                    selectedUser: null,
+                    selectedUser: '',
                     relatedUsers: relatedUsers,
                     messagesFilter: ''
                 });
@@ -133,6 +135,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
             <div id="footer-layer">
                 <button type="button" className="btn btn-secondary" onClick={this.props.close}>Nevermind</button>
                 <button
+                    onClick={() => {this.props.startDirectMessage(this.state.selectedUser)}}
                     id={"user-finder-go-" + (this.state.selectedUser === null ? "enabled" : "disabled")}
                     disabled={this.state.selectedUser === null}
                     type="button" className="btn btn-primary">

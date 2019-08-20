@@ -11,6 +11,7 @@ import Messages from './messaging-service/db/message'
 import getCourses from './messaging-service/db/rooms';
 import {getRelatedUsers} from './messaging-service/db/userRelations'
 import { AccountField } from './shared/verification/user';
+import {startDirectMessage} from './messaging-service/db/directMessaging'
 
 let app: Express = express();
 let http: httpServer.Server = new httpServer.Server(app);
@@ -89,6 +90,10 @@ io.on('connection', (socket: SocketIO.Socket) => {
                     io.in(currentRoom).emit('chat message', message)
                 })
         }
+    });
+
+    socket.on('start-direct-message', (username: string) => {
+        startDirectMessage(username);
     });
 
 
