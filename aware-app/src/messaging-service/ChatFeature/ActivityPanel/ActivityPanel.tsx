@@ -2,6 +2,11 @@ import React from 'react';
 import './ActivityPanel.scss'
 import ProfilePicture from '../Profile/ProfilePicture';
 
+enum Status  {
+    'online',
+    'offline'
+}
+
 type ActivityPanelProps = {
     socket: SocketIOClient.Socket,
     activeRoom: string
@@ -45,9 +50,16 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
             <div className="col-sm-12" id="activity-panel">
                 {
                     this.state.activityPanelUsers.map((user: any) => {
-                        return (
-                            <ProfilePicture instance="activity" activity="online" picture={user.username + "-pic.jpg"} />
-                        )
+                        if (user.status === Status.online) {
+                            return (
+                                <ProfilePicture instance="activity" activity='online' picture={user.username + "-pic.jpg"} />
+                            )
+                        } else {
+                            return (
+                                <ProfilePicture instance="activity" activity='offline' picture={user.username + "-pic.jpg"} />
+                            )
+                        }
+             
                     })
                 }
             </div>

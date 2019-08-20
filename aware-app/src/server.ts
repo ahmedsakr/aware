@@ -66,10 +66,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
             .then((result: boolean) => {
                 io.to(socket.id).emit("login-request", result);
                 if (result) {
-                    activeUsers.push({
-                        username: username,
-                        socketId: socket.id
-                    });
+                    activateUser(username, socket.id);
                 }
             })
             .catch(() => {
@@ -126,16 +123,12 @@ io.on('connection', (socket: SocketIO.Socket) => {
         if (activeRoom === '') {
             io.to(socket.id).emit('active users', []);
         } else {
-            io.to(socket.id).emit('active users', groupChatMasterList[activeRoom]);
+            io.to(socket.id).emit('active users', getAllUsers(activeRoom));
         }
     });
 
     socket.on('disconnect', function () {
-        for (var i = 0; i < activeUsers.length; i++) {
-            if (activeUsers[i].socketId === socket.id) {
-                activeUsers.splice(i, 1);
-            }
-        }
+        deactivateUser(socket.id);
     });
 
     const getRoom: () => string = () => {
@@ -181,6 +174,33 @@ async function parseChatData() {
     }).catch(() => {
         console.log('error fetching data')
     });
+}
+
+function activateUser(username: AccountField, socketId: string) {
+    activeUsers.push({
+        username: username,
+        socketId: socketId
+    });
+}
+
+function deactivateUser(socketId: String) {
+    for (var i = 0; i < activeUsers.length; i++) {
+        if (activeUsers[i].socketId === socketId) {
+            activeUsers.splice(i, 1);
+        }
+    }
+}
+
+/**
+ * getAllUsers compares the master list to the active users and updates whether a user is online
+ */
+function getAllUsers(room: string): UserStatus[] {
+    groupChatMasterList[room].forEach((userStatus: UserStatus) => {
+        if (activeUsers.some(user => user.username === userStatus.username)) {
+            userStatus.status = Status.online
+        }
+    });
+    return groupChatMasterList[room];
 }
 
 http.listen(port, () => {
