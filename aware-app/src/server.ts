@@ -22,7 +22,7 @@ if (port == undefined) port = "5001";
 // Store list of usernames & their socket id's
 type ActiveUser = {
     username: AccountField,
-    socketId: String
+    socketId: string
 }
 let activeUsers: ActiveUser[] = [];
 
@@ -147,8 +147,9 @@ function loadHistory(socketId: string, room: string): void {
         })
 }
 
-/** Fetch all user chat data from data base and convert into the dictionary defined above,
- *  by default a user is offline until they have connected to the server.
+/** 
+ * Fetch all user chat data from data base and convert into the dictionary defined above,
+ * by default a user is offline until they have connected to the server.
  */
 async function parseChatData() {
     getAllUsersInAllRooms().then((result: GroupChat[]) => {
@@ -193,14 +194,31 @@ function deactivateUser(socketId: String) {
 
 /**
  * getAllUsers compares the master list to the active users and updates whether a user is online
+ * @param room 
  */
 function getAllUsers(room: string): UserStatus[] {
     groupChatMasterList[room].forEach((userStatus: UserStatus) => {
         if (activeUsers.some(user => user.username === userStatus.username)) {
             userStatus.status = Status.online
+        } else {
+            userStatus.status = Status.offline
         }
     });
     return groupChatMasterList[room];
+}
+
+/**
+ * notifyUsers emits to all users which are members of your groups the updated active users lits.
+ * ie: when a user logs on or off the function is called to update the state of the ActivityPanel.
+ */
+function notifyUsers() {
+    // broadcast to all users in each of the rooms
+    
+    // get all rooms for user (new db function)
+
+    // get all users for each room (getAllUsers(room))
+
+    // emit to all active users
 }
 
 http.listen(port, () => {
