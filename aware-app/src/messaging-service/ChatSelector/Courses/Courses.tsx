@@ -1,7 +1,6 @@
 import React from 'react'
 import './Courses.scss'
-import CourseDiscussion from '../CourseDiscussion';
-import {Room} from '../ChatSelector'
+import {ChatType} from '../ChatSelector'
 
 interface Course {
     id: string,
@@ -10,13 +9,15 @@ interface Course {
 };
 
 type CoursesProps = {
+    active: boolean,
     socket: SocketIOClient.Socket,
     username: string,
-    selectCourse: (course: Room) => void
+    selectChat: (type: ChatType, id: string) => void
 };
 
 type CoursesState = {
-    courses: Course[]
+    courses: Course[],
+    activeCourse: string
 }
 
 export default class Courses extends React.Component<CoursesProps, CoursesState> {
@@ -25,7 +26,8 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
         super(props);
 
         this.state = {
-            courses: []
+            courses: [],
+            activeCourse: ''
         }
     }
 
@@ -44,18 +46,15 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
         }
     }
 
-    shouldComponentUpdate(nextProps: CoursesProps, nextState: CoursesState): boolean {
-        return  this.state.courses !== nextState.courses;
-    }
-
     render(): JSX.Element {
         return (
             <div>
             {
                 this.state.courses.map((course: Course) => {
                     return (
-                        <CourseDiscussion
-                            selectCourse={this.props.selectCourse}
+                        <Course
+                            selectChat={this.props.selectChat}
+                            selected={this.props.active && this.state.activeCourse === course.id}
                             room={course.id}
                             src={"/messenger-icons/" + course.icon}
                             name={course.name} />
@@ -65,4 +64,32 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
             </div>
         );
     }
+}
+
+type CourseProps = {
+    selectChat: (type: ChatType, id: string) => void,
+    selected: boolean,
+    room: string,
+    src: string,
+    name: string,
+};
+
+const Course: React.FC<CourseProps> = (props) => {
+    const currentState = "chat-navigation-item" + (props.selected ? "-selected": "")
+
+    return (
+        <div
+            onClick={() => { props.selectChat(ChatType.COURSE_DISCUSSION, props.name) }}
+            className={currentState}>
+
+            <div className="navbar-item-avatar col-2">
+                <img src={process.env.PUBLIC_URL + props.src} alt={props.name} />
+            </div>
+
+            <div className="navbar-item-name col-9">
+                <p>{props.name}</p>
+            </div>
+
+        </div>
+    );
 }

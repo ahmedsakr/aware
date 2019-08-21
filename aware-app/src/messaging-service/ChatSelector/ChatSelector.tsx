@@ -1,12 +1,9 @@
 import React from 'react';
-import CourseDiscussion from './CourseDiscussion'
 import Courses from './Courses/Courses'
 import './ChatSelector.scss'
 import './CourseDiscussion.scss'
-import DirectMessage from './DirectMessage/DirectMessage'
 import DirectMessages from './DirectMessages/DirectMessages'
 
-export type Room = React.Component<CourseDiscussion['props'] | DirectMessage['props']> | null
 type ChatSelectorProps = {
     requestRoom: (roomName: string, username: string) => void,
     socket: SocketIOClient.Socket,
@@ -14,8 +11,14 @@ type ChatSelectorProps = {
 };
 
 type ChatSelectorState = {
-    selectedRoom: Room
+    selectedRoom: string,
+    chatType: ChatType
 };
+
+export enum ChatType {
+    COURSE_DISCUSSION,
+    DIRECT_MESSAGE
+}
 
 export default class ChatSelector extends React.Component<ChatSelectorProps, ChatSelectorState> {
 
@@ -23,7 +26,8 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
         super(props)
 
         this.state = {
-            selectedRoom: null
+            selectedRoom: '',
+            chatType: ChatType.COURSE_DISCUSSION
         };
     }
 
@@ -33,8 +37,8 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
      *
      * @param room A new course or direct message chosen by the user
      */
-    selectChat(room: Room): void {
-        if (this.state.selectedRoom !== room) {
+    selectChat(type: ChatType, id: string): void {
+        if (this.state.selectedRoom !== id) {
 
             // De-select the joined room in preparation for joining the new room.
             if (this.state.selectedRoom) {
@@ -46,7 +50,6 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
             }, () => {
                 if (this.state.selectedRoom) {
                     this.state.selectedRoom.setState({ selected: true });
-
                     const { room, name } = this.state.selectedRoom.props;
                     this.props.requestRoom(room, name);                    
                 }
@@ -69,18 +72,20 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
                 <h3>Course Discussion</h3>
 
                 <Courses
+                    active={this.state.chatType === ChatType.COURSE_DISCUSSION}
                     socket={this.props.socket}
                     username={this.props.username}
-                    selectCourse={this.selectChat.bind(this)} />
+                    selectChat={this.selectChat.bind(this)} />
 
                 <hr className="chat-selector-line-break" />
 
                 <h3>Direct Messages</h3>
 
                 <DirectMessages
+                    active={this.state.chatType === ChatType.DIRECT_MESSAGE}
                     socket={this.props.socket}
                     username={this.props.username}
-                    selectDirectMessage={this.selectChat.bind(this)}/>
+                    selectChat={this.selectChat.bind(this)}/>
             </div>
         );
     }
