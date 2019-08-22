@@ -2,19 +2,24 @@ import React from 'react';
 import './DirectMessages.scss';
 
 import uuid from '../../../shared/uuid/aware-uuid'
-import {ChatType} from '../ChatSelector'
+import {ChatDomain} from '../ChatSelector'
 import UserFinderOverlay from '../../overlays/UserFinder/UserFinderOverlay';
+
+type DirectMessage = {
+    id: string,
+    name: string
+}
 
 type DirectMessagesProps = {
     active: boolean,
     socket: SocketIOClient.Socket,
     username: string,
-    selectChat: (type: ChatType, id: string, title: string) => void
+    selectChat: (type: ChatDomain, id: string, title: string) => void
 };
 
 type DirectMessagesState = {
     showOverlay: boolean,
-    users: Set<string>,
+    chats: Set<DirectMessage>,
     activeDirectMessage: string
 };
 
@@ -25,16 +30,34 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
 
         this.state = {
             showOverlay: false,
-            users: new Set<string>(),
+            chats: new Set<DirectMessage>(),
             activeDirectMessage: ''
+        }
+    }
+
+    componentWillMount(): void {
+        if (this.props.socket) {
+
+            // Retrieve all direct messages that the user is part of.
+            this.props.socket.emit('get-direct-messages', this.props.username);
+
+            // Listen for any updates in subscribed rooms for this user.
+            this.props.socket.on('direct-messages', (chats: Set<DirectMessage>) => {
+                this.setState({ chats });
+            });
         }
     }
 
     startDirectMessage(username: string): void {
         this.setState((prevState: DirectMessagesState) => {
+            let chat : DirectMessage = {
+                id: uuid(),
+                name: username
+            };
+
             return {
                 showOverlay: false, 
-                users: prevState.users.add(username)
+                chats: prevState.chats.add(chat)
             }
         }, () => {
             this.selectDirectMessage(username, username);
@@ -42,7 +65,7 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
     }
 
     selectDirectMessage(id: string, title: string): void {
-        this.props.selectChat(ChatType.DIRECT_MESSAGE, id, title);
+        this.props.selectChat(ChatDomain.DIRECT_MESSAGE, id, title);
         this.setState({ activeDirectMessage: id });
     }
 
@@ -70,14 +93,14 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
                     <p>Start a direct message</p>
                 </div>
                 {
-                    Array.from(this.state.users.values()).map((name: string) => {
+                    Array.from(this.state.chats.values()).map((chat: DirectMessage) => {
                         return (
                             <DirectMessage
                                 selectDirectMessage={this.selectDirectMessage.bind(this)}
-                                selected={this.props.active && this.state.activeDirectMessage === name}
-                                room={name}
+                                selected={this.props.active && this.state.activeDirectMessage === chat.id}
+                                room={chat.id}
                                 src="/icons8-user-80.png"
-                                name={name} />
+                                name={chat.name} />
                         )
                     })
                 }

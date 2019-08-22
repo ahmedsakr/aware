@@ -1,6 +1,6 @@
 import React from 'react'
 import './Courses.scss'
-import {ChatType} from '../ChatSelector'
+import {ChatDomain} from '../ChatSelector'
 
 interface Course {
     id: string,
@@ -12,7 +12,7 @@ type CoursesProps = {
     active: boolean,
     socket: SocketIOClient.Socket,
     username: string,
-    selectChat: (type: ChatType, id: string, title: string) => void
+    selectChat: (type: ChatDomain, id: string, title: string) => void
 };
 
 type CoursesState = {
@@ -47,7 +47,7 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
     }
 
     selectCourse(id: string, title: string) {
-        this.props.selectChat(ChatType.COURSE_DISCUSSION, id, title);
+        this.props.selectChat(ChatDomain.COURSE_DISCUSSION, id, title);
         this.setState({ activeCourse: id });
     }
 

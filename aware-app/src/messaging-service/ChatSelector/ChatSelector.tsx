@@ -11,10 +11,10 @@ type ChatSelectorProps = {
 
 type ChatSelectorState = {
     selectedRoom: string,
-    chatType: ChatType
+    chatDomain: ChatDomain
 };
 
-export enum ChatType {
+export enum ChatDomain {
     COURSE_DISCUSSION,
     DIRECT_MESSAGE
 }
@@ -26,7 +26,7 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
 
         this.state = {
             selectedRoom: '',
-            chatType: ChatType.COURSE_DISCUSSION
+            chatDomain: ChatDomain.COURSE_DISCUSSION
         };
     }
 
@@ -36,9 +36,9 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
      *
      * @param room A new course or direct message chosen by the user
      */
-    selectChat(type: ChatType, id: string, title: string): void {
+    selectChat(type: ChatDomain, id: string, title: string): void {
         this.setState({
-            chatType: type,
+            chatDomain: type,
             selectedRoom: id
         }, () => {
             this.props.requestRoom(this.state.selectedRoom, title);
@@ -52,7 +52,7 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
                 <h3>Course Discussion</h3>
 
                 <Courses
-                    active={this.state.chatType === ChatType.COURSE_DISCUSSION}
+                    active={this.state.chatDomain === ChatDomain.COURSE_DISCUSSION}
                     socket={this.props.socket}
                     username={this.props.username}
                     selectChat={this.selectChat.bind(this)} />
@@ -62,7 +62,7 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
                 <h3>Direct Messages</h3>
 
                 <DirectMessages
-                    active={this.state.chatType === ChatType.DIRECT_MESSAGE}
+                    active={this.state.chatDomain === ChatDomain.DIRECT_MESSAGE}
                     socket={this.props.socket}
                     username={this.props.username}
                     selectChat={this.selectChat.bind(this)}/>
