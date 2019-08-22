@@ -7,9 +7,9 @@ import * as awaredb from './shared/database/awaredb'
 import verifyLogin from './landing/db/verifier';
 import registerUser from './landing/db/register';
 import Messages from './messaging-service/db/message'
-import getRooms from './messaging-service/db/rooms';
+import { getRooms, Room } from './messaging-service/db/rooms';
 import { AccountField } from './shared/verification/user';
-import {getAllUsersInAllRooms, GroupChat} from './shared/messenger/messengerQueries'
+import { getAllUsersInAllRooms, GroupChat } from './shared/messenger/messengerQueries'
 
 let app: Express = express();
 let http: httpServer.Server = new httpServer.Server(app);
@@ -67,6 +67,13 @@ io.on('connection', (socket: SocketIO.Socket) => {
                 io.to(socket.id).emit("login-request", result);
                 if (result) {
                     activateUser(username, socket.id);
+                    getRooms(username).then((userRooms: Room[]) => {
+                        userRooms.forEach(room => {
+                            console.log('Emitting to ', room.group_id, ' cuz ', username, ' logged on');
+                            console.log(getAllUsers(room.group_id))
+                            io.sockets.in(room.group_id).emit('active users', getAllUsers(room.group_id));
+                        })
+                    });
                 }
             })
             .catch(() => {
@@ -127,8 +134,15 @@ io.on('connection', (socket: SocketIO.Socket) => {
         }
     });
 
-    socket.on('disconnect', function () {
-        deactivateUser(socket.id);
+    socket.on('disconnect', function () { // broadcast to all users in each of the rooms
+        let username = deactivateUser(socket.id);
+        getRooms(username).then((userRooms: Room[]) => {
+            userRooms.forEach(room => {
+                console.log('Emitting to ', room.group_id, ' cuz ', username, ' logged on');
+                console.log(getAllUsers(room.group_id));
+                io.sockets.in(room.group_id).emit('active users', getAllUsers(room.group_id));
+            })
+        });
     });
 
     const getRoom: () => string = () => {
@@ -184,16 +198,19 @@ function activateUser(username: AccountField, socketId: string) {
     });
 }
 
-function deactivateUser(socketId: String) {
+function deactivateUser(socketId: String): AccountField {
+    let username = '' as AccountField;
     for (var i = 0; i < activeUsers.length; i++) {
         if (activeUsers[i].socketId === socketId) {
             activeUsers.splice(i, 1);
+            username = activeUsers[i].username;
         }
     }
+    return username;
 }
 
 /**
- * getAllUsers compares the master list to the active users and updates whether a user is online
+ * getAllUsers compares the master list to the active users and updates whether a user is online or offline
  * @param room 
  */
 function getAllUsers(room: string): UserStatus[] {
@@ -207,19 +224,6 @@ function getAllUsers(room: string): UserStatus[] {
     return groupChatMasterList[room];
 }
 
-/**
- * notifyUsers emits to all users which are members of your groups the updated active users lits.
- * ie: when a user logs on or off the function is called to update the state of the ActivityPanel.
- */
-function notifyUsers() {
-    // broadcast to all users in each of the rooms
-    
-    // get all rooms for user (new db function)
-
-    // get all users for each room (getAllUsers(room))
-
-    // emit to all active users
-}
 
 http.listen(port, () => {
     console.log('listening on *:' + port);
