@@ -12,7 +12,7 @@ type CoursesProps = {
     active: boolean,
     socket: SocketIOClient.Socket,
     username: string,
-    selectChat: (type: ChatType, id: string) => void
+    selectChat: (type: ChatType, id: string, title: string) => void
 };
 
 type CoursesState = {
@@ -46,6 +46,11 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
         }
     }
 
+    selectCourse(id: string, title: string) {
+        this.props.selectChat(ChatType.COURSE_DISCUSSION, id, title);
+        this.setState({ activeCourse: id });
+    }
+
     render(): JSX.Element {
         return (
             <div>
@@ -53,7 +58,7 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
                 this.state.courses.map((course: Course) => {
                     return (
                         <Course
-                            selectChat={this.props.selectChat}
+                            selectCourse={this.selectCourse.bind(this)}
                             selected={this.props.active && this.state.activeCourse === course.id}
                             room={course.id}
                             src={"/messenger-icons/" + course.icon}
@@ -67,7 +72,7 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
 }
 
 type CourseProps = {
-    selectChat: (type: ChatType, id: string) => void,
+    selectCourse: (id: string, title: string) => void,
     selected: boolean,
     room: string,
     src: string,
@@ -79,7 +84,7 @@ const Course: React.FC<CourseProps> = (props) => {
 
     return (
         <div
-            onClick={() => { props.selectChat(ChatType.COURSE_DISCUSSION, props.name) }}
+            onClick={() => { props.selectCourse(props.room, props.name) }}
             className={currentState}>
 
             <div className="navbar-item-avatar col-2">

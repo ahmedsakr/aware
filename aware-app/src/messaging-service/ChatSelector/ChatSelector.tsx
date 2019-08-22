@@ -1,7 +1,6 @@
 import React from 'react';
 import Courses from './Courses/Courses'
 import './ChatSelector.scss'
-import './CourseDiscussion.scss'
 import DirectMessages from './DirectMessages/DirectMessages'
 
 type ChatSelectorProps = {
@@ -37,32 +36,13 @@ export default class ChatSelector extends React.Component<ChatSelectorProps, Cha
      *
      * @param room A new course or direct message chosen by the user
      */
-    selectChat(type: ChatType, id: string): void {
-        if (this.state.selectedRoom !== id) {
-
-            // De-select the joined room in preparation for joining the new room.
-            if (this.state.selectedRoom) {
-                this.state.selectedRoom.setState({ selected: false });
-            }
-
-            this.setState({
-                selectedRoom: room
-            }, () => {
-                if (this.state.selectedRoom) {
-                    this.state.selectedRoom.setState({ selected: true });
-                    const { room, name } = this.state.selectedRoom.props;
-                    this.props.requestRoom(room, name);                    
-                }
-            });
-        }
-    }
-
-    /**
-     * The ChatSelector should never have to update; instead, it just maintains the
-     * current selected room state without a need for updating.
-     */
-    shouldComponentUpdate(nextProps: ChatSelectorProps, nextState: ChatSelectorState): boolean {
-        return false;
+    selectChat(type: ChatType, id: string, title: string): void {
+        this.setState({
+            chatType: type,
+            selectedRoom: id
+        }, () => {
+            this.props.requestRoom(this.state.selectedRoom, title);
+        });
     }
 
     render(): JSX.Element {
