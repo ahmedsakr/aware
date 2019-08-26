@@ -66,9 +66,8 @@ io.on('connection', (socket: SocketIO.Socket) => {
         })
     });
 
-    socket.on('room', async (room: string, domain: ChatDomain) => {
-        
-        let changeRoom: Promise<void> = new Promise(() => {
+    socket.on('room', (room: string) => {
+        Promise.resolve(() => {
             let currentRoom: string | null = getRoom();
 
             if (currentRoom === null) {
@@ -76,9 +75,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
             } else if (currentRoom !== room) {
                 socket.leave(currentRoom).join(room);
             }
-        });
-
-        changeRoom.then(() => loadHistory(socket.id, room));
+        }).then(() => loadHistory(socket.id, room));
     });
 
     socket.on('chat message', async (message: UserMessage, room: string, domain: ChatDomain) => {

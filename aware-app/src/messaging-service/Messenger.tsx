@@ -19,7 +19,6 @@ type MessengerProps = {
 };
 
 type MessengerState = {
-    messages: UserMessage[],
     chatTitle: string,
     chatDomain: ChatDomain,
     roomId: string
@@ -30,26 +29,9 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
         super(props);
 
         this.state = {
-            messages: [],
             chatTitle: "",
             chatDomain: ChatDomain.COURSE_DISCUSSION,
             roomId: ""
-        }
-    }
-
-    componentDidMount(): void {
-        if (this.props.socket) {
-            this.props.socket.on('chat message', (message: UserMessage) => {
-                this.setState({
-                    messages: this.state.messages.concat([message])
-                })
-            })
-
-            this.props.socket.on('chat history', (messages: UserMessage[]) => {
-                this.setState({
-                    messages: messages
-                })
-            })
         }
     }
 
@@ -79,7 +61,7 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
                                 <ActivityPanel />
 
                                 <ChatWindow
-                                    messages={this.state.messages}
+                                    socket={this.props.socket}
                                     name={this.props.username} />
 
                                 <MessageInput
@@ -104,12 +86,11 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
      */
     requestRoom = (id: string, title: string, domain: ChatDomain) => {
         
-        this.props.socket.emit('room', id, domain);
+        this.props.socket.emit('room', id);
 
         // Pre-emptively reset the state of the chat window in preparation
         // for a response from the server.
         this.setState({
-            messages: [],
             chatTitle: title,
             chatDomain: domain,
             roomId: id
