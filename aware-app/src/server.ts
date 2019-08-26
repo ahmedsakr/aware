@@ -11,7 +11,8 @@ import Messages from './messaging-service/db/message'
 import getCourses from './messaging-service/db/rooms';
 import {getRelatedUsers} from './messaging-service/db/userRelations'
 import { AccountField } from './shared/verification/user';
-import {startDirectMessage} from './messaging-service/db/directMessaging'
+import {startDirectMessage, isExistingDirectMessage} from './messaging-service/db/directMessaging'
+import { ChatDomain } from './messaging-service/api/DirectMessaging';
 
 let app: Express = express();
 let http: httpServer.Server = new httpServer.Server(app);
@@ -65,40 +66,52 @@ io.on('connection', (socket: SocketIO.Socket) => {
         })
     });
 
-    socket.on('room', (room: string) => {
-        let currentRoom: string = getRoom();
+    socket.on('room', async (room: string, domain: ChatDomain) => {
+        
+        let changeRoom: Promise<void> = new Promise(() => {
+            let currentRoom: string | null = getRoom();
 
-        // Check if attempting to join current room
-        if (currentRoom !== room) {
-            socket.leave(currentRoom, () => {
-                socket.join(room, () => {
-                    loadHistory(socket.id, room)
-                });
-            })
-        } else {
-            loadHistory(socket.id, room);
-        }
+            if (currentRoom === null) {
+                socket.join(room);
+            } else if (currentRoom !== room) {
+                socket.leave(currentRoom).join(room);
+            }
+        });
+
+        changeRoom.then(() => loadHistory(socket.id, room));
     });
 
-    socket.on('chat message', (message: UserMessage, roomId: string) => {
-        // get current room of socket to emit message in
-        var currentRoom = getRoom();
+    socket.on('chat message', async (message: UserMessage, room: string, domain: ChatDomain) => {
 
-        if (currentRoom != null) {
-            new Messages(roomId).insertMessage(message)
+        if (domain === ChatDomain.DIRECT_MESSAGE && !(await isExistingDirectMessage(room))) {
+            return;
+        }
+
+        // get current room of socket to emit message in
+        let currentRoom : string | null = getRoom();
+
+        if (currentRoom !== null) {
+            new Messages(room).insertMessage(message)
                 .then(() => {
-                    io.in(currentRoom).emit('chat message', message)
+                    io.in(currentRoom as string).emit('chat message', message)
                 })
         }
     });
 
-    socket.on('start-direct-message', (username: string) => {
-        startDirectMessage(username);
-    });
+    const getRoom: () => string | null = () => {
+        let rooms: string[] = Object.keys(io.sockets.adapter.sids[socket.id]);
 
-
-    const getRoom: () => string = () => {
-        return Object.keys(io.sockets.adapter.sids[socket.id]).filter(item => item != socket.id)[0];
+        /*
+         * The first entry of the array is always the default user channel that is unused.
+         * The second entry should be the current room that the user is in.
+         *
+         * The user has not joined any room if the length of the array is 1.
+         */
+        if (rooms.length === 1) {
+            return null;
+        } else {
+            return rooms[1];
+        }
     }
 });
 

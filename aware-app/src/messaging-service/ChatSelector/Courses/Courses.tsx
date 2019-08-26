@@ -1,6 +1,6 @@
 import React from 'react'
 import './Courses.scss'
-import {ChatDomain} from '../ChatSelector'
+import {ChatDomain} from '../../api/DirectMessaging'
 
 interface Course {
     id: string,
@@ -9,15 +9,14 @@ interface Course {
 };
 
 type CoursesProps = {
-    active: boolean,
+    activeChat: string,
     socket: SocketIOClient.Socket,
     username: string,
-    selectChat: (type: ChatDomain, id: string, title: string) => void
+    selectChat: (id: string, title: string, domain: ChatDomain) => void
 };
 
 type CoursesState = {
-    courses: Course[],
-    activeCourse: string
+    courses: Course[]
 }
 
 export default class Courses extends React.Component<CoursesProps, CoursesState> {
@@ -26,8 +25,7 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
         super(props);
 
         this.state = {
-            courses: [],
-            activeCourse: ''
+            courses: []
         }
     }
 
@@ -47,8 +45,7 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
     }
 
     selectCourse(id: string, title: string) {
-        this.props.selectChat(ChatDomain.COURSE_DISCUSSION, id, title);
-        this.setState({ activeCourse: id });
+        this.props.selectChat(id, title, ChatDomain.COURSE_DISCUSSION);
     }
 
     render(): JSX.Element {
@@ -59,7 +56,7 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
                     return (
                         <Course
                             selectCourse={this.selectCourse.bind(this)}
-                            selected={this.props.active && this.state.activeCourse === course.id}
+                            selected={this.props.activeChat === course.id}
                             room={course.id}
                             src={"/messenger-icons/" + course.icon}
                             name={course.name} />

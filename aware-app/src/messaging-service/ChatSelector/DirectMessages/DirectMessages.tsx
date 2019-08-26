@@ -2,25 +2,20 @@ import React from 'react';
 import './DirectMessages.scss';
 
 import uuid from '../../../shared/uuid/aware-uuid'
-import {ChatDomain} from '../ChatSelector'
+import { ChatDomain } from '../../api/DirectMessaging'
 import UserFinderOverlay from '../../overlays/UserFinder/UserFinderOverlay';
-
-type DirectMessage = {
-    id: string,
-    name: string
-}
+import { DirectMessageAttributes } from '../../api/DirectMessaging'
 
 type DirectMessagesProps = {
-    active: boolean,
+    activeChat: string,
     socket: SocketIOClient.Socket,
     username: string,
-    selectChat: (type: ChatDomain, id: string, title: string) => void
+    selectChat: (id: string, title: string, domain: ChatDomain) => void
 };
 
 type DirectMessagesState = {
     showOverlay: boolean,
-    chats: Set<DirectMessage>,
-    activeDirectMessage: string
+    chats: Set<DirectMessageAttributes>
 };
 
 export default class DirectMessages extends React.Component<DirectMessagesProps, DirectMessagesState> {
@@ -30,8 +25,7 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
 
         this.state = {
             showOverlay: false,
-            chats: new Set<DirectMessage>(),
-            activeDirectMessage: ''
+            chats: new Set<DirectMessageAttributes>()
         }
     }
 
@@ -42,7 +36,7 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
             this.props.socket.emit('get-direct-messages', this.props.username);
 
             // Listen for any updates in subscribed rooms for this user.
-            this.props.socket.on('direct-messages', (chats: Set<DirectMessage>) => {
+            this.props.socket.on('direct-messages', (chats: Set<DirectMessageAttributes>) => {
                 this.setState({ chats });
             });
         }
@@ -50,9 +44,10 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
 
     startDirectMessage(username: string): void {
 
-        let chat : DirectMessage = {
+        let chat : DirectMessageAttributes = {
             id: uuid(),
-            name: username
+            name: username,
+            iconRef: "/icons8-user-80.png"
         };
 
         this.setState((prevState: DirectMessagesState) => {
@@ -60,13 +55,11 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
                 showOverlay: false, 
                 chats: prevState.chats.add(chat)
             }
-        }, () => this.selectDirectMessage(username));
+        }, () => this.selectDirectMessage(chat));
     }
 
-    selectDirectMessage(name: string): void {
-        let chat : DirectMessage = Array.from(this.state.chats.values()).filter(user => user.name == name)[0];
-        this.props.selectChat(ChatDomain.DIRECT_MESSAGE, chat.id, chat.name);
-        this.setState({ activeDirectMessage: chat.id });
+    selectDirectMessage(chat: DirectMessageAttributes): void {
+        this.props.selectChat(chat.id, chat.name, ChatDomain.DIRECT_MESSAGE);
     }
 
     onOverlayClose() {
@@ -93,14 +86,12 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
                     <p>Start a direct message</p>
                 </div>
                 {
-                    Array.from(this.state.chats.values()).map((chat: DirectMessage) => {
+                    Array.from(this.state.chats.values()).map((chat: DirectMessageAttributes) => {
                         return (
                             <DirectMessage
                                 selectDirectMessage={this.selectDirectMessage.bind(this)}
-                                selected={this.props.active && this.state.activeDirectMessage === chat.id}
-                                room={chat.id}
-                                src="/icons8-user-80.png"
-                                name={chat.name} />
+                                selected={this.props.activeChat === chat.id}
+                                chat={chat} />
                         )
                     })
                 }
@@ -111,11 +102,9 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
 }
 
 type DirectMessageProps = {
-    selectDirectMessage: (name: string) => void,
+    selectDirectMessage: (chat: DirectMessageAttributes) => void,
     selected: boolean,
-    room: string,
-    src: string,
-    name: string
+    chat: DirectMessageAttributes
 };
 
 const DirectMessage: React.FC<DirectMessageProps> = (props) => {
@@ -123,16 +112,16 @@ const DirectMessage: React.FC<DirectMessageProps> = (props) => {
 
     return (
         <div
-            onClick={() => props.selectDirectMessage(props.name)}
+            onClick={() => props.selectDirectMessage(props.chat)}
             className={currentState}>
 
             <div className="direct-message-avatar col-sm-2">
                 <img
-                    src={process.env.PUBLIC_URL + props.src}
-                    alt={props.name} />
+                    src={process.env.PUBLIC_URL + props.chat.iconRef}
+                    alt={props.chat.name} />
             </div>
             <div className="direct-message-content col-10">
-                <p className="col-12">{props.name}</p>
+                <p className="col-12">{props.chat.name}</p>
                 <p className="direct-message-preview">Preview of last message...</p>
             </div>
         </div>

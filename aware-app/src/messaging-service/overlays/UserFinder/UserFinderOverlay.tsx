@@ -3,7 +3,6 @@ import AwareOverlay from '../../../shared/overlay/AwareOverlay'
 import 'bootstrap'
 import './UserFinderOverlay.scss'
 import Modal from 'react-bootstrap/Modal'
-import { startDirectMessage } from '../../db/directMessaging';
 
 type UserFinderOverlayProps = {
     socket: SocketIOClient.Socket,

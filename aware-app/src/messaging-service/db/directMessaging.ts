@@ -15,3 +15,16 @@ export async function startDirectMessage(myUsername: string) {
     
     await awaredb(sql, [`${uuid()}`, `${myUsername}`]);
 }
+
+export async function isExistingDirectMessage(id: string): Promise<Boolean> {
+    let sql = ` SELECT
+                    *
+                FROM
+                    user_direct_messages
+                WHERE
+                    direct_message_id=$1
+            `;
+
+    let result: Object[] = await awaredb(sql, [`${id}`]);
+    return result.length !== 0;
+}

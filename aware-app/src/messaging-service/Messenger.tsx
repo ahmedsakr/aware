@@ -11,6 +11,7 @@ import ActivityPanel from './ChatFeature/ActivityPanel/ActivityPanel'
 import MessageInput from './ChatFeature/MessageInput/MessageInput'
 import { UserMessage } from '../shared/messaging/messenger'
 import NewsletterOverlay from '../shared/overlay/test/NewsletterOverlay'
+import { ChatDomain } from './api/DirectMessaging'
 
 type MessengerProps = {
     socket: SocketIOClient.Socket,
@@ -20,6 +21,7 @@ type MessengerProps = {
 type MessengerState = {
     messages: UserMessage[],
     chatTitle: string,
+    chatDomain: ChatDomain,
     roomId: string
 };
 
@@ -30,6 +32,7 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
         this.state = {
             messages: [],
             chatTitle: "",
+            chatDomain: ChatDomain.COURSE_DISCUSSION,
             roomId: ""
         }
     }
@@ -67,8 +70,9 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
                             <div className="col-2 p-0">
                                 <ChatSelector
                                     socket={this.props.socket}
+                                    requestRoom={requestRoom}
                                     username={this.props.username}
-                                    requestRoom={requestRoom} />
+                                    chatDomain={this.state.chatDomain} />
                             </div>
 
                             <div id="messenger" className="col-10 p-0">
@@ -95,15 +99,19 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
      * 
      * @param id The id associated with the room
      * @param title The title of the room
+     * @param domain The domain the chat belongs to (course discussions or direct messages)
+     * @param local Local-only instance of the chat (i.e., when a new direct message is started)
      */
-    requestRoom = (id: string, title: string) => {
-        this.props.socket.emit('room', id)
+    requestRoom = (id: string, title: string, domain: ChatDomain) => {
+        
+        this.props.socket.emit('room', id, domain);
 
         // Pre-emptively reset the state of the chat window in preparation
         // for a response from the server.
         this.setState({
             messages: [],
             chatTitle: title,
+            chatDomain: domain,
             roomId: id
         });
     }
@@ -114,6 +122,6 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
      * @param message The message packet containing the building blocks of the message.
      */
     sendMessage = (message: UserMessage) => {
-        this.props.socket.emit('chat message', message, this.state.roomId);
+        this.props.socket.emit('chat message', message, this.state.roomId, this.state.chatDomain);
     }
 }
