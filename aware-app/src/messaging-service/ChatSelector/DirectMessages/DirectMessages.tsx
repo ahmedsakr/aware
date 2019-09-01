@@ -3,7 +3,7 @@ import './DirectMessages.scss';
 
 import uuid from '../../../shared/uuid/aware-uuid'
 import UserFinderOverlay from '../../overlays/UserFinder/UserFinderOverlay';
-import { ChatDomain, MessengerChat } from '../../api/Messaging'
+import { ChatDomain, MessengerChat, ChatData } from '../../api/Messaging'
 
 type DirectMessagesProps = {
     activeChat: string,
@@ -35,7 +35,15 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
             this.props.socket.emit('get-direct-messages', this.props.username);
 
             // Listen for any updates in subscribed rooms for this user.
-            this.props.socket.on('direct-messages', (chats: MessengerChat[]) => {
+            this.props.socket.on('direct-messages', (direct_messages: ChatData[]) => {
+                let chats: MessengerChat[] = [];
+                direct_messages.forEach((direct_message: ChatData) => {
+                    direct_message.icon = "/icons8-user-80.png";
+                    chats.push({
+                        domain: ChatDomain.DIRECT_MESSAGE,
+                        data: direct_message
+                    });
+                });
                 this.setState({ chats });
             });
         }

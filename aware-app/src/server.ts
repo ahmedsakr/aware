@@ -8,7 +8,7 @@ import {UserMessage} from './shared/messaging/messenger'
 import verifyLogin from './landing/db/verifier';
 import registerUser from './landing/db/register';
 import Messages from './messaging-service/db/message'
-import getCourses from './messaging-service/db/rooms';
+import getCourses, { getDirectMessages } from './messaging-service/db/rooms';
 import {getRelatedUsers} from './messaging-service/db/userRelations'
 import { AccountField } from './shared/verification/user';
 import {startDirectMessage, isExistingDirectMessage} from './messaging-service/db/directMessaging'
@@ -56,6 +56,12 @@ io.on('connection', (socket: SocketIO.Socket) => {
     socket.on('get-courses', (username: string) => {
         getCourses(username).then((userRooms: ChatData[]) => {
             io.to(socket.id).emit("user-courses", userRooms);
+        });
+    });
+
+    socket.on('get-direct-messages', (username: string) => {
+        getDirectMessages(username).then((userRooms: ChatData[]) => {
+            io.to(socket.id).emit("direct-messages", userRooms);
         });
     });
 

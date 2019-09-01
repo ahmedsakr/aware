@@ -13,3 +13,24 @@ export default async function getCourses(username: string): Promise<ChatData[]> 
 
     return await awaredb<ChatData>(sql, [`${username}`]);
 }
+
+export async function getDirectMessages(username: string): Promise<ChatData[]> {
+   let sql =   `SELECT
+                   user_target AS name,
+                   user_target AS "receiverId",
+                   direct_message_id AS id
+                FROM user_direct_messages
+                WHERE user_initiator = $1
+                
+                UNION
+                
+                SELECT
+                   user_initiator AS name,
+                   user_initiator AS "receiverId",
+                   direct_message_id AS id
+                FROM user_direct_messages
+                WHERE user_target = $1
+                `;
+
+   return await awaredb<ChatData>(sql, [`${username}`]);
+}
