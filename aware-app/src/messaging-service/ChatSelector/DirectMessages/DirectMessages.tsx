@@ -41,7 +41,19 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
         }
     }
 
+    isExistingDirectMessage(username: string): Boolean {
+        return Array
+                .from(this.state.chats.values())
+                .filter((chat: MessengerChat) => chat.data.receiverId === username)
+                .length === 1
+    }
+
     startDirectMessage(username: string): void {
+
+        if (this.isExistingDirectMessage(username)) {
+            this.setState({ showOverlay: false });
+            return;
+        }
 
         let chat : MessengerChat = {
             domain: ChatDomain.DIRECT_MESSAGE,
