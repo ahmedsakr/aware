@@ -12,7 +12,7 @@ import getCourses from './messaging-service/db/rooms';
 import {getRelatedUsers} from './messaging-service/db/userRelations'
 import { AccountField } from './shared/verification/user';
 import {startDirectMessage, isExistingDirectMessage} from './messaging-service/db/directMessaging'
-import { ChatDomain } from './messaging-service/api/DirectMessaging';
+import { ChatDomain, ChatData, MessengerChat } from './messaging-service/api/Messaging';
 
 let app: Express = express();
 let http: httpServer.Server = new httpServer.Server(app);
@@ -54,7 +54,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
     });
 
     socket.on('get-courses', (username: string) => {
-        getCourses(username).then((userRooms: Object[]) => {
+        getCourses(username).then((userRooms: ChatData[]) => {
             io.to(socket.id).emit("user-courses", userRooms);
         });
     });
@@ -67,20 +67,24 @@ io.on('connection', (socket: SocketIO.Socket) => {
     });
 
     socket.on('room', (room: string) => {
-        Promise.resolve(() => {
-            let currentRoom: string | null = getRoom();
+        new Promise((resolve, reject) => {
+            socket.leave(getRoom()).join(room, (error: string | null) => {
+                if (error === null) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
+        })
 
-            if (currentRoom === null) {
-                socket.join(room);
-            } else if (currentRoom !== room) {
-                socket.leave(currentRoom).join(room);
-            }
-        }).then(() => loadHistory(socket.id, room));
+        .then(() => loadHistory(socket.id, room))
+        .catch((error) => console.error(error));
     });
 
-    socket.on('chat message', async (message: UserMessage, room: string, domain: ChatDomain) => {
+    socket.on('chat message', async (message: UserMessage, chat: MessengerChat) => {
 
-        if (domain === ChatDomain.DIRECT_MESSAGE && !(await isExistingDirectMessage(room))) {
+        if (chat.domain === ChatDomain.DIRECT_MESSAGE && !(await isExistingDirectMessage(chat.data.id))) {
+            await startDirectMessage(chat.data.id, message.username, chat.data.receiverId as string);
             return;
         }
 
@@ -88,14 +92,14 @@ io.on('connection', (socket: SocketIO.Socket) => {
         let currentRoom : string | null = getRoom();
 
         if (currentRoom !== null) {
-            new Messages(room).insertMessage(message)
+            new Messages(chat.data.id).insertMessage(message)
                 .then(() => {
                     io.in(currentRoom as string).emit('chat message', message)
                 })
         }
     });
 
-    const getRoom: () => string | null = () => {
+    const getRoom: () => string = () => {
         let rooms: string[] = Object.keys(io.sockets.adapter.sids[socket.id]);
 
         /*
@@ -105,7 +109,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
          * The user has not joined any room if the length of the array is 1.
          */
         if (rooms.length === 1) {
-            return null;
+            return '';
         } else {
             return rooms[1];
         }
