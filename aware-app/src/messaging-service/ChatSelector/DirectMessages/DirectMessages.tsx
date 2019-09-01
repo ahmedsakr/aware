@@ -14,7 +14,7 @@ type DirectMessagesProps = {
 
 type DirectMessagesState = {
     showOverlay: boolean,
-    chats: Set<MessengerChat>
+    chats: MessengerChat[]
 };
 
 export default class DirectMessages extends React.Component<DirectMessagesProps, DirectMessagesState> {
@@ -24,7 +24,7 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
 
         this.state = {
             showOverlay: false,
-            chats: new Set<MessengerChat>()
+            chats: []
         }
     }
 
@@ -35,15 +35,14 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
             this.props.socket.emit('get-direct-messages', this.props.username);
 
             // Listen for any updates in subscribed rooms for this user.
-            this.props.socket.on('direct-messages', (chats: Set<MessengerChat>) => {
+            this.props.socket.on('direct-messages', (chats: MessengerChat[]) => {
                 this.setState({ chats });
             });
         }
     }
 
     isExistingDirectMessage(username: string): Boolean {
-        return Array
-                .from(this.state.chats.values())
+        return this.state.chats
                 .filter((chat: MessengerChat) => chat.data.receiverId === username)
                 .length === 1
     }
@@ -66,9 +65,11 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
         };
 
         this.setState((prevState: DirectMessagesState) => {
+            prevState.chats.push(chat);
+
             return {
                 showOverlay: false, 
-                chats: prevState.chats.add(chat)
+                chats: prevState.chats
             }
         }, () => this.props.selectChat(chat));
     }
@@ -97,7 +98,7 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
                     <p>Start a direct message</p>
                 </div>
                 {
-                    Array.from(this.state.chats.values()).map((chat: MessengerChat) => {
+                    this.state.chats.map((chat: MessengerChat) => {
                         return (
                             <DirectMessage
                                 selectChat={this.props.selectChat}
