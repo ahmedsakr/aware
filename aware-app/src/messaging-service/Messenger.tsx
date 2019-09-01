@@ -94,7 +94,7 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
             return;
         }
 
-        this.props.socket.emit('room', chat.data.id);
+        this.props.socket.emit('room', chat);
 
         // Pre-emptively reset the state of the chat window in preparation
         // for a response from the server.

@@ -66,9 +66,9 @@ io.on('connection', (socket: SocketIO.Socket) => {
         })
     });
 
-    socket.on('room', (room: string) => {
+    socket.on('room', (chat: MessengerChat) => {
         new Promise((resolve, reject) => {
-            socket.leave(getRoom()).join(room, (error: string | null) => {
+            socket.leave(getRoom()).join(chat.data.id, (error: string | null) => {
                 if (error === null) {
                     resolve();
                 } else {
@@ -77,7 +77,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
             });
         })
 
-        .then(() => loadHistory(socket.id, room))
+        .then(() => loadHistory(socket.id, chat))
         .catch((error) => console.error(error));
     });
 
@@ -85,18 +85,12 @@ io.on('connection', (socket: SocketIO.Socket) => {
 
         if (chat.domain === ChatDomain.DIRECT_MESSAGE && !(await isExistingDirectMessage(chat.data.id))) {
             await startDirectMessage(chat.data.id, message.username, chat.data.receiverId as string);
-            return;
         }
 
-        // get current room of socket to emit message in
-        let currentRoom : string | null = getRoom();
-
-        if (currentRoom !== null) {
-            new Messages(chat.data.id).insertMessage(message)
-                .then(() => {
-                    io.in(currentRoom as string).emit('chat message', message)
-                })
-        }
+        new Messages(chat).insertMessage(message)
+            .then(() => {
+                io.in(getRoom()).emit('chat message', message)
+            })
     });
 
     const getRoom: () => string = () => {
@@ -116,12 +110,10 @@ io.on('connection', (socket: SocketIO.Socket) => {
     }
 });
 
-function loadHistory(socketId: string, room: string): void {
-    // Temporary hack again to get the proper formatted room
-    room = room.replace(/\s/g, '').toLowerCase();
+function loadHistory(socketId: string, chat: MessengerChat): void {
 
     // If room doesn't have chat history, create room in dictionary
-    new Messages(room).getMessages()
+    new Messages(chat).getMessages()
         .then((result: Object[]) => {
             io.to(socketId).emit('chat history', result);
         })
