@@ -1,22 +1,16 @@
 import React from 'react'
 import './Courses.scss'
-import {ChatDomain} from '../../api/DirectMessaging'
-
-interface Course {
-    id: string,
-    icon: string,
-    name: string
-};
+import { MessengerChat, ChatData, ChatDomain } from '../../api/Messaging'
 
 type CoursesProps = {
     activeChat: string,
     socket: SocketIOClient.Socket,
     username: string,
-    selectChat: (id: string, title: string, domain: ChatDomain) => void
+    selectChat: (chat: MessengerChat) => void
 };
 
 type CoursesState = {
-    courses: Course[]
+    courses: Set<MessengerChat>
 }
 
 export default class Courses extends React.Component<CoursesProps, CoursesState> {
@@ -25,7 +19,7 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
         super(props);
 
         this.state = {
-            courses: []
+            courses: new Set<MessengerChat>()
         }
     }
 
@@ -36,30 +30,28 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
             this.props.socket.emit('get-courses', this.props.username);
 
             // Listen for any updates in subscribed rooms for this user.
-            this.props.socket.on('user-courses', (courses: Course[]) => {
-                this.setState({
-                    courses: courses
-                });
+            this.props.socket.on('user-courses', (chats: ChatData[]) => {
+                let courses: Set<MessengerChat> = new Set<MessengerChat>();
+                chats.forEach((course: ChatData) => courses.add({
+                    domain: ChatDomain.COURSE_DISCUSSION,
+                    data: course
+                }));
+
+                this.setState({ courses });
             });
         }
-    }
-
-    selectCourse(id: string, title: string) {
-        this.props.selectChat(id, title, ChatDomain.COURSE_DISCUSSION);
     }
 
     render(): JSX.Element {
         return (
             <div>
             {
-                this.state.courses.map((course: Course) => {
+                Array.from(this.state.courses.values()).map((course: MessengerChat) => {
                     return (
                         <Course
-                            selectCourse={this.selectCourse.bind(this)}
-                            selected={this.props.activeChat === course.id}
-                            room={course.id}
-                            src={"/messenger-icons/" + course.icon}
-                            name={course.name} />
+                            selectChat={this.props.selectChat}
+                            selected={this.props.activeChat === course.data.id}
+                            course={course} />
                     )
                 })
             }
@@ -69,29 +61,25 @@ export default class Courses extends React.Component<CoursesProps, CoursesState>
 }
 
 type CourseProps = {
-    selectCourse: (id: string, title: string) => void,
+    selectChat: (chat: MessengerChat) => void,
     selected: boolean,
-    room: string,
-    src: string,
-    name: string,
+    course: MessengerChat
 };
 
 const Course: React.FC<CourseProps> = (props) => {
     const currentState = "chat-navigation-item" + (props.selected ? "-selected": "")
-
     return (
         <div
-            onClick={() => { props.selectCourse(props.room, props.name) }}
+            onClick={() => { props.selectChat(props.course) }}
             className={currentState}>
 
             <div className="navbar-item-avatar col-2">
-                <img src={process.env.PUBLIC_URL + props.src} alt={props.name} />
+                <img src={process.env.PUBLIC_URL + props.course.data.icon} alt={props.course.data.name} />
             </div>
 
             <div className="navbar-item-name col-9">
-                <p>{props.name}</p>
+                <p>{props.course.data.name}</p>
             </div>
-
         </div>
     );
 }

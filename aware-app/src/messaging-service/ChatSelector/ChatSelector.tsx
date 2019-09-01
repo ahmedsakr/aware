@@ -2,69 +2,35 @@ import React from 'react';
 import Courses from './Courses/Courses'
 import './ChatSelector.scss'
 import DirectMessages from './DirectMessages/DirectMessages'
-import { ChatDomain } from '../api/DirectMessaging';
+import { MessengerChat } from '../api/Messaging';
 
 type ChatSelectorProps = {
-    requestRoom: (id: string, username: string, domain: ChatDomain) => void,
+    requestRoom: (chat: MessengerChat) => void,
     socket: SocketIOClient.Socket,
     username: string,
-    chatDomain: ChatDomain
+    activeChat: string
 };
 
-type ChatSelectorState = {
-    selectedChat: string
-};
+export const ChatSelector: React.FC<ChatSelectorProps> = (props) => {
+    return (
+        <div id="vertical-menu">
+            <h3>Course Discussion</h3>
 
-export default class ChatSelector extends React.Component<ChatSelectorProps, ChatSelectorState> {
+            <Courses
+                activeChat={props.activeChat}
+                socket={props.socket}
+                username={props.username}
+                selectChat={props.requestRoom} />
 
-    constructor(props: ChatSelectorProps) {
-        super(props)
+            <hr className="chat-selector-line-break" />
 
-        this.state = {
-            selectedChat: ''
-        };
-    }
+            <h3>Direct Messages</h3>
 
-    /**
-     * Requests a room change from the server and updates the highlighted
-     * room to reflect the new room.
-     *
-     * @param room A new course or direct message chosen by the user
-     */
-    selectChat(id: string, title: string, domain: ChatDomain): void {
-
-        // Perform no action when user has selected the current chat.
-        if (id == this.state.selectedChat) {
-            return;
-        }
-
-        this.setState({
-            selectedChat: id
-        }, () => this.props.requestRoom(this.state.selectedChat, title, domain));
-    }
-
-    render(): JSX.Element {
-
-        return (
-            <div id="vertical-menu">
-                <h3>Course Discussion</h3>
-
-                <Courses
-                    activeChat={this.state.selectedChat}
-                    socket={this.props.socket}
-                    username={this.props.username}
-                    selectChat={this.selectChat.bind(this)} />
-
-                <hr className="chat-selector-line-break" />
-
-                <h3>Direct Messages</h3>
-
-                <DirectMessages
-                    activeChat={this.state.selectedChat}
-                    socket={this.props.socket}
-                    username={this.props.username}
-                    selectChat={this.selectChat.bind(this)}/>
-            </div>
-        );
-    }
+            <DirectMessages
+                activeChat={props.activeChat}
+                socket={props.socket}
+                username={props.username}
+                selectChat={props.requestRoom} />
+        </div>
+    );
 }

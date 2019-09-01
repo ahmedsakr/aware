@@ -4,14 +4,14 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../../node_modules/font-awesome/css/font-awesome.min.css'
 
 import NavBar from './NavigationBar/NavBar/NavBar'
-import ChatSelector from './ChatSelector/ChatSelector'
+import { ChatSelector } from './ChatSelector/ChatSelector'
 import ChatWindow from './ChatFeature/ChatWindow/ChatWindow'
 
 import ActivityPanel from './ChatFeature/ActivityPanel/ActivityPanel'
 import MessageInput from './ChatFeature/MessageInput/MessageInput'
 import { UserMessage } from '../shared/messaging/messenger'
 import NewsletterOverlay from '../shared/overlay/test/NewsletterOverlay'
-import { ChatDomain } from './api/DirectMessaging'
+import { ChatDomain, MessengerChat } from './api/Messaging'
 
 type MessengerProps = {
     socket: SocketIOClient.Socket,
@@ -19,9 +19,7 @@ type MessengerProps = {
 };
 
 type MessengerState = {
-    chatTitle: string,
-    chatDomain: ChatDomain,
-    roomId: string
+    chat: MessengerChat
 };
 
 export default class Messenger extends React.Component<MessengerProps, MessengerState> {
@@ -29,9 +27,14 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
         super(props);
 
         this.state = {
-            chatTitle: "",
-            chatDomain: ChatDomain.COURSE_DISCUSSION,
-            roomId: ""
+            chat: {
+                domain: ChatDomain.COURSE_DISCUSSION,
+                data: {
+                    id: '',
+                    name: '',
+                    icon: ''
+                }
+            }
         }
     }
 
@@ -45,7 +48,7 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
 
                     <div id="messenger-root" className="row">
                         <div className="col-12 p-0" id="navigation-header">
-                            <NavBar activeRoom={this.state.chatTitle} />
+                            <NavBar activeRoom={this.state.chat.data.name} />
                         </div>
 
                         <div className="col-12 p-0" id="messenger-body">
@@ -54,7 +57,7 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
                                     socket={this.props.socket}
                                     requestRoom={requestRoom}
                                     username={this.props.username}
-                                    chatDomain={this.state.chatDomain} />
+                                    activeChat={this.state.chat.data.id} />
                             </div>
 
                             <div id="messenger" className="col-10 p-0">
@@ -84,17 +87,18 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
      * @param domain The domain the chat belongs to (course discussions or direct messages)
      * @param local Local-only instance of the chat (i.e., when a new direct message is started)
      */
-    requestRoom = (id: string, title: string, domain: ChatDomain) => {
-        
-        this.props.socket.emit('room', id);
+    requestRoom = (chat: MessengerChat) => {
+
+        // Perform no action when user has selected the current chat.
+        if (chat.data.id == this.state.chat.data.id) {
+            return;
+        }
+
+        this.props.socket.emit('room', chat.data.id);
 
         // Pre-emptively reset the state of the chat window in preparation
         // for a response from the server.
-        this.setState({
-            chatTitle: title,
-            chatDomain: domain,
-            roomId: id
-        });
+        this.setState({ chat });
     }
 
     /**
@@ -103,6 +107,6 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
      * @param message The message packet containing the building blocks of the message.
      */
     sendMessage = (message: UserMessage) => {
-        this.props.socket.emit('chat message', message, this.state.roomId, this.state.chatDomain);
+        this.props.socket.emit('chat message', message, this.state.chat);
     }
 }

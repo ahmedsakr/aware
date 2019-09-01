@@ -23,8 +23,10 @@ CREATE TABLE user_courses (
 
 CREATE TABLE user_direct_messages (
     direct_message_id VARCHAR(36) PRIMARY KEY,
-    username VARCHAR(36),
-    FOREIGN KEY (username) REFERENCES user_accounts(username)
+    user_initiator VARCHAR(36),
+    user_target VARCHAR(36),
+    FOREIGN KEY (user_initiator) REFERENCES user_accounts(username),
+    FOREIGN KEY (user_target) REFERENCES user_accounts(username)
 );
 
 CREATE TABLE course_messages (
@@ -48,11 +50,11 @@ CREATE TABLE direct_messages (
 INSERT INTO user_accounts (username, user_password) VALUES ('josh', 'password');
 INSERT INTO user_accounts (username, user_password) VALUES ('ahmed', 'password');
 
-INSERT INTO courses (course_id, course_name, course_icon) VALUES ('sysc2100', 'SYSC 2100', 'sysc.png');
-INSERT INTO courses (course_id, course_name, course_icon) VALUES ('sysc2004', 'SYSC 2004', 'sysc.png');
-INSERT INTO courses (course_id, course_name, course_icon) VALUES ('sysc3110', 'SYSC 3110', 'sysc.png');
-INSERT INTO courses (course_id, course_name, course_icon) VALUES ('math2004', 'MATH 2004', 'math.png');
-INSERT INTO courses (course_id, course_name, course_icon) VALUES ('elec2501', 'ELEC 2501', 'elec.png');
+INSERT INTO courses (course_id, course_name, course_icon) VALUES ('sysc2100', 'SYSC 2100', '/messenger-icons/sysc.png');
+INSERT INTO courses (course_id, course_name, course_icon) VALUES ('sysc2004', 'SYSC 2004', '/messenger-icons/sysc.png');
+INSERT INTO courses (course_id, course_name, course_icon) VALUES ('sysc3110', 'SYSC 3110', '/messenger-icons/sysc.png');
+INSERT INTO courses (course_id, course_name, course_icon) VALUES ('math2004', 'MATH 2004', '/messenger-icons/math.png');
+INSERT INTO courses (course_id, course_name, course_icon) VALUES ('elec2501', 'ELEC 2501', '/messenger-icons/elec.png');
 
 INSERT INTO user_courses (course_id, username) VALUES ('sysc2100', 'ahmed');
 INSERT INTO user_courses (course_id, username) VALUES ('sysc2004', 'ahmed');

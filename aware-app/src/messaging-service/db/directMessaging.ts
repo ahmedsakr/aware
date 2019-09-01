@@ -1,19 +1,18 @@
 import awaredb from '../../shared/database/awaredb'
-import uuid from '../../shared/uuid/aware-uuid'
 
 /**
  * Start a new direct message with a related user.
  *
  * @param myUsername The username of the user submitting this request
  */
-export async function startDirectMessage(myUsername: string) {
+export async function startDirectMessage(id: string, myUsername: string, theirUsername: string) {
     let sql = ` INSERT INTO user_direct_messages
-                    (direct_message_id, username)
+                    (direct_message_id, user_initiator, user_target)
                 VALUES
-                    ($1, $2)
+                    ($1, $2, $3)
             `;
     
-    await awaredb(sql, [`${uuid()}`, `${myUsername}`]);
+    await awaredb<Object>(sql, [`${id}`, `${myUsername}`, `${theirUsername}`]);
 }
 
 export async function isExistingDirectMessage(id: string): Promise<Boolean> {
@@ -25,6 +24,5 @@ export async function isExistingDirectMessage(id: string): Promise<Boolean> {
                     direct_message_id=$1
             `;
 
-    let result: Object[] = await awaredb(sql, [`${id}`]);
-    return result.length !== 0;
+    return (await awaredb(sql, [`${id}`])).length !== 0;
 }

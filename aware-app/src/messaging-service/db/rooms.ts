@@ -1,6 +1,7 @@
 import awaredb from '../../shared/database/awaredb';
+import { ChatData } from '../api/Messaging';
 
-export default async function getCourses(username: string): Promise<Object[]> {
+export default async function getCourses(username: string): Promise<ChatData[]> {
     let sql =   `SELECT
                     course_name AS name,
                     course_icon AS icon,
@@ -10,5 +11,5 @@ export default async function getCourses(username: string): Promise<Object[]> {
                     user_courses.course_id = courses.course_id
                  WHERE username = $1`;
 
-    return await awaredb(sql, [`${username}`]);
+    return await awaredb<ChatData>(sql, [`${username}`]);
 }
