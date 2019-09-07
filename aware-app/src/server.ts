@@ -138,7 +138,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
         let username = deactivateUser(socket.id);
         getRooms(username).then((userRooms: Room[]) => {
             userRooms.forEach(room => {
-                console.log('Emitting to ', room.group_id, ' cuz ', username, ' logged on');
+                console.log('Emitting to ', room.group_id, ' cuz ', username, ' logged off');
                 console.log(getAllUsers(room.group_id));
                 io.sockets.in(room.group_id).emit('active users', getAllUsers(room.group_id));
             })
@@ -202,8 +202,8 @@ function deactivateUser(socketId: String): AccountField {
     let username = '' as AccountField;
     for (var i = 0; i < activeUsers.length; i++) {
         if (activeUsers[i].socketId === socketId) {
-            activeUsers.splice(i, 1);
             username = activeUsers[i].username;
+            activeUsers.splice(i, 1);
         }
     }
     return username;
