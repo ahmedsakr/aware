@@ -46,6 +46,9 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
         return (this.state.activityPanelUsers !== nextState.activityPanelUsers) || (this.props.activeRoom !== nextProps.activeRoom);
     }
 
+    /**
+     * Map is being called twice here to ensure the active users always appear first in the Activity Panel
+     */
     render(): JSX.Element {
         return (
             <div className="col-sm-12" id="activity-panel">
@@ -55,7 +58,12 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
                             return (
                                 <ProfilePicture instance="activity" activity='online' picture={user.username + "-pic.jpg"} />
                             )
-                        } else {
+                        }
+                    })
+                }
+                {
+                    this.state.activityPanelUsers.map((user: any) => {
+                        if (user.status === Status.offline) {
                             return (
                                 <ProfilePicture instance="activity" activity='offline' picture={user.username + "-pic.jpg"} />
                             )
