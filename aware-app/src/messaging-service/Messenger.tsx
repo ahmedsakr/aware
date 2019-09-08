@@ -61,7 +61,8 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
                             </div>
 
                             <div id="messenger" className="col-10 p-0">
-                                <ActivityPanel />
+                                <ActivityPanel
+                                    active={this.state.chat.domain === ChatDomain.COURSE_DISCUSSION}/>
 
                                 <ChatWindow
                                     socket={this.props.socket}
