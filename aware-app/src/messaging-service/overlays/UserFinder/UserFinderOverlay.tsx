@@ -136,8 +136,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
                 <button type="button" className="btn btn-secondary" onClick={this.props.close}>Nevermind</button>
                 <button
                     onClick={() => {this.props.startDirectMessage(this.state.selectedUser)}}
-                    id={"user-finder-go-" + (this.state.selectedUser === null ? "enabled" : "disabled")}
-                    disabled={this.state.selectedUser === null}
+                    disabled={this.state.selectedUser === ''}
                     type="button" className="btn btn-primary">
                         Go
                 </button>
