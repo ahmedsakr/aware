@@ -73,7 +73,7 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
                 data: {
                     id: uuid(),
                     name: username,
-                    icon: "/icons8-user-80.png",
+                    icon: username + "-pic.jpg",
                     receiverId: username
                 }
             };
