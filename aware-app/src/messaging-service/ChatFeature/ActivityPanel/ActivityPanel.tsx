@@ -41,8 +41,9 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
         }
     }
 
+    //Should Update when user switches room, also if emit happends and active users change
     shouldComponentUpdate(nextProps: ActivityPanelProps, nextState: ActivityPanelState): boolean {
-        return this.props.activeRoom !== nextProps.activeRoom;
+        return (this.state.activityPanelUsers !== nextState.activityPanelUsers) || (this.props.activeRoom !== nextProps.activeRoom);
     }
 
     render(): JSX.Element {
