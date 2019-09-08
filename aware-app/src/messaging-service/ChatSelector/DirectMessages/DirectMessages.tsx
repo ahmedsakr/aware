@@ -136,7 +136,7 @@ type DirectMessageProps = {
 
 const DirectMessage: React.FC<DirectMessageProps> = (props) => {
     const currentState = "direct-message" + (props.selected ? "-selected" : "")
-
+    console.log(props.chat.data.icon);
     return (
         <div
             onClick={() => props.selectChat(props.chat)}
@@ -144,7 +144,7 @@ const DirectMessage: React.FC<DirectMessageProps> = (props) => {
 
             <div className="direct-message-avatar col-sm-2">
                 <img
-                    src={process.env.PUBLIC_URL + props.chat.data.icon}
+                    src={process.env.PUBLIC_URL + props.chat.data.receiverId + "-pic.jpg"}
                     alt={props.chat.data.name} />
             </div>
             <div className="direct-message-content col-10">
