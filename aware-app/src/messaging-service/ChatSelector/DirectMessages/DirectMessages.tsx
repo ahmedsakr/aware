@@ -49,37 +49,44 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
         }
     }
 
-    isExistingDirectMessage(username: string): Boolean {
-        return this.state.chats
-                .filter((chat: MessengerChat) => chat.data.receiverId === username)
-                .length !== 0;
+    getDirectMessage(username: string): MessengerChat | null {
+        let search: MessengerChat[] =
+            this.state.chats.filter((chat: MessengerChat) => chat.data.receiverId === username);
+        
+        if (search.length > 0) {
+            return search[0];
+        } else {
+            return null;
+        }
     }
 
     startDirectMessage(username: string): void {
+        let chat: MessengerChat | null = this.getDirectMessage(username);
 
-        if (this.isExistingDirectMessage(username)) {
-            this.setState({ showOverlay: false });
-            return;
+        if (chat !== null) {
+            this.setState({
+                showOverlay: false
+            }, () => this.props.selectChat(chat as MessengerChat));
+        } else {
+            chat = {
+                domain: ChatDomain.DIRECT_MESSAGE,
+                data: {
+                    id: uuid(),
+                    name: username,
+                    icon: "/icons8-user-80.png",
+                    receiverId: username
+                }
+            };
+
+            this.setState((prevState: DirectMessagesState) => {
+                prevState.chats.push(chat as MessengerChat);
+
+                return {
+                    showOverlay: false, 
+                    chats: prevState.chats
+                }
+            }, () => this.props.selectChat(chat as MessengerChat));
         }
-
-        let chat : MessengerChat = {
-            domain: ChatDomain.DIRECT_MESSAGE,
-            data: {
-                id: uuid(),
-                name: username,
-                icon: "/icons8-user-80.png",
-                receiverId: username
-            }
-        };
-
-        this.setState((prevState: DirectMessagesState) => {
-            prevState.chats.push(chat);
-
-            return {
-                showOverlay: false, 
-                chats: prevState.chats
-            }
-        }, () => this.props.selectChat(chat));
     }
 
     onOverlayClose() {
