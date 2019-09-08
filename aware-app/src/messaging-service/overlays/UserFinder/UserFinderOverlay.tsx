@@ -1,5 +1,4 @@
 import React from 'react'
-import AwareOverlay from '../../../shared/overlay/AwareOverlay'
 import 'bootstrap'
 import './UserFinderOverlay.scss'
 import Modal from 'react-bootstrap/Modal'
