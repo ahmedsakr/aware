@@ -1,7 +1,7 @@
 import React from 'react';
 import './ActivityPanel.scss'
 import ProfilePicture from '../Profile/ProfilePicture';
-import { Status } from '../../api/Messaging';
+import { Status, UserStatus } from '../../api/Messaging';
 
 type ActivityPanelProps = {
     socket: SocketIOClient.Socket,
@@ -50,14 +50,14 @@ export default class ActivityPanel extends React.Component<ActivityPanelProps, A
         return (
             <div className="col-sm-12" id="activity-panel">
                 {
-                    this.state.activityPanelUsers.filter((user:any) => user.status === Status.ONLINE).map((user:any) => {
+                    this.state.activityPanelUsers.filter((user:UserStatus) => user.status === Status.ONLINE).map((user:UserStatus) => {
                         return (
                             <ProfilePicture instance="activity" activity='online' picture={user.username + "-pic.jpg"} />
                         )
                     })
                 }
                 {
-                    this.state.activityPanelUsers.filter((user:any) => user.status === Status.OFFLINE).map((user:any) => {
+                    this.state.activityPanelUsers.filter((user:UserStatus) => user.status === Status.OFFLINE).map((user:UserStatus) => {
                         return (
                             <ProfilePicture instance="activity" activity='offline' picture={user.username + "-pic.jpg"} />
                         )
