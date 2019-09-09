@@ -52,7 +52,7 @@ describe('database queries', () => {
             fail("I was expecting a rejection");
         })
         .catch((msg) => {
-            expect(msg).toBe('invalid query');
+            expect(msg).toBe('invalid query: simulating rejection from pg');
         });  
     });
 });
