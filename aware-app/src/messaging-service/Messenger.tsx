@@ -41,6 +41,12 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
     render(): JSX.Element {
         const { requestRoom, sendMessage } = this;
 
+        // Activity panel is only present for course discussions.
+        let activityPanel: JSX.Element = <> </>;
+        if (this.state.chat.domain === ChatDomain.COURSE_DISCUSSION) {
+            activityPanel = <ActivityPanel />;
+        }
+
         return (
             <div className="aware-container App">
                 <div className="container-fluid aware-container">
@@ -61,8 +67,7 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
                             </div>
 
                             <div id="messenger" className="col-10 p-0">
-                                <ActivityPanel
-                                    active={this.state.chat.domain === ChatDomain.COURSE_DISCUSSION}/>
+                                {activityPanel}
 
                                 <ChatWindow
                                     socket={this.props.socket}
