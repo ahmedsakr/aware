@@ -38,7 +38,10 @@ export default class DirectMessages extends React.Component<DirectMessagesProps,
             this.props.socket.on('direct-messages', (direct_messages: ChatData[]) => {
                 let chats: MessengerChat[] = [];
                 direct_messages.forEach((direct_message: ChatData) => {
-                    direct_message.icon = "/icons8-user-80.png";
+
+                    // temporary hack until we implement proper avatar storage
+                    direct_message.icon = direct_message.receiverId + "-pic.jpg";
+
                     chats.push({
                         domain: ChatDomain.DIRECT_MESSAGE,
                         data: direct_message
@@ -136,16 +139,14 @@ type DirectMessageProps = {
 
 const DirectMessage: React.FC<DirectMessageProps> = (props) => {
     const currentState = "direct-message" + (props.selected ? "-selected" : "")
-    console.log(props.chat.data.icon);
+
     return (
         <div
             onClick={() => props.selectChat(props.chat)}
             className={currentState}>
 
             <div className="direct-message-avatar col-sm-2">
-                <img
-                    src={process.env.PUBLIC_URL + props.chat.data.receiverId + "-pic.jpg"}
-                    alt={props.chat.data.name} />
+                <img src={props.chat.data.icon} alt={props.chat.data.name} />
             </div>
             <div className="direct-message-content col-10">
                 <p className="col-12">{props.chat.data.name}</p>
