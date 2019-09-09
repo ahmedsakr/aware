@@ -9,7 +9,9 @@ import awaredb from '../../shared/database/awaredb'
 export async function getRelatedUsers(username: string): Promise<Object[]> {
 
     let sql: string = ` SELECT DISTINCT
-                            them.username from user_courses
+                            them.username
+                        FROM
+                            user_courses
                         AS
                             me
                         JOIN
