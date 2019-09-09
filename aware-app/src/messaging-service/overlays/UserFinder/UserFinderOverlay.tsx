@@ -103,7 +103,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
         } else {
             records = 
                 this.getFilteredRelatedUsers()
-                .map(user => {
+                .map((user: RelatedUser) => {
                     return (
                         <UserFinderRecord
                             selectRecord={this.selectRecord.bind(this)}
