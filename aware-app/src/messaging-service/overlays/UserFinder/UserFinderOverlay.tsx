@@ -52,7 +52,7 @@ export default class UserFinderOverlay extends React.Component<UserFinderOverlay
             return [];
         }
 
-        return this.state.relatedUsers.filter(user => user.username.startsWith(this.state.messagesFilter))
+        return this.state.relatedUsers.filter((user: RelatedUser) => user.username.startsWith(this.state.messagesFilter))
     }
 
     handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
