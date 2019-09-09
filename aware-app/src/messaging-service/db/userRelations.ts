@@ -10,9 +10,12 @@ export async function getRelatedUsers(username: string): Promise<Object[]> {
 
     let sql: string = ` SELECT DISTINCT
                             them.username from user_courses
-                        AS me
-                        JOIN user_courses
-                        AS them
+                        AS
+                            me
+                        JOIN
+                            user_courses
+                        AS
+                            them
                         ON
                             me.course_id = them.course_id
                         WHERE

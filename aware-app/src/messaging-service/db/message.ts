@@ -23,14 +23,14 @@ export default class Messages {
         let sql: string = '';
 
         if (this.chat.domain == ChatDomain.COURSE_DISCUSSION) {
-            sql = ` INSERT INTO course_messages
-                        (message_id, message_content, time_stamp, course_id, username)
+            sql = ` INSERT INTO
+                        course_messages (message_id, message_content, time_stamp, course_id, username)
                     VALUES
                         ($1, $2, $3, $4, $5)
                     `;
         } else {
-            sql = ` INSERT INTO direct_messages
-                        (message_id, message_content, time_stamp, direct_message_id, username)
+            sql = ` INSERT INTO
+                        direct_messages (message_id, message_content, time_stamp, direct_message_id, username)
                     VALUES
                         ($1, $2, $3, $4, $5)
                     `;
@@ -50,15 +50,19 @@ export default class Messages {
                         username,
                         message_content AS content,
                         time_stamp AS timestamp
-                    FROM course_messages
-                    WHERE course_id = $1`;
+                    FROM
+                        course_messages
+                    WHERE
+                        course_id = $1`;
         } else {
             sql = ` SELECT
                         username,
                         message_content AS content,
                         time_stamp AS timestamp
-                    FROM direct_messages
-                    WHERE direct_message_id = $1`;   
+                    FROM
+                        direct_messages
+                    WHERE
+                        direct_message_id = $1`;   
         }
 
         return await awaredb(sql, [`${this.chat.data.id}`]);

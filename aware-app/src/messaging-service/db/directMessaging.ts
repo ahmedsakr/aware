@@ -6,8 +6,8 @@ import awaredb from '../../shared/database/awaredb'
  * @param myUsername The username of the user submitting this request
  */
 export async function startDirectMessage(id: string, myUsername: string, theirUsername: string) {
-    let sql = ` INSERT INTO user_direct_messages
-                    (direct_message_id, user_initiator, user_target)
+    let sql = ` INSERT INTO
+                    user_direct_messages (direct_message_id, user_initiator, user_target)
                 VALUES
                     ($1, $2, $3)
             `;
