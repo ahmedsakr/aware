@@ -9,7 +9,8 @@ import registerUser from './landing/db/register';
 import Messages from './messaging-service/db/message'
 import { getRooms, Room } from './messaging-service/db/rooms';
 import { AccountField } from './shared/verification/user';
-import { getAllUsersInAllRooms, GroupChat } from './shared/messenger/messengerQueries'
+import { GroupChat, getAllUsersInAllRooms } from './shared/messenger/messengerQueries'
+import { ActiveUser, GroupChatMasterList, Status, UserStatus } from './messaging-service/api/Messaging';
 
 let app: Express = express();
 let http: httpServer.Server = new httpServer.Server(app);
@@ -19,37 +20,11 @@ let io: SocketIO.Server = SocketIO(http);
 let port: string = process.argv[2];
 if (port == undefined) port = "5001";
 
-// Store list of usernames & their socket id's
-type ActiveUser = {
-    username: AccountField,
-    socketId: string
-}
+// Dictionary where key is the room and values are username, Status
+let groupChatMasterList: GroupChatMasterList = {};
 let activeUsers: ActiveUser[] = [];
 
-enum Status  {
-    'online',
-    'offline'
-}
-
-type UserStatus = {
-    username: string,
-    status: Status
-}
-
-/**
- * GroupChatMasterList is a dictionary where the key is the room, and the 
- * values are a list of each user and their status.
- */
-type GroupChatMasterList = {
-    [room: string] : UserStatus[]
-}
-
-/** 
- * Dictionary where key is the room and value is:
- *      - username
- *      - Status
-*/  
-let groupChatMasterList: GroupChatMasterList = {};
+// Fetch data when server starts
 parseChatData();
 
 // create a GET route
@@ -171,17 +146,17 @@ async function parseChatData() {
             if (entry.group_id in groupChatMasterList) {
                 let userStatus = {} as UserStatus;
                 userStatus.username = entry.username;
-                userStatus.status = Status.offline;
+                userStatus.status = Status.OFFLINE;
                 groupChatMasterList[entry.group_id].push(userStatus);
             } else {
                 let groupChat: UserStatus[] = [];
                 let userStatus = {} as UserStatus;
                 let room = entry.group_id;
                 userStatus.username = entry.username;
-                userStatus.status = Status.offline;
+                userStatus.status = Status.OFFLINE;
                 groupChat.push({
                     username: entry.username,
-                    status: Status.offline
+                    status: Status.OFFLINE
                 });
                 groupChatMasterList[room] = groupChat;
             }
@@ -216,9 +191,9 @@ function deactivateUser(socketId: String): AccountField {
 function getAllUsers(room: string): UserStatus[] {
     groupChatMasterList[room].forEach((userStatus: UserStatus) => {
         if (activeUsers.some(user => user.username === userStatus.username)) {
-            userStatus.status = Status.online
+            userStatus.status = Status.ONLINE
         } else {
-            userStatus.status = Status.offline
+            userStatus.status = Status.OFFLINE
         }
     });
     return groupChatMasterList[room];
