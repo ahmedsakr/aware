@@ -1,10 +1,6 @@
 {
     "name": "aware-app",
-<<<<<<< HEAD
     "version": "0.2.9",
-=======
-    "version": "0.2.8",
->>>>>>> origin/master
     "private": true,
     "dependencies": {
         "ajv": "6.10.0",
