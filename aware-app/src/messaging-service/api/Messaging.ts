@@ -5,8 +5,27 @@ export type ActiveUser = {
     socketId: string
 }
 
+export type ChatData = {
+    id: string,
+    name: string,
+    icon: string,
+
+    // Used when starting a direct message
+    receiverId?: string
+}
+
+export enum ChatDomain {
+    COURSE_DISCUSSION,
+    DIRECT_MESSAGE
+};
+
 export type GroupChatMasterList = {
     [room: string] : UserStatus[]
+}
+
+export type MessengerChat = {
+    domain: ChatDomain,
+    data: ChatData
 }
 
 export enum Status {

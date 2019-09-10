@@ -96,7 +96,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
                         <span id="forgot-password">Forgot password?</span>
                     </div>
 
-                    <button type="submit" onClick={() => { this.login() }}>Login</button>
+                    <button id="login-submit" type="submit" onClick={() => { this.login() }}>Login</button>
 
                     <label id="login-register">Don't have an account? <span onClick={() => this.props.switch()}>register now!</span></label>
                 </div>  

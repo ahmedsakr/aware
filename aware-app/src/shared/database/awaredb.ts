@@ -27,8 +27,8 @@ export default async function query<T>(queryStr: string | null, userInput?: stri
             result = data.rows;
         }
     })
-    .catch(() => {
-        return Promise.reject("invalid query");
+    .catch((error) => {
+        return Promise.reject("invalid query: " + error);
     });
 
     return result;

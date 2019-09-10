@@ -4,12 +4,14 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../../node_modules/font-awesome/css/font-awesome.min.css'
 
 import NavBar from './NavigationBar/NavBar/NavBar'
-import ChatSelector from './ChatSelector/ChatSelector'
+import { ChatSelector } from './ChatSelector/ChatSelector'
 import ChatWindow from './ChatFeature/ChatWindow/ChatWindow'
-import { UserMessageContents } from './ChatFeature/ChatWindow/Message/Message'
+
 import ActivityPanel from './ChatFeature/ActivityPanel/ActivityPanel'
 import MessageInput from './ChatFeature/MessageInput/MessageInput'
+import { UserMessage } from '../shared/messaging/messenger'
 import NewsletterOverlay from '../shared/overlay/test/NewsletterOverlay'
+import { ChatDomain, MessengerChat } from './api/Messaging'
 
 type MessengerProps = {
     socket: SocketIOClient.Socket,
@@ -17,9 +19,7 @@ type MessengerProps = {
 };
 
 type MessengerState = {
-    messages: UserMessageContents[],
-    chatTitle: string,
-    groupId: string
+    chat: MessengerChat
 };
 
 export default class Messenger extends React.Component<MessengerProps, MessengerState> {
@@ -27,30 +27,27 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
         super(props);
 
         this.state = {
-            messages: [],
-            chatTitle: "",
-            groupId: ""
-        }
-    }
-
-    componentDidMount(): void {
-        if (this.props.socket) {
-            this.props.socket.on('chat message', (message: UserMessageContents) => {
-                this.setState({
-                    messages: this.state.messages.concat([message])
-                })
-            })
-
-            this.props.socket.on('chat history', (messages: UserMessageContents[]) => {
-                this.setState({
-                    messages: messages
-                })
-            })
+            chat: {
+                domain: ChatDomain.COURSE_DISCUSSION,
+                data: {
+                    id: '',
+                    name: '',
+                    icon: ''
+                }
+            }
         }
     }
 
     render(): JSX.Element {
-        const { selectRoom, sendMessage } = this;
+        const { requestRoom, sendMessage } = this;
+
+        // Activity panel is only present for course discussions.
+        let activityPanel: JSX.Element = <> </>;
+        if (this.state.chat.domain === ChatDomain.COURSE_DISCUSSION) {
+            activityPanel = <ActivityPanel 
+                                socket={this.props.socket}
+                                activeRoom={this.state.chat.data.id}/>;
+        }
 
         return (
             <div className="aware-container App">
@@ -59,24 +56,23 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
 
                     <div id="messenger-root" className="row">
                         <div className="col-12 p-0" id="navigation-header">
-                            <NavBar activeRoom={this.state.chatTitle} />
+                            <NavBar activeRoom={this.state.chat.data.name} />
                         </div>
 
                         <div className="col-12 p-0" id="messenger-body">
                             <div className="col-2 p-0">
                                 <ChatSelector
                                     socket={this.props.socket}
+                                    requestRoom={requestRoom}
                                     username={this.props.username}
-                                    selectRoom={selectRoom} />
+                                    activeChat={this.state.chat.data.id} />
                             </div>
 
                             <div id="messenger" className="col-10 p-0">
-                                <ActivityPanel 
-                                    socket={this.props.socket}
-                                    activeRoom={this.state.groupId}/>
+                                {activityPanel}
 
                                 <ChatWindow
-                                    messages={this.state.messages}
+                                    socket={this.props.socket}
                                     name={this.props.username} />
 
                                 <MessageInput
@@ -90,17 +86,31 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
             </div>
         );
     }
+    
+    /**
+     * Request a room change from the server.
+     * 
+     * @param id The id associated with the room
+     * @param title The title of the room
+     * @param domain The domain the chat belongs to (course discussions or direct messages)
+     * @param local Local-only instance of the chat (i.e., when a new direct message is started)
+     */
+    requestRoom = (chat: MessengerChat) => {
 
-    selectRoom = (groupId: string, title: string) => {
-        this.props.socket.emit('room', groupId)
-        this.setState({
-            messages: [],
-            chatTitle: title,
-            groupId: groupId
-        });
+        // Perform no action when user has selected the current chat.
+        if (chat.data.id == this.state.chat.data.id) {
+            return;
+        }
+
+        this.setState({ chat }, () => this.props.socket.emit('room', this.state.chat));
     }
 
-    sendMessage = (message: UserMessageContents) => {
-        this.props.socket.emit('chat message', message, this.state.groupId, this.props.username);
+    /**
+     * Send a new message from the user to the server for the current room.
+     * 
+     * @param message The message packet containing the building blocks of the message.
+     */
+    sendMessage = (message: UserMessage) => {
+        this.props.socket.emit('chat message', message, this.state.chat);
     }
 }

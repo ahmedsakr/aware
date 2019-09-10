@@ -1,0 +1,14 @@
+$vertical_menu_background_color: #18202c;
+
+#vertical-menu {
+    background-color: $vertical_menu_background_color;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    height: 100%;
+
+    >h3 {
+        color: white;
+        padding-left: 10px;
+    }
+}

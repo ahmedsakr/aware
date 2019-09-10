@@ -4,13 +4,16 @@ import httpServer from 'http';
 import SocketIO from 'socket.io';
 
 import * as awaredb from './shared/database/awaredb'
+import {UserMessage} from './shared/messaging/messenger'
 import verifyLogin from './landing/db/verifier';
 import registerUser from './landing/db/register';
 import Messages from './messaging-service/db/message'
-import { getRooms, Room } from './messaging-service/db/rooms';
-import { AccountField } from './shared/verification/user';
 import { GroupChat, getAllUsersInAllRooms } from './shared/messenger/messengerQueries'
-import { ActiveUser, GroupChatMasterList, Status, UserStatus } from './messaging-service/api/Messaging';
+import getCourses, { getDirectMessages } from './messaging-service/db/rooms';
+import { getRelatedUsers } from './messaging-service/db/userRelations'
+import { AccountField } from './shared/verification/user';
+import { startDirectMessage, isExistingDirectMessage } from './messaging-service/db/directMessaging'
+import { ActiveUser, GroupChatMasterList, Status, UserStatus, ChatDomain, ChatData, MessengerChat } from './messaging-service/api/Messaging';
 
 let app: Express = express();
 let http: httpServer.Server = new httpServer.Server(app);
@@ -42,11 +45,11 @@ io.on('connection', (socket: SocketIO.Socket) => {
                 io.to(socket.id).emit("login-request", result);
                 if (result) {
                     activateUser(username, socket.id);
-                    getRooms(username).then((userRooms: Room[]) => {
+                    getCourses(username).then((userRooms: ChatData[]) => {
                         userRooms.forEach(room => {
-                            console.log('Emitting to ', room.group_id, ' cuz ', username, ' logged on');
-                            console.log(getAllUsers(room.group_id))
-                            io.sockets.in(room.group_id).emit('active users', getAllUsers(room.group_id));
+                            console.log('Emitting to ', room.id, ' cuz ', username, ' logged on');
+                            console.log(getAllUsers(room.id))
+                            io.sockets.in(room.id).emit('active users', getAllUsers(room.id));
                         })
                     });
                 }
@@ -68,37 +71,49 @@ io.on('connection', (socket: SocketIO.Socket) => {
             });
     });
 
-    socket.on('get-rooms', (username: string) => {
-        getRooms(username).then((userRooms: Object[]) => {
-            io.to(socket.id).emit("user-rooms", userRooms);
+    socket.on('get-courses', (username: string) => {
+        getCourses(username).then((userRooms: ChatData[]) => {
+            io.to(socket.id).emit("user-courses", userRooms);
         });
     });
 
-    socket.on('room', (room: string) => {
-        let currentRoom: string = getRoom();
-
-        // Check if attempting to join current room
-        if (currentRoom !== room) {
-            socket.leave(currentRoom, () => {
-                socket.join(room, () => {
-                    loadHistory(socket.id, room)
-                });
-            })
-        } else {
-            loadHistory(socket.id, room);
-        }
+    socket.on('get-direct-messages', (username: string) => {
+        getDirectMessages(username).then((userRooms: ChatData[]) => {
+            io.to(socket.id).emit("direct-messages", userRooms);
+        });
     });
 
-    socket.on('chat message', (msg, groupId, username) => {
-        // get current room of socket to emit message in
-        var currentRoom = getRoom();
+    socket.on('get-related-users', (username: string) => {
+        getRelatedUsers(username)
+        .then((users: Object[]) => {
+            io.to(socket.id).emit('get-related-users', users);
+        })
+    });
 
-        if (currentRoom != null) {
-            new Messages(groupId).insertMessage(msg, username)
-                .then(() => {
-                    io.in(currentRoom).emit('chat message', msg)
-                })
+    socket.on('room', (chat: MessengerChat) => {
+        new Promise((resolve, reject) => {
+            socket.leave(getRoom()).join(chat.data.id, (error: string | null) => {
+                if (error === null) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
+        })
+
+        .then(() => loadHistory(socket.id, chat))
+        .catch((error) => console.error(error));
+    });
+
+    socket.on('chat message', async (message: UserMessage, chat: MessengerChat) => {
+        if (chat.domain === ChatDomain.DIRECT_MESSAGE && !(await isExistingDirectMessage(chat.data.id))) {
+            await startDirectMessage(chat.data.id, message.username, chat.data.receiverId as string);
         }
+
+        new Messages(chat).insertMessage(message)
+        .then(() => {
+            io.in(getRoom()).emit('chat message', message)
+        })
     });
 
     socket.on('active users', (activeRoom) => {
@@ -111,26 +126,36 @@ io.on('connection', (socket: SocketIO.Socket) => {
 
     socket.on('disconnect', function () { // broadcast to all users in each of the rooms
         let username = deactivateUser(socket.id);
-        getRooms(username).then((userRooms: Room[]) => {
+        getCourses(username).then((userRooms: ChatData[]) => {
             userRooms.forEach(room => {
-                console.log('Emitting to ', room.group_id, ' cuz ', username, ' logged off');
-                console.log(getAllUsers(room.group_id));
-                io.sockets.in(room.group_id).emit('active users', getAllUsers(room.group_id));
+                console.log('Emitting to ', room.id, ' cuz ', username, ' logged off');
+                console.log(getAllUsers(room.id));
+                io.sockets.in(room.id).emit('active users', getAllUsers(room.id));
             })
         });
     });
 
     const getRoom: () => string = () => {
-        return Object.keys(io.sockets.adapter.sids[socket.id]).filter(item => item != socket.id)[0];
+        let rooms: string[] = Object.keys(io.sockets.adapter.sids[socket.id]);
+
+        /*
+         * The first entry of the array is always the default user channel that is unused.
+         * The second entry should be the current room that the user is in.
+         *
+         * The user has not joined any room if the length of the array is 1.
+         */
+        if (rooms.length === 1) {
+            return '';
+        } else {
+            return rooms[1];
+        }
     }
 });
 
-function loadHistory(socketId: string, room: string): void {
-    // Temporary hack again to get the proper formatted room
-    room = room.replace(/\s/g, '').toLowerCase();
+function loadHistory(socketId: string, chat: MessengerChat): void {
 
     // If room doesn't have chat history, create room in dictionary
-    new Messages(room).getMessages()
+    new Messages(chat).getMessages()
         .then((result: Object[]) => {
             io.to(socketId).emit('chat history', result);
         })
