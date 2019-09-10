@@ -115,11 +115,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
     });
 
     socket.on('active users', (activeRoom) => {
-        if (activeRoom === '') {
-            io.to(socket.id).emit('active users', []);
-        } else {
-            io.to(socket.id).emit('active users', getAllUsers(activeRoom));
-        }
+        io.to(socket.id).emit('active users', getAllUsers(activeRoom));
     });
 
     socket.on('disconnect', function () { // broadcast to all users in each of the rooms
@@ -210,6 +206,7 @@ function deactivateUser(socketId: String): AccountField {
  * @param room 
  */
 function getAllUsers(room: string): UserStatus[] {
+    if (room === '') return [];
     groupChatMasterList[room].forEach((userStatus: UserStatus) => {
         if (activeUsers.some(user => user.username === userStatus.username)) {
             userStatus.status = Status.ONLINE
