@@ -161,16 +161,13 @@ async function parseChatData() {
     getAllUsersInAllRooms().then((result: GroupChat[]) => {
         result.forEach((entry: GroupChat) => {
             if (entry.course_id in groupChatMasterList) {
-                let userStatus = {} as UserStatus;
-                userStatus.username = entry.username;
-                userStatus.status = Status.OFFLINE;
-                groupChatMasterList[entry.course_id].push(userStatus);
+                groupChatMasterList[entry.course_id].push({
+                    username: entry.username,
+                    status: Status.OFFLINE
+                });
             } else {
                 let groupChat: UserStatus[] = [];
-                let userStatus = {} as UserStatus;
                 let room = entry.course_id;
-                userStatus.username = entry.username;
-                userStatus.status = Status.OFFLINE;
                 groupChat.push({
                     username: entry.username,
                     status: Status.OFFLINE
