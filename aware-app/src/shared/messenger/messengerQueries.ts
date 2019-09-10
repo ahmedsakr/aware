@@ -1,11 +1,11 @@
 import awaredb from '../../shared/database/awaredb'
 
 export type GroupChat = {
-    group_id: string, 
+    course_id: string, 
     username: string
 }
 
-const db_table: string = "user_chats";
+const db_table: string = "user_courses";
 
 /**
  * Retrieve all users for all rooms

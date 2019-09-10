@@ -164,15 +164,15 @@ function loadHistory(socketId: string, chat: MessengerChat): void {
 async function parseChatData() {
     getAllUsersInAllRooms().then((result: GroupChat[]) => {
         result.forEach((entry: GroupChat) => {
-            if (entry.group_id in groupChatMasterList) {
+            if (entry.course_id in groupChatMasterList) {
                 let userStatus = {} as UserStatus;
                 userStatus.username = entry.username;
                 userStatus.status = Status.OFFLINE;
-                groupChatMasterList[entry.group_id].push(userStatus);
+                groupChatMasterList[entry.course_id].push(userStatus);
             } else {
                 let groupChat: UserStatus[] = [];
                 let userStatus = {} as UserStatus;
-                let room = entry.group_id;
+                let room = entry.course_id;
                 userStatus.username = entry.username;
                 userStatus.status = Status.OFFLINE;
                 groupChat.push({
