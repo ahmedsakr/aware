@@ -114,7 +114,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
         })
     });
 
-    socket.on('active users', (activeRoom) => {
+    socket.on('active users', (activeRoom: string) => {
         io.to(socket.id).emit('active users', getAllUsers(activeRoom));
     });
 
