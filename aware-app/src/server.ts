@@ -47,8 +47,6 @@ io.on('connection', (socket: SocketIO.Socket) => {
                     activateUser(username, socket.id);
                     getCourses(username).then((userRooms: ChatData[]) => {
                         userRooms.forEach(room => {
-                            console.log('Emitting to ', room.id, ' cuz ', username, ' logged on');
-                            console.log(getAllUsers(room.id))
                             io.sockets.in(room.id).emit('active users', getAllUsers(room.id));
                         })
                     });
@@ -128,8 +126,6 @@ io.on('connection', (socket: SocketIO.Socket) => {
         let username = deactivateUser(socket.id);
         getCourses(username).then((userRooms: ChatData[]) => {
             userRooms.forEach(room => {
-                console.log('Emitting to ', room.id, ' cuz ', username, ' logged off');
-                console.log(getAllUsers(room.id));
                 io.sockets.in(room.id).emit('active users', getAllUsers(room.id));
             })
         });
