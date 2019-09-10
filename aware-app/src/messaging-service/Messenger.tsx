@@ -44,7 +44,9 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
         // Activity panel is only present for course discussions.
         let activityPanel: JSX.Element = <> </>;
         if (this.state.chat.domain === ChatDomain.COURSE_DISCUSSION) {
-            activityPanel = <ActivityPanel />;
+            activityPanel = <ActivityPanel 
+                                socket={this.props.socket}
+                                activeRoom={this.state.chat.data.id}/>;
         }
 
         return (
