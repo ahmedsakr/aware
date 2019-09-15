@@ -26,7 +26,15 @@ $backround_image_url: '/shrek.jpg';
 #landing-canvas {
     flex-direction: column;
     justify-content: center;
-    background-image: url($backround_image_url);
+    position: relative;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+#landing-form {
+    position: absolute;
+    left: 0;
+    top: 25%;
 }
 
 label {
