@@ -4,31 +4,99 @@
  * Defines layout fundamentals for Direct Messages.
  */
 
-$direct_messages_background_color: #a2abab;
-
 #direct-messages {
-    background-color: $direct_messages_background_color;
-    display: block;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
 
     >input {
         margin-bottom: 0.5em;
         height: 35px;
-        font-size: 20px;
-        width: 85%;
+        align-self: center;
+        flex: 0;
     }
+}
+
+#direct-messages-new {
+    background: rgb(233, 152, 3);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    opacity: 0.9;
+
+    * {
+        padding: 5px;
+    }
+
+    > p {
+        margin: 0;
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.direct-messages-filter {
+    width: 100%;
 }
 
 #right-bar>a {
     text-align: center;
 }
 
-#courses {
-    text-align: left;
-    padding-left: 8%;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    color: white;
-    font-size: 20px;
-    margin: 0;
-}
+/*
+ * Direct Message styling
+ *
+ * Defines layout fundamentals for Direct Messages.
+ */
+
+ $direct_message_background_color: #babdc0;
+ $direct_message_hover_color: #232f3e;
+ 
+ .direct-message {
+     color: $direct_message_background_color;
+     padding: 0;
+     margin: 0;
+     display: flex;
+     align-items: center;
+ 
+     &:hover {
+         background-color: $direct_message_hover_color;
+         text-decoration: none;
+     }
+ }
+ 
+ .direct-message-selected {
+     color: $direct_message_background_color;
+     padding: 0;
+     margin: 0;
+     display: flex;
+     align-items: center;
+     background-color: $direct_message_hover_color;    
+     text-decoration: none;
+ }
+ 
+ .direct-message-content>p {
+     padding: 0;
+     margin: 0;
+ }
+ 
+ .direct-message-avatar > img {
+     width: 32px;
+     height: auto;
+ }
+ 
+ #direct-message-preview {
+     padding-left: 10px;
+ }
+ 
+ .direct-message-content {
+     text-align: left;
+     display: inline-block;
+ }
+ 
+ .direct-message-preview {
+     border-radius: 5px;
+ }

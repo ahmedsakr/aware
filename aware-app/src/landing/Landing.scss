@@ -47,7 +47,7 @@ label {
     border-color: $landing_textfield_color;
 }
 
-button {
+#login-submit, #register-submit {
     @include input_styles($button_color, black, none, 10px 10px, 7px);
     margin-top: 15px;
 }

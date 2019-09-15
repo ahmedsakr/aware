@@ -83,7 +83,7 @@ export default class Register extends React.Component<RegisterProps, RegisterSta
                             value={this.state.confirmPassword as string}
                             onChange={this.handleChange} />
 
-                        <button type="submit" onClick={() => {this.register()}}>Register</button>
+                        <button id="register-submit" type="submit" onClick={() => {this.register()}}>Register</button>
                         <label id="register-login">Already have an account? <span onClick={() => this.props.switch()}>login now!</span></label>
                     </div>
             </div>

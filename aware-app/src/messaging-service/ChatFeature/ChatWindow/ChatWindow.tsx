@@ -1,13 +1,16 @@
 import React from 'react';
-import Message, { UserMessageContents } from "./Message/Message"
+import Message from "./Message/Message"
+import { UserMessage } from '../../../shared/messaging/messenger'
 import './ChatWindow.scss'
 
 type ChatWindowProps = {
-    messages: UserMessageContents[],
+    socket: SocketIOClient.Socket,
     name: string
 };
 
-type ChatWindowState = {};
+type ChatWindowState = {
+    messages: UserMessage[],
+};
 
 export default class ChatWindow extends React.Component<ChatWindowProps, ChatWindowState> {
 
@@ -15,8 +18,11 @@ export default class ChatWindow extends React.Component<ChatWindowProps, ChatWin
 
     constructor(props: ChatWindowProps) {
         super(props);
-
         this.scrollRef = React.createRef();
+        
+        this.state = {
+            messages: []
+        }
     }
 
     scrollToBottom = () => {
@@ -27,6 +33,20 @@ export default class ChatWindow extends React.Component<ChatWindowProps, ChatWin
 
     componentDidMount(): void {
         this.scrollToBottom();
+
+        if (this.props.socket) {
+            this.props.socket.on('chat message', (message: UserMessage) => {
+                this.setState({
+                    messages: this.state.messages.concat([message])
+                })
+            })
+
+            this.props.socket.on('chat history', (messages: UserMessage[]) => {
+                this.setState({
+                    messages: messages
+                })
+            })
+        }
     }
 
     componentDidUpdate(): void {
@@ -38,7 +58,7 @@ export default class ChatWindow extends React.Component<ChatWindowProps, ChatWin
             <div id="chat">
                 <div id="chat-messages">
                     {
-                        this.props.messages.map(message => {
+                        this.state.messages.map(message => {
                             message['avatar'] = "/" + message.username + "-pic.jpg";
                             return (
                                 <Message name={this.props.name} content={message} />
