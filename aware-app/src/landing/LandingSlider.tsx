@@ -19,7 +19,8 @@ export default class LandingSlider extends React.Component<LandingSliderProps, L
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplaySpeed: 5000,
-            speed: 1000
+            speed: 1000,
+            lazyLoad: 'ondemand'
         };
         return (
             <div>
