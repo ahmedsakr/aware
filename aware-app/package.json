@@ -1,6 +1,6 @@
 {
     "name": "aware-app",
-    "version": "0.2.10",
+    "version": "0.2.11",
     "private": true,
     "dependencies": {
         "@types/react-slick": "^0.23.4",
