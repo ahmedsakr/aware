@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import '../testSetup'
+import '../test-utils/testSetup'
 
 import Landing from './Landing';
 import io from 'socket.io-client';

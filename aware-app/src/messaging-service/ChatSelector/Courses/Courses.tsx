@@ -66,7 +66,7 @@ type CourseProps = {
     course: MessengerChat
 };
 
-const Course: React.FC<CourseProps> = (props) => {
+const Course: React.FC<CourseProps> = (props: CourseProps) => {
     const currentState = "chat-navigation-item" + (props.selected ? "-selected": "")
     return (
         <div
