@@ -1,3 +1,10 @@
+import { AccountField } from '../../shared/verification/user';
+
+export type ActiveUser = {
+    username: AccountField,
+    socketId: string
+}
+
 export type ChatData = {
     id: string,
     name: string,
@@ -12,7 +19,21 @@ export enum ChatDomain {
     DIRECT_MESSAGE
 };
 
+export type GroupChatMasterList = {
+    [room: string] : UserStatus[]
+}
+
 export type MessengerChat = {
     domain: ChatDomain,
     data: ChatData
+}
+
+export enum Status {
+    ONLINE,
+    OFFLINE
+}
+
+export type UserStatus = {
+    username: string,
+    status: Status
 }

@@ -49,6 +49,10 @@ CREATE TABLE direct_messages (
 
 INSERT INTO user_accounts (username, user_password) VALUES ('josh', 'password');
 INSERT INTO user_accounts (username, user_password) VALUES ('ahmed', 'password');
+INSERT INTO user_accounts (username, user_password) VALUES ('louis', 'password');
+INSERT INTO user_accounts (username, user_password) VALUES ('bill', 'password');
+INSERT INTO user_accounts (username, user_password) VALUES ('mia', 'password');
+INSERT INTO user_accounts (username, user_password) VALUES ('megan', 'password');
 
 INSERT INTO courses (course_id, course_name, course_icon) VALUES ('sysc2100', 'SYSC 2100', '/messenger-icons/sysc.png');
 INSERT INTO courses (course_id, course_name, course_icon) VALUES ('sysc2004', 'SYSC 2004', '/messenger-icons/sysc.png');
@@ -57,13 +61,27 @@ INSERT INTO courses (course_id, course_name, course_icon) VALUES ('math2004', 'M
 INSERT INTO courses (course_id, course_name, course_icon) VALUES ('elec2501', 'ELEC 2501', '/messenger-icons/elec.png');
 
 INSERT INTO user_courses (course_id, username) VALUES ('sysc2100', 'ahmed');
-INSERT INTO user_courses (course_id, username) VALUES ('sysc2004', 'ahmed');
-INSERT INTO user_courses (course_id, username) VALUES ('sysc3110', 'ahmed');
-INSERT INTO user_courses (course_id, username) VALUES ('math2004', 'ahmed');
-INSERT INTO user_courses (course_id, username) VALUES ('elec2501', 'ahmed');
-
 INSERT INTO user_courses (course_id, username) VALUES ('sysc2100', 'josh');
+INSERT INTO user_courses (course_id, username) VALUES ('sysc2100', 'louis');
+INSERT INTO user_courses (course_id, username) VALUES ('sysc2100', 'bill');
+INSERT INTO user_courses (course_id, username) VALUES ('sysc2100', 'mia');
+INSERT INTO user_courses (course_id, username) VALUES ('sysc2100', 'megan');
+
+INSERT INTO user_courses (course_id, username) VALUES ('sysc2004', 'ahmed');
 INSERT INTO user_courses (course_id, username) VALUES ('sysc2004', 'josh');
+INSERT INTO user_courses (course_id, username) VALUES ('sysc2004', 'bill');
+INSERT INTO user_courses (course_id, username) VALUES ('sysc2004', 'mia');
+
+INSERT INTO user_courses (course_id, username) VALUES ('sysc3110', 'ahmed');
 INSERT INTO user_courses (course_id, username) VALUES ('sysc3110', 'josh');
+INSERT INTO user_courses (course_id, username) VALUES ('sysc3110', 'louis');
+INSERT INTO user_courses (course_id, username) VALUES ('sysc3110', 'megan');
+
+INSERT INTO user_courses (course_id, username) VALUES ('math2004', 'ahmed');
 INSERT INTO user_courses (course_id, username) VALUES ('math2004', 'josh');
+INSERT INTO user_courses (course_id, username) VALUES ('math2004', 'mia');
+INSERT INTO user_courses (course_id, username) VALUES ('math2004', 'megan');
+
+INSERT INTO user_courses (course_id, username) VALUES ('elec2501', 'ahmed');
 INSERT INTO user_courses (course_id, username) VALUES ('elec2501', 'josh');
+INSERT INTO user_courses (course_id, username) VALUES ('elec2501', 'bill');

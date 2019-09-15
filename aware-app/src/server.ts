@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import express, {Express} from 'express';
+import express, { Express } from 'express';
 import httpServer from 'http';
 import SocketIO from 'socket.io';
 
@@ -8,11 +8,12 @@ import {UserMessage} from './shared/messaging/messenger'
 import verifyLogin from './landing/db/verifier';
 import registerUser from './landing/db/register';
 import Messages from './messaging-service/db/message'
+import { GroupChat, getAllUsersInAllRooms } from './shared/messenger/messengerQueries'
 import getCourses, { getDirectMessages } from './messaging-service/db/rooms';
-import {getRelatedUsers} from './messaging-service/db/userRelations'
+import { getRelatedUsers } from './messaging-service/db/userRelations'
 import { AccountField } from './shared/verification/user';
-import {startDirectMessage, isExistingDirectMessage} from './messaging-service/db/directMessaging'
-import { ChatDomain, ChatData, MessengerChat } from './messaging-service/api/Messaging';
+import { startDirectMessage, isExistingDirectMessage } from './messaging-service/db/directMessaging'
+import { ActiveUser, GroupChatMasterList, Status, UserStatus, ChatDomain, ChatData, MessengerChat } from './messaging-service/api/Messaging';
 
 let app: Express = express();
 let http: httpServer.Server = new httpServer.Server(app);
@@ -21,6 +22,13 @@ let io: SocketIO.Server = SocketIO(http);
 // Grab port from Nodemon command & if not specified set to 5001
 let port: string = process.argv[2];
 if (port == undefined) port = "5001";
+
+// Dictionary where key is the room and values are username, Status
+let groupChatMasterList: GroupChatMasterList = {};
+let activeUsers: ActiveUser[] = [];
+
+// Fetch data when server starts
+parseChatData();
 
 // create a GET route
 app.get('/server', (_req, res) => {
@@ -35,6 +43,14 @@ io.on('connection', (socket: SocketIO.Socket) => {
         verifyLogin(username, password)
             .then((result: boolean) => {
                 io.to(socket.id).emit("login-request", result);
+                if (result) {
+                    activateUser(username, socket.id);
+                    getCourses(username).then((userRooms: ChatData[]) => {
+                        userRooms.forEach(room => {
+                            io.sockets.in(room.id).emit('active users', getAllUsers(room.id));
+                        })
+                    });
+                }
             })
             .catch(() => {
 
@@ -88,15 +104,27 @@ io.on('connection', (socket: SocketIO.Socket) => {
     });
 
     socket.on('chat message', async (message: UserMessage, chat: MessengerChat) => {
-
         if (chat.domain === ChatDomain.DIRECT_MESSAGE && !(await isExistingDirectMessage(chat.data.id))) {
             await startDirectMessage(chat.data.id, message.username, chat.data.receiverId as string);
         }
 
         new Messages(chat).insertMessage(message)
-            .then(() => {
-                io.in(getRoom()).emit('chat message', message)
+        .then(() => {
+            io.in(getRoom()).emit('chat message', message)
+        })
+    });
+
+    socket.on('active users', (activeRoom: string) => {
+        io.to(socket.id).emit('active users', getAllUsers(activeRoom));
+    });
+
+    socket.on('disconnect', function () { // broadcast to all users in each of the rooms
+        let username = deactivateUser(socket.id);
+        getCourses(username).then((userRooms: ChatData[]) => {
+            userRooms.forEach(room => {
+                io.sockets.in(room.id).emit('active users', getAllUsers(room.id));
             })
+        });
     });
 
     const getRoom: () => string = () => {
@@ -124,6 +152,68 @@ function loadHistory(socketId: string, chat: MessengerChat): void {
             io.to(socketId).emit('chat history', result);
         })
 }
+
+/** 
+ * Fetch all user chat data from data base and convert into the dictionary defined above,
+ * by default a user is offline until they have connected to the server.
+ */
+async function parseChatData() {
+    getAllUsersInAllRooms().then((result: GroupChat[]) => {
+        result.forEach((entry: GroupChat) => {
+            if (entry.course_id in groupChatMasterList) {
+                groupChatMasterList[entry.course_id].push({
+                    username: entry.username,
+                    status: Status.OFFLINE
+                });
+            } else {
+                let groupChat: UserStatus[] = [];
+                let room = entry.course_id;
+                groupChat.push({
+                    username: entry.username,
+                    status: Status.OFFLINE
+                });
+                groupChatMasterList[room] = groupChat;
+            }
+        })
+    }).catch(() => {
+        console.log('error fetching data')
+    });
+}
+
+function activateUser(username: AccountField, socketId: string) {
+    activeUsers.push({
+        username: username,
+        socketId: socketId
+    });
+}
+
+function deactivateUser(socketId: String): AccountField {
+    let username = '' as AccountField;
+    for (var i = 0; i < activeUsers.length; i++) {
+        if (activeUsers[i].socketId === socketId) {
+            username = activeUsers[i].username;
+            activeUsers.splice(i, 1);
+        }
+    }
+    return username;
+}
+
+/**
+ * getAllUsers compares the master list to the active users and updates whether a user is online or offline
+ * @param room 
+ */
+function getAllUsers(room: string): UserStatus[] {
+    if (room === '') return [];
+    groupChatMasterList[room].forEach((userStatus: UserStatus) => {
+        if (activeUsers.some(user => user.username === userStatus.username)) {
+            userStatus.status = Status.ONLINE
+        } else {
+            userStatus.status = Status.OFFLINE
+        }
+    });
+    return groupChatMasterList[room];
+}
+
 
 http.listen(port, () => {
     console.log('listening on *:' + port);

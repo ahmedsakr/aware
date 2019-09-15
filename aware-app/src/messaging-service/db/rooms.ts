@@ -1,7 +1,8 @@
 import awaredb from '../../shared/database/awaredb';
 import { ChatData } from '../api/Messaging';
+import { AccountField } from '../../shared/verification/user';
 
-export default async function getCourses(username: string): Promise<ChatData[]> {
+export default async function getCourses(username: AccountField): Promise<ChatData[]> {
     let sql =   ` SELECT
                      course_name AS name,
                      course_icon AS icon,
