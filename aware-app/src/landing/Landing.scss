@@ -1,66 +1,51 @@
-/*
- * Landing styling
- *
- * Defines layout fundamentals for the landing page.
- */
-
-$landing_textfield_color: #18202c;
-$label_font_color: #a7afb2;
-$button_color: #ffc000;
-$forgot_password_font_color: #008080;
-$backround_image_url: '/shrek.jpg';
-
-@mixin input_styles($background_color, $color, $border, $padding, $border_radius, $width: 100%) {
-    background-color: $background_color;
-    color: $color;
-    border-radius: $border_radius;
-    width: $width;
-    @each $value in $border {
-        border: #{$value};
+.simple-slider .swiper-slide {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .simple-slider .swiper-button-next, .simple-slider .swiper-button-prev {
+    width: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  
+  @media (max-width:767px) {
+    .simple-slider .swiper-button-next, .simple-slider .swiper-button-prev {
+      display: none;
     }
-    @each $pad in $padding {
-        padding: #{$pad};
-    }
-}
+  }
+  .simple-slider {
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .simple-slider {
+    height: 100vh;
+    width: 100%;
+  }
 
-#landing-canvas {
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-
-#landing-form {
-    position: absolute;
-    left: 0;
-    top: 25%;
-}
-
-label {
-    color: $label_font_color;
-}
-
-.landing-textfield {
-    @include input_styles($landing_textfield_color, $label_font_color, 1px solid #ccc, 8px 10px, 7px);
-    display: inline-block;
-    border-color: $landing_textfield_color;
-}
-
-#login-submit, #register-submit {
-    @include input_styles($button_color, black, none, 10px 10px, 7px);
-    margin-top: 15px;
-}
-
-label>span,
-#forgot-password {
-    cursor: pointer;
-    color: $forgot_password_font_color;
-    text-decoration: underline;
-}
-
-label>span:hover,
-#forgot-password {
-    text-decoration: none;
-    text-shadow: 1px 1px 1px #555;
-}
+  .swiper-wrapper {
+      transition-delay: 3000ms;
+  }
+  
+  #test {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+  
+  #test-slider {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    z-index: 1;
+    width: 100%;
+  }
+  
+  #test-form {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    height: 450px;
+    z-index: 2;
+    align-self: center;
+  }

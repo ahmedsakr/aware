@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "@types/react-slick": "^0.23.4",
+        "@types/swiper": "^4.4.6",
         "ajv": "6.10.0",
         "babel-polyfill": "^6.26.0",
         "bootstrap": "^4.3.1",
@@ -20,12 +21,13 @@
         "slick-carousel": "^1.8.1",
         "socket.io": "^2.2.0",
         "sprintf-js": "^1.1.2",
+        "swiper": "^5.1.0",
         "universal-cookie": "^4.0.0",
         "uuid": "^3.3.2"
     },
     "scripts": {
         "client": "react-scripts start",
-        "server": "npm run-script transpile; PGUSER=aware PGHOST=localhost PGPASSWORD=aware PGDATABASE=aware PGPORT=5432 nodemon src/server.js",
+        "server": "npm run-script transpile; PGUSER=aware PGHOST=localhost PGPASSWORD=aware PGDATABASE=aware PGPORT=5980 nodemon src/server.js",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",

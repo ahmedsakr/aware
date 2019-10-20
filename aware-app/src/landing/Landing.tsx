@@ -10,6 +10,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css'
 import './LandingSlider.scss'
+import Swiper from 'swiper';
+import '../../node_modules/swiper/dist/css/swiper.css'
 
 type LandingProps = {
     loadMessenger: (username: string) => void;
@@ -89,41 +91,34 @@ export default class Landing extends React.Component<LandingProps, LandingState>
 
     render() {
         return (
-            <div className="container-fluid aware-container">
-                <div id="landing-canvas">
-                    <LandingSlider/>
-                    <div id='landing-form' className="col-3 offset-3">
-                        {this.displayCurrentForm()}
+            <div id="test" className="simple-slider login-clean">
+                <div id="test-slider" className="swiper-container">
+                    <div className="swiper-wrapper">
+                        <div className="text-dark swiper-slide data-swiper-autoplay='2000'">Slide 1</div>
+                        <div className="bg-success swiper-slide data-swiper-autoplay='2000'">Slide 2</div>
+                        <div className="swiper-slide data-swiper-autoplay='2000'">Slide 3</div>
                     </div>
+                    <div className="swiper-pagination"></div>
+                    <div className="swiper-button-prev"></div>
+                    <div className="swiper-button-next"></div>
                 </div>
             </div>
         );
     }
 }
 
-type LandingSliderProps = {};
-
-const LandingSlider: React.FC<LandingSliderProps> = (props: LandingSliderProps) => {
-    let settings: Settings = {
-        dots: false,
-        infinite: true,
-        autoplay: true,
-        fade: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplaySpeed: 5000,
-        speed: 1000,
-        lazyLoad: 'ondemand'
-    };
-    return (
-        <div>
-            <Slider {...settings}>
-                <div><img className='slide-item' src={process.env.PUBLIC_URL + "/shrek.jpg"} alt="Shrek" /></div>
-                <div><img className='slide-item' src={process.env.PUBLIC_URL + "/test1.jpg"} alt="Image 1" /></div>
-                <div><img className='slide-item' src={process.env.PUBLIC_URL + "/test2.jpg"} alt="Image 2" /></div>
-                <div><img className='slide-item' src={process.env.PUBLIC_URL + "/test3.jpg"} alt="Image 3" /></div>
-                <div><img className='slide-item' src={process.env.PUBLIC_URL + "/test4.jpg"} alt="Image 4" /></div>
-            </Slider>
-        </div>
-    );
+window.onload = function () {
+    var mySwiper = new Swiper ('.swiper-container', {
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets',
+            clickable: true
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        autoplay: true
+    });
 }
