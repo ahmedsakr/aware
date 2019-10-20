@@ -52,7 +52,7 @@ export default class Landing extends React.Component<LandingProps, LandingState>
     }
 
     displayCurrentForm = () => {
-        if (this.state.component === "login") {
+        if (this.state.component !== "login") {
 
             return (
                 <Login

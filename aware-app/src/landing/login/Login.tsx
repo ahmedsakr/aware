@@ -66,7 +66,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
         return(
             <form id="test-form">
                 <h2 className="sr-only">Login Form</h2>
-                <div className="illustration"><i className="icon ion-ios-navigate"></i></div>
+                <div className="illustration"><img src={process.env.PUBLIC_URL + 'temp-logo.jpg'}></img></div>
                 <div className="form-group">
                     <input 
                         className="form-control" 

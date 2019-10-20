@@ -17,11 +17,15 @@
   
   .login-clean .illustration {
     text-align: center;
-    padding: 0 0 20px;
     font-size: 100px;
     color: rgb(244,71,107);
   }
   
+  .login-clean img {
+      width: 200px;
+      height: 175px;
+  }
+
   .login-clean form .form-control {
     background: #f7f9fc;
     border: none;
