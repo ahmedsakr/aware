@@ -1,3 +1,5 @@
+$backround_image_url: '/shrek.jpg';
+
 .simple-slider .swiper-slide {
     background-repeat: no-repeat;
     background-size: cover;
@@ -49,3 +51,15 @@
     z-index: 2;
     align-self: center;
   }
+
+  #slide-1 {
+      background-image: url('/shrek.jpg')
+  }
+
+  #slide-2 {
+    background-image: url('/test1.jpg')
+}
+
+#slide-3 {
+    background-image: url('/test3.jpg')
+}
