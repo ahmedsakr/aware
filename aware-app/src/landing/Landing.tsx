@@ -52,7 +52,7 @@ export default class Landing extends React.Component<LandingProps, LandingState>
     }
 
     displayCurrentForm = () => {
-        if (this.state.component !== "login") {
+        if (this.state.component === "login") {
 
             return (
                 <Login
@@ -104,9 +104,6 @@ const LandingSlider: React.FC<SimpleSliderProps> = (props: SimpleSliderProps) =>
                 <div className="swiper-slide" id="slide-2"></div>
                 <div className="swiper-slide" id="slide-3"></div>
             </div>
-            <div className="swiper-pagination"></div>
-            <div className="swiper-button-prev"></div>
-            <div className="swiper-button-next"></div>
         </div>
     );
 }
@@ -114,15 +111,6 @@ const LandingSlider: React.FC<SimpleSliderProps> = (props: SimpleSliderProps) =>
 window.onload = function () {
     var mySwiper = new Swiper ('.swiper-container', {
         loop: true,
-        pagination: {
-            el: '.swiper-pagination',
-            type: 'bullets',
-            clickable: true
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
         autoplay: true
     });
 }

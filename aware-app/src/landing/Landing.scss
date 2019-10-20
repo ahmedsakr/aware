@@ -1,65 +1,65 @@
-$backround_image_url: '/shrek.jpg';
-
 .simple-slider .swiper-slide {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .simple-slider .swiper-button-next, .simple-slider .swiper-button-prev {
-    width: 50px;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-  
-  @media (max-width:767px) {
-    .simple-slider .swiper-button-next, .simple-slider .swiper-button-prev {
-      display: none;
-    }
-  }
-  .simple-slider {
-    height: 100vh;
-    width: 100%;
-  }
-  
-  .simple-slider {
-    height: 100vh;
-    width: 100%;
-  }
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
 
-  .swiper-wrapper {
-      transition-delay: 3000ms;
-  }
-  
-  #test {
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: 0;
-  }
-  
-  #test-slider {
-    grid-row-start: 1;
-    grid-column-start: 1;
-    z-index: 1;
-    width: 100%;
-  }
-  
-  #test-form {
-    grid-row-start: 1;
-    grid-column-start: 1;
-    height: 500px;
-    z-index: 2;
-    align-self: center;
-  }
+.simple-slider .swiper-button-next,
+.simple-slider .swiper-button-prev {
+  width: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
 
-  #slide-1 {
-      background-image: url('/shrek.jpg')
+@media (max-width: 767px) {
+  .simple-slider .swiper-button-next,
+  .simple-slider .swiper-button-prev {
+    display: none;
   }
+}
+.simple-slider {
+  height: 100vh;
+  width: 100%;
+}
 
-  #slide-2 {
-    background-image: url('/test1.jpg')
+.simple-slider {
+  height: 100vh;
+  width: 100%;
+}
+
+.swiper-wrapper {
+  transition-delay: 3000ms;
+}
+
+#test {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 0;
+}
+
+#test-slider {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  z-index: 1;
+  width: 100%;
+}
+
+#test-form {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  height: 500px;
+  z-index: 2;
+  align-self: center;
+}
+
+#slide-1 {
+  background-image: url("/shrek.jpg");
+}
+
+#slide-2 {
+  background-image: url("/test1.jpg");
 }
 
 #slide-3 {
-    background-image: url('/test3.jpg')
+  background-image: url("/test3.jpg");
 }
