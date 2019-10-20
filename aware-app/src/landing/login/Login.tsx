@@ -1,6 +1,6 @@
 import React from 'react';
 import * as user from '../../shared/verification/user'
-import "./Login.scss";
+import "../LandingForm.scss";
 
 import Cookies from 'universal-cookie';
 const cookies: Cookies = new Cookies();

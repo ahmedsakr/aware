@@ -1,6 +1,6 @@
 import React from 'react';
 import * as user from '../../shared/verification/user'
-import './Register.scss'
+import "../LandingForm.scss";
 
 type RegisterProps = {
     setUsername: (username: string) => void,
