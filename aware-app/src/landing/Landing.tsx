@@ -5,7 +5,6 @@ import './Landing.scss'
 import Login from './login/Login'
 import Register from './register/Register'
 import Swiper from 'swiper';
-import './LandingSlider.scss'
 import '../../node_modules/swiper/dist/css/swiper.css'
 
 type LandingProps = {
