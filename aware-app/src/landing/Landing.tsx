@@ -86,7 +86,7 @@ export default class Landing extends React.Component<LandingProps, LandingState>
 
     render() {
         return (
-            <div id="test" className="simple-slider login-clean">
+            <div id="landing-canvas" className="simple-slider login-clean">
                 { this.displayCurrentForm() }
                 <LandingSlider />
             </div>
@@ -98,7 +98,7 @@ type SimpleSliderProps = {};
 
 const LandingSlider: React.FC<SimpleSliderProps> = (props: SimpleSliderProps) => {
     return (
-        <div id="test-slider" className="swiper-container">
+        <div id="simple-slider" className="swiper-container">
             <div className="swiper-wrapper">
                 <div className="swiper-slide" id="slide-1"></div>
                 <div className="swiper-slide" id="slide-2"></div>

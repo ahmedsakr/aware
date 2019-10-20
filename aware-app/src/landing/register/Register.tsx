@@ -56,7 +56,7 @@ export default class Register extends React.Component<RegisterProps, RegisterSta
 
     render() {
         return(
-            <form id="test-form">
+            <form id="landing-form">
                 <h2 className="sr-only">Register Form</h2>
                 <div className="illustration"><img src={process.env.PUBLIC_URL + 'temp-logo.jpg'}></img></div>
                 <div className="form-group">

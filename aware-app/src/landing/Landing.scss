@@ -31,20 +31,20 @@
     transition-delay: 3000ms;
 }
 
-#test {
+#landing-canvas {
     display: grid;
     grid-template-columns: 1fr;
     padding: 0;
 }
 
-#test-slider {
+#simple-slider {
     grid-row-start: 1;
     grid-column-start: 1;
     z-index: 1;
     width: 100%;
 }
 
-#test-form {
+#landing-form {
     grid-row-start: 1;
     grid-column-start: 1;
     height: 500px;
