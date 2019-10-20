@@ -87,7 +87,13 @@ export default class Login extends React.Component<LoginProps, LoginState> {
                         onChange={this.handleChange}>
                     </input>
                 </div>
-                <div className="form-group"><button className="btn btn-primary btn-block" type="button" onClick={() => { this.login() }}>Log In</button></div>
+                <div className="form-group">
+                    <button
+                        className="btn btn-primary btn-block" 
+                        type="button" 
+                        onClick={() => { this.login() }}>Log In
+                    </button>
+                </div>
                 <div className="form-check">
                     <input 
                         className="form-check-input" 
