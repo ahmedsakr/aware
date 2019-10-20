@@ -96,6 +96,7 @@ export default class Register extends React.Component<RegisterProps, RegisterSta
                         onClick={() => { this.register() }}>Register
                     </button>
                 </div>
+                <label id="register-login">Already have an account? <span onClick={() => this.props.switch()}>login now!</span></label>
             </form>
         );
     }
