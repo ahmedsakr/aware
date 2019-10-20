@@ -4,24 +4,6 @@
     background-position: center;
 }
 
-.simple-slider .swiper-button-next,
-.simple-slider .swiper-button-prev {
-    width: 50px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-@media (max-width: 767px) {
-    .simple-slider .swiper-button-next,
-    .simple-slider .swiper-button-prev {
-        display: none;
-    }
-}
-.simple-slider {
-    height: 100vh;
-    width: 100%;
-}
-
 .simple-slider {
     height: 100vh;
     width: 100%;
