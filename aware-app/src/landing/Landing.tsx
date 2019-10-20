@@ -4,13 +4,8 @@ import './Landing.scss'
 
 import Login from './login/Login'
 import Register from './register/Register'
-
-import Slider, {Settings}from 'react-slick'
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
-import '../../node_modules/bootstrap/dist/css/bootstrap.css'
-import './LandingSlider.scss'
 import Swiper from 'swiper';
+import './LandingSlider.scss'
 import '../../node_modules/swiper/dist/css/swiper.css'
 
 type LandingProps = {
@@ -92,19 +87,28 @@ export default class Landing extends React.Component<LandingProps, LandingState>
     render() {
         return (
             <div id="test" className="simple-slider login-clean">
-                <div id="test-slider" className="swiper-container">
-                    <div className="swiper-wrapper">
-                        <div className="text-dark swiper-slide data-swiper-autoplay='2000'">Slide 1</div>
-                        <div className="bg-success swiper-slide data-swiper-autoplay='2000'">Slide 2</div>
-                        <div className="swiper-slide data-swiper-autoplay='2000'">Slide 3</div>
-                    </div>
-                    <div className="swiper-pagination"></div>
-                    <div className="swiper-button-prev"></div>
-                    <div className="swiper-button-next"></div>
-                </div>
+                { this.displayCurrentForm() }
+                <LandingSlider />
             </div>
         );
     }
+}
+
+type SimpleSliderProps = {};
+
+const LandingSlider: React.FC<SimpleSliderProps> = (props: SimpleSliderProps) => {
+    return (
+        <div id="test-slider" className="swiper-container">
+            <div className="swiper-wrapper">
+                <div className="text-dark swiper-slide">Slide 1</div>
+                <div className="bg-success swiper-slide">Slide 2</div>
+                <div className="swiper-slide">Slide 3</div>
+            </div>
+            <div className="swiper-pagination"></div>
+            <div className="swiper-button-prev"></div>
+            <div className="swiper-button-next"></div>
+        </div>
+    );
 }
 
 window.onload = function () {
