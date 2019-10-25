@@ -5,7 +5,7 @@ import './Landing.scss'
 import Login from './login/Login'
 import Register from './register/Register'
 import Swiper from 'swiper';
-import '../../node_modules/swiper/dist/css/swiper.css'
+import '../../node_modules/swiper/swiper.scss';
 
 type LandingProps = {
     loadMessenger: (username: string) => void;
