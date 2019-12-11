@@ -1,6 +1,6 @@
 import React from 'react';
 import * as user from '../../shared/verification/user'
-import "./Login.scss";
+import "../LandingForm.scss";
 
 import Cookies from 'universal-cookie';
 const cookies: Cookies = new Cookies();
@@ -64,43 +64,48 @@ export default class Login extends React.Component<LoginProps, LoginState> {
 
     render() {
         return(
-            <div id="login">
-                <h2 id="welcome-message">Welcome back to Aware</h2>
-                <h4>Login now to gain access</h4>
-                <div className="container">
-                    <label id="login-username">Username</label>
-                    <input
-                        className="landing-textfield"
-                        name="username"
-                        type="text"
-                        value={this.state.username as string}
-                        onChange={this.handleChange} />
-
-                    <label id="login-password">Password</label>
-                    <input
-                        className="landing-textfield"
-                        name="password"
+            <form id="landing-form">
+                <h2 className="sr-only">Login Form</h2>
+                <div className="illustration"><img src={process.env.PUBLIC_URL + 'temp-logo.jpg'}></img></div>
+                <div className="form-group">
+                    <input 
+                        className="form-control" 
+                        type="text" 
+                        name="username" 
+                        placeholder="Username" 
+                        value={this.state.username as string} 
+                        onChange={this.handleChange}>
+                    </input>
+                </div>
+                <div className="form-group">
+                    <input 
+                        className="form-control" 
                         type="password"
+                        name="password"
+                        placeholder="Password"
                         value={this.state.password as string}
-                        onChange={this.handleChange} />
-
-                    <div id="checkbox-forgot">
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="rememberMe"
-                                onChange={this.handleChange}
-                                checked={this.state.rememberMe} />
-                            &nbsp; Remember me
-                            </label>
-                        <span id="forgot-password">Forgot password?</span>
-                    </div>
-
-                    <button id="login-submit" type="submit" onClick={() => { this.login() }}>Login</button>
-
-                    <label id="login-register">Don't have an account? <span onClick={() => this.props.switch()}>register now!</span></label>
-                </div>  
-            </div>
+                        onChange={this.handleChange}>
+                    </input>
+                </div>
+                <div className="form-check">
+                    <input 
+                        className="form-check-input" 
+                        type="checkbox" 
+                        name="rememberMe"
+                        onChange={this.handleChange}
+                        checked={this.state.rememberMe}>
+                    </input>
+                    <label className="form-check-label">Remember me</label>
+                </div>
+                <div className="form-group">
+                    <button
+                        className="btn btn-primary btn-block" 
+                        type="button" 
+                        onClick={() => { this.login() }}>Log In
+                    </button>
+                </div>
+                <label id="login-register">Don't have an account? <span onClick={() => this.props.switch()}>register now!</span></label>
+            </form>
         );
     }
 }

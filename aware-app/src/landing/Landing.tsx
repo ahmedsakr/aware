@@ -4,12 +4,8 @@ import './Landing.scss'
 
 import Login from './login/Login'
 import Register from './register/Register'
-
-import Slider, {Settings}from 'react-slick'
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
-import '../../node_modules/bootstrap/dist/css/bootstrap.css'
-import './LandingSlider.scss'
+import Swiper from 'swiper';
+import '../../node_modules/swiper/swiper.scss';
 
 type LandingProps = {
     loadMessenger: (username: string) => void;
@@ -89,41 +85,31 @@ export default class Landing extends React.Component<LandingProps, LandingState>
 
     render() {
         return (
-            <div className="container-fluid aware-container">
-                <div id="landing-canvas">
-                    <LandingSlider/>
-                    <div id='landing-form' className="col-3 offset-3">
-                        {this.displayCurrentForm()}
-                    </div>
-                </div>
+            <div id="landing-canvas" className="simple-slider login-clean">
+                { this.displayCurrentForm() }
+                <LandingSlider />
             </div>
         );
     }
 }
 
-type LandingSliderProps = {};
+type SimpleSliderProps = {};
 
-const LandingSlider: React.FC<LandingSliderProps> = (props: LandingSliderProps) => {
-    let settings: Settings = {
-        dots: false,
-        infinite: true,
-        autoplay: true,
-        fade: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplaySpeed: 5000,
-        speed: 1000,
-        lazyLoad: 'ondemand'
-    };
+const LandingSlider: React.FC<SimpleSliderProps> = (props: SimpleSliderProps) => {
     return (
-        <div>
-            <Slider {...settings}>
-                <div><img className='slide-item' src={process.env.PUBLIC_URL + "/shrek.jpg"} alt="Shrek" /></div>
-                <div><img className='slide-item' src={process.env.PUBLIC_URL + "/test1.jpg"} alt="Image 1" /></div>
-                <div><img className='slide-item' src={process.env.PUBLIC_URL + "/test2.jpg"} alt="Image 2" /></div>
-                <div><img className='slide-item' src={process.env.PUBLIC_URL + "/test3.jpg"} alt="Image 3" /></div>
-                <div><img className='slide-item' src={process.env.PUBLIC_URL + "/test4.jpg"} alt="Image 4" /></div>
-            </Slider>
+        <div id="simple-slider" className="swiper-container">
+            <div className="swiper-wrapper">
+                <div className="swiper-slide" id="slide-1"></div>
+                <div className="swiper-slide" id="slide-2"></div>
+                <div className="swiper-slide" id="slide-3"></div>
+            </div>
         </div>
     );
+}
+
+window.onload = function () {
+    var mySwiper = new Swiper ('.swiper-container', {
+        loop: true,
+        autoplay: true
+    });
 }

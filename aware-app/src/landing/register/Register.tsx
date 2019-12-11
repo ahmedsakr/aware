@@ -1,6 +1,6 @@
 import React from 'react';
 import * as user from '../../shared/verification/user'
-import './Register.scss'
+import "../LandingForm.scss";
 
 type RegisterProps = {
     setUsername: (username: string) => void,
@@ -56,37 +56,48 @@ export default class Register extends React.Component<RegisterProps, RegisterSta
 
     render() {
         return(
-            <div id="register">
-                <h2 id="welcome-message">Create an Aware Account</h2>
-                    <div className="container">
-                        <label id="register-username">Username</label>
-                        <input
-                            className="landing-textfield"
-                            name="username"
-                            type="text"
-                            value={this.state.username as string}
-                            onChange={this.handleChange} />
-
-                        <label id="register-password">Password</label>
-                        <input
-                            className="landing-textfield"
-                            name="password"
-                            type="password"
-                            value={this.state.password as string}
-                            onChange={this.handleChange} />
-
-                        <label id="register-confirm">Confirm Password</label>
-                        <input
-                            className="landing-textfield"
-                            name="confirmPassword"
-                            type="password"
-                            value={this.state.confirmPassword as string}
-                            onChange={this.handleChange} />
-
-                        <button id="register-submit" type="submit" onClick={() => {this.register()}}>Register</button>
-                        <label id="register-login">Already have an account? <span onClick={() => this.props.switch()}>login now!</span></label>
-                    </div>
-            </div>
+            <form id="landing-form">
+                <h2 className="sr-only">Register Form</h2>
+                <div className="illustration"><img src={process.env.PUBLIC_URL + 'temp-logo.jpg'}></img></div>
+                <div className="form-group">
+                    <input 
+                        className="form-control" 
+                        type="text" 
+                        name="username" 
+                        placeholder="Username" 
+                        value={this.state.username as string} 
+                        onChange={this.handleChange}>
+                    </input>
+                </div>
+                <div className="form-group">
+                    <input 
+                        className="form-control" 
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={this.state.password as string}
+                        onChange={this.handleChange}>
+                    </input>
+                </div>
+                <div className="form-group">
+                    <input 
+                        className="form-control" 
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Confirm Password"
+                        value={this.state.confirmPassword as string}
+                        onChange={this.handleChange}>
+                    </input>
+                </div>
+                <div className="form-group">
+                    <button
+                        className="btn btn-primary btn-block" 
+                        type="button" 
+                        onClick={() => { this.register() }}>Register
+                    </button>
+                </div>
+                <label id="register-login">Already have an account? <span onClick={() => this.props.switch()}>login now!</span></label>
+            </form>
         );
     }
 }
