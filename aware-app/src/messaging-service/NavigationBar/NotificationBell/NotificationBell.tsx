@@ -3,15 +3,14 @@ import '../NavBarLink/NavBarLink.scss';
 
 type NotificationBellProps = {
     className: string,
-    icon: string,
-    name: string
+    icon: string
 };
 
 type NotificationBellState = {};
 
 export default class NotificationBell extends React.Component<NotificationBellProps, NotificationBellState> {
     render(): JSX.Element {
-        const { className, icon, name } = this.props;
+        const { className, icon } = this.props;
 
         return (
             <div 
@@ -20,7 +19,7 @@ export default class NotificationBell extends React.Component<NotificationBellPr
                     
                 
                 <span className={icon} aria-hidden="true"></span>
-                <p>{name}</p>
+                <span className="badge">3</span>
             </div>
         );
     }

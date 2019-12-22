@@ -27,7 +27,7 @@ export default class NavBar extends React.Component<NavBarProps, NavBarState> {
                     </div>
 
                     <NavBarLink className="col-lg-4 col-md-4 col-sm-4 p-0" icon="fa fa-user-circle" name="Account" />
-                    <NotificationBell className="col-lg-2 col-md-2 col-sm-2 p-0" icon="fa fa-bell" name="" />
+                    <NotificationBell className="col-lg-2 col-md-2 col-sm-2 p-0" icon="fa fa-bell" />
                 </div>
             </div>
         );
