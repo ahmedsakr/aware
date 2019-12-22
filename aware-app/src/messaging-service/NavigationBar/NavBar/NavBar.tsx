@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBarLink, { NavBarLogo, NavBarTitle } from '../NavBarLink/NavBarLink'
+import NotificationBell from '../NotificationBell/NotificationBell';
 import './NavBar.scss';
 
 type NavBarProps = {
@@ -25,7 +26,8 @@ export default class NavBar extends React.Component<NavBarProps, NavBarState> {
                         <NavBarLink className="col-12 p-0" icon="fa fa-cogs" name="Settings" />
                     </div>
 
-                    <NavBarLink className="col-lg-6 col-md-6 col-sm-6 p-0" icon="fa fa-user-circle" name="Account" />
+                    <NavBarLink className="col-lg-4 col-md-4 col-sm-4 p-0" icon="fa fa-user-circle" name="Account" />
+                    <NotificationBell className="col-lg-2 col-md-2 col-sm-2 p-0" icon="fa fa-bell" name="" />
                 </div>
             </div>
         );
