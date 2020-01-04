@@ -79,10 +79,7 @@
 .navigation-clean-button.navbar .navbar-nav .nav-link {
   padding-left: 18px;
   padding-right: 18px;
-}
-
-.navigation-clean-button.navbar-light .navbar-nav .nav-link {
-  color: #465765;
+  color: #2a2a2a;
 }
 
 .navigation-clean-button.navbar-light .navbar-nav .nav-link:focus, .navigation-clean-button.navbar-light .navbar-nav {
@@ -235,7 +232,7 @@
 
 .navbar-link-active {
   background-color: #f87d7d;
-  color: rgb(255,255,255);
+  color: rgb(255,255,255) !important;
 }
 
 /*
