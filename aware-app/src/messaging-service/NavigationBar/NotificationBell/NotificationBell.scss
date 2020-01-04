@@ -1,0 +1,24 @@
+/*
+ * Notification styling
+ *
+ * Defines layout fundamentals for the Notifications.
+ */
+
+ #notification-panel {
+    float: right;
+    position: absolute;
+    top: 70px;
+    right: 0px;
+    width:500px;
+    height:500px;
+    background-color: black;
+    z-index: 99;
+}
+
+.hide {
+    visibility: hidden
+}
+
+.show {
+    visibility: visible;
+}

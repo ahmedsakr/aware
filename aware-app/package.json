@@ -24,7 +24,7 @@
     },
     "scripts": {
         "client": "react-scripts start",
-        "server": "npm run-script transpile; PGUSER=aware PGHOST=localhost PGPASSWORD=aware PGDATABASE=aware PGPORT=5432 nodemon src/server.js",
+        "server": "npm run-script transpile; PGUSER=aware PGHOST=localhost PGPASSWORD=aware PGDATABASE=aware PGPORT=15933 nodemon src/server.js",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
