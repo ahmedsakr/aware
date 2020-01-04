@@ -1,9 +1,9 @@
 import React from 'react';
 import './Messenger.scss';
+import './NavigationBar/NavBar.scss'
 import '../../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../../node_modules/font-awesome/css/font-awesome.min.css'
 
-import NavBar from './NavigationBar/NavBar/NavBar'
 import { ChatSelector } from './ChatSelector/ChatSelector'
 import ChatWindow from './ChatFeature/ChatWindow/ChatWindow'
 
@@ -12,6 +12,7 @@ import MessageInput from './ChatFeature/MessageInput/MessageInput'
 import { UserMessage } from '../shared/messaging/messenger'
 import NewsletterOverlay from '../shared/overlay/test/NewsletterOverlay'
 import { ChatDomain, MessengerChat } from './api/Messaging'
+import NavigationBar from './NavigationBar/NavigationBar';
 
 type MessengerProps = {
     socket: SocketIOClient.Socket,
@@ -21,6 +22,8 @@ type MessengerProps = {
 type MessengerState = {
     chat: MessengerChat
 };
+
+
 
 export default class Messenger extends React.Component<MessengerProps, MessengerState> {
     constructor(props: MessengerProps) {
@@ -50,15 +53,12 @@ export default class Messenger extends React.Component<MessengerProps, Messenger
         }
 
         return (
-            <div className="aware-container App">
-                <div className="container-fluid aware-container">
+            <div className="m-0" id="messenger-body">
+                <div className="d-flex flex-column vh-100">
                     <NewsletterOverlay />
+                    <NavigationBar />
 
                     <div id="messenger-root" className="row">
-                        <div className="col-12 p-0" id="navigation-header">
-                            <NavBar activeRoom={this.state.chat.data.name} />
-                        </div>
-
                         <div className="col-12 p-0" id="messenger-body">
                             <div className="col-2 p-0">
                                 <ChatSelector

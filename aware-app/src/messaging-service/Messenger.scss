@@ -23,8 +23,8 @@
 }
 
 #messenger-body {
-    flex: 1 0 auto;
-    display: flex;
+    overflow: auto;
+    font-family: 'Roboto';
 }
 
 #messenger {
