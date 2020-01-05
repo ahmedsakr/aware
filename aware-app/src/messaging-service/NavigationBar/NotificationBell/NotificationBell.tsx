@@ -9,7 +9,8 @@ type NotificationBellProps = {
 
 type NotificationBellState = {
     //socket: SocketIOClient.Socket,    // Need socket to recieve notifications from server
-    class: string
+    class: string,
+    notificationCount: number
 };
 
 export default class NotificationBell extends React.Component<NotificationBellProps, NotificationBellState> {
@@ -17,7 +18,8 @@ export default class NotificationBell extends React.Component<NotificationBellPr
         super(props);
 
         this.state = {
-            class: 'hide'
+            class: 'hide',
+            notificationCount: 3
         };
     }
 
@@ -26,7 +28,8 @@ export default class NotificationBell extends React.Component<NotificationBellPr
         if (value === 'hide') value = 'show';
         else value = 'hide';
         this.setState({
-            class: value
+            class: value,
+            notificationCount: this.state.notificationCount + 1
         });
     }
 
@@ -39,9 +42,42 @@ export default class NotificationBell extends React.Component<NotificationBellPr
                 className={className + " navigation-menu-link"}>
                 
                 <span className={icon} aria-hidden="true"></span>
-                <span className="badge">3</span>
-                <div id="notification-panel" className={this.state.class}></div>
+                <span className="badge">{this.state.notificationCount}</span>
+                <div id="notification-panel" className={this.state.class}>
+                    <Notification
+                        name="Josh"
+                        content="Preview of last message..."
+                        avatar="josh-pic.jpg"/>
+                    <Notification
+                        name="Mia"
+                        content="Preview of last message..."
+                        avatar="mia-pic.jpg"/>
+                    <Notification
+                        name="Ahmed"
+                        content="Preview of last message..."
+                        avatar="ahmed-pic.jpg"/>
+                </div>
             </div>
         );
     }
+}
+
+type NotificationProps = {
+    name: string,
+    content: string,
+    avatar: string
+};
+
+const Notification: React.FC<NotificationProps> = (props) => {
+    return (
+        <div className="direct-message">
+            <div className="direct-message-avatar col-sm-2">
+                <img src={props.avatar} alt={props.name} />
+            </div>
+            <div className="direct-message-content col-10">
+                <p className="col-12">{props.name}</p>
+                <p className="direct-message-preview">{props.content}</p>
+            </div>
+        </div>
+    )
 }
