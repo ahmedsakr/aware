@@ -25,8 +25,13 @@ export default class NotificationBell extends React.Component<NotificationBellPr
 
     displayNotifications(): void {
         let value = this.state.class;
-        if (value === 'hide') value = 'show';
-        else value = 'hide';
+        if (value === 'hide') {
+            value = 'show';
+        } else {
+            value = 'hide';
+        }
+
+
         this.setState({
             class: value,
             notificationCount: this.state.notificationCount + 1
