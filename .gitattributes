@@ -1,2 +1,0 @@
-aware-app/npm-modules/node_modules.tar.gz filter=lfs diff=lfs merge=lfs -text
-aware-app/package-lock.json filter=lfs diff=lfs merge=lfs -text
